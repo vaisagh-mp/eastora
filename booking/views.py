@@ -171,9 +171,6 @@ def india_subcategory_detail(request, subcategory_slug):
         Q(category=subcategory) | Q(category__in=child_categories)
     )
 
-    for package in packages:
-        package.title_main = package.title.split('–')[0].strip() if '–' in package.title else package.title
-
     return render(request, 'india/india_subcategory_detail.html', {
         'subcategory': subcategory,
         'packages': packages
