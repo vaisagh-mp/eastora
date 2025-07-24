@@ -1,0 +1,57 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">Enquiry Details</h4>
+            </div>
+            <div class="breadcrumb-list">
+                <ul>
+                    <li class="breadcrumb-link">
+                        <a href="enquiry.html"><i class="fas fa-envelope mr-2"></i>Enquiries </a>
+                    </li>
+                    <li class="breadcrumb-link active">Enquiry Details</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Products Orders Start -->
+<div class="enq-detail-wrapper">
+
+    <table class="table enq-detail-table">
+        <tbody>
+            <tr>
+                <th>Full Name</th>
+                <td>{{ enquiry.name }}</td>
+            </tr>
+            <tr>
+                <th>Package</th>
+                <td>{{ enquiry.related_package }}</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>{{ enquiry.contact_number }}</td>
+            </tr>
+            <tr>
+                <th>Email ID</th>
+                <td>{{ enquiry.email }}</td>
+            </tr>
+            <tr>
+                <th>Enquiry Date</th>
+                <td>{{ enquiry.created_at }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{% url 'admin_contact_list' %}" class="back-btn">← Back to List</a>
+</div>
+
+
+
+{% endblock %}

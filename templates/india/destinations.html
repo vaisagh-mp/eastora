@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!------------ Hero ------------>
+<div class="sub-page-hero intrnl-tour-wrapper">
+    <div class="tour-hero-content">
+        <h1>Indian Tours</h1>
+        <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
+    </div>
+</div>
+
+<!---------- International Destinations ---------->
+<section class="recmntn-wrapper subpage-packages">
+    <img class="package-cr-shape" src="{% static 'assets/images/plane-root-shape.webp' %}" alt="Airoplane Shape">
+    <img class="trolly-bb-shape" src="{% static 'assets/images/trolley-bag.webp' %}" alt="Trolly Bag">
+    <div class="container recmntn">
+        <div class="recmntn-content">
+            <div class="sec-title">
+                <h6>TOP DESTINATION</h6>
+                <h2>
+                    Incredible India, Tailored For You
+                </h2>
+            </div>
+            <p>At Eastora Holidays, our India tours are designed to immerse you in the country's rich heritage and
+                natural beauty. Whether you're exploring the golden sands of Rajasthan, cruising the backwaters of
+                Kerala, or walking the spiritual paths of Varanasi, we ensure every detail is taken care of — with local
+                expertise and a personal touch.</p>
+        </div>
+
+        <div class="recmntn-package-wrapper internation-top-destini">
+
+            <!-- Item 1 -->
+            {% for category in india_subcategories %}
+            <div class="recmntn-package-item">
+                {% if category.card_image %}
+                <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
+                <img src="{{ category.card_image.url }}" alt="{{ category.name }}">
+                </a>
+                {% else %}
+                <img src="{% static 'assets/images/default-image.webp' %}" alt="Default Image">
+                </a>
+                {% endif %}
+                <div class="recmntn-package-info">
+                    <div class="recmntn-package-info-details">
+                        <h3>{{ category.name }}</h3>
+                        {% if category.has_children %}
+                        {% for child in category.children %}
+                        <span>{{ child.package_count }} Tours</span>
+                        {% endfor %}
+                        {% else %}
+                        <span>{{ category.package_count }} Tours</span>
+                        {% endif %}
+                    </div>
+                    <div class="recmntn-package-info-cta">
+
+                        <div class="recmntn-package-info-cta-icon">
+                            {% if subcategories %}
+                            {% for sub in subcategories %}
+                            <a href="{% url 'india_subcategory' parent_slug=category.slug subcategory_slug=sub.slug %}">
+                                {{ sub.name }}
+                            </a>
+                            {% endfor %}
+                            {% else %}
+                            {# If no subcategories, link directly to the category's packages #}
+                            <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- <div class="custom-btn">
+            <a href="#">Explore Top Packages</a>
+        </div> -->
+
+    </div>
+</section>
+<!---------- special offers ---------->
+<section class="spl-offer-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="offer-widget">
+                    <h2>Exclusive travel discounts <br>
+                        & special offers</h2>
+
+                    <div class="offer-widget-actions">
+                        <div class="custom-btn">
+                            <a href="#">View All</a>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <div class="offer-video">
+                    <a href="#"><img src="{% static 'assets/images/play-btn.webp' %}" alt="Play Button"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---------- First Content Section ---------->
+<section class="sub-page-first-content-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="first-content-sec-img">
+                    <img src="{% static 'assets/images/content-sec-img-1.webp' %}" alt="International Destinations ">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="first-content-sec-content">
+                    <div class="sec-title">
+                        <h6>LOREM IPSUM</h6>
+                        <h2>Lorem ipsum</h2>
+                    </div>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the
+                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                        type and
+                        scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                        leap into
+                        electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                        the release
+                        of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                        software
+                        like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img class="sub-page-sec-btm-pattern" src="{% static 'assets/images/sub-page-sec-btm-pattern.webp' %}"
+        alt="BG Pattern">
+</section>
+<!---------- Get In Touch ---------->
+<section class="get-in-touch-wrapper sub-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Get In Touch</h6>
+                    <h2>
+                        Customize Your<br>
+                        Dream Trip
+                    </h2>
+                </div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the </p>
+
+                <div class="get-in-touch-form">
+                    <form action=" " method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="destination" placeholder="Destination" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="text" name="number" placeholder="Contact Number" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="email" name="email" placeholder="Email Id" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" id="message" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="submit-btn">
+                                    <button type="submit">Get In Touch</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+
+    </div>
+</section>
+<!---------- Second Content Section ---------->
+<section class="sub-page-second-content-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 order-lg-2">
+                <div class="second-content-sec-img">
+                    <img src="{% static 'assets/images/content-sec-img-2.webp' %}" alt="International Destinations">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="second-content-sec-content">
+                    <div class="sec-title">
+                        <h6>LOREM IPSUM</h6>
+                        <h2>Lorem ipsum</h2>
+                    </div>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the
+                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                        type and
+                        scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                        leap into
+                        electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                        the release
+                        of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                        software
+                        like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <img class="photo-frame-bg" src="{% static 'assets/images/photo-shape-bg.webp' %}" alt="Photo Frame">
+</section>
+
+{% endblock %}

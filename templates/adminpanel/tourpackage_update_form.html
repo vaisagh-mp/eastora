@@ -1,0 +1,247 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="page-title-wrapper">
+            <h4 class="page-title bold">Update Package</h4>
+        </div>
+    </div>
+</div>
+
+<div class="pkg-card">
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Title -->
+    <div class="form-section">
+        <label class="pkg-label">Title</label>
+        <input type="text" class="pkg-input" name="title" value="{{ item.title }}">
+    </div>
+
+    <!-- Slug -->
+    <div class="form-section">
+        <label class="pkg-label">Slug</label>
+        <input type="text" class="pkg-input" name="slug" value="{{ item.slug }}">
+    </div>
+
+    <!-- Short Description -->
+    <div class="form-section">
+        <label class="pkg-label">Short Description</label>
+        <input type="text" class="pkg-input" name="short_description" value="{{ item.short_description }}">
+    </div>
+
+    <!-- Long Description -->
+    <div class="form-section">
+        <label class="pkg-label">Long Description</label>
+        <textarea id="longDescriptionEditor" name="description" class="pkg-textarea">{{ item.description }}</textarea>
+    </div>
+
+    <!-- Location -->
+    <div class="form-section">
+        <label class="pkg-label">Location</label>
+        <input type="text" class="pkg-input" name="location" value="{{ item.location }}">
+    </div>
+
+    <!-- Price -->
+    <div class="form-section">
+        <label class="pkg-label">Price</label>
+        <input type="number" class="pkg-input" name="price" value="{{ item.price }}">
+    </div>
+
+    <!-- Duration -->
+    <div class="form-section">
+        <label class="pkg-label">Duration</label>
+        <div class="d-flex gap-3">
+            <input type="number" name="days" class="pkg-input" placeholder="Days" value="{{ item.days }}">
+            <input type="number" name="nights" class="pkg-input" placeholder="Nights" value="{{ item.nights }}">
+        </div>
+    </div>
+
+    <!-- Is Recommended -->
+    <div class="form-check form-switch form-section">
+        <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured"
+               {% if item.is_featured %}checked{% endif %}>
+        <label class="form-check-label" for="is_featured">Is Recommended</label>
+    </div>
+
+    <div class="mb-3">
+    <label class="add-catgry-label">Banner Image (Desktop)</label>
+    <input type="file" id="banner_image_desktop" name="banner_image_desktop" class="add-catgry-input d-none" accept="image/*">
+    <label for="banner_image_desktop" class="add-catgry-dropzone" id="bannerDropzoneDesktop">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+            </svg>
+        <span id="bannerImageTextDesktop">Drag & drop your image or <span class="add-catgry-select-file">Select files</span></span>
+        {% if item.image_desktop %}
+            <img id="bannerImagePreviewDesktop" src="{{ item.image_desktop.url }}" alt="Current Banner Image" width="100" style="display: block;">
+        {% else %}
+            <img id="bannerImagePreviewDesktop" src="" alt="Preview" style="display: none;">
+        {% endif %}
+    </label>
+</div>
+
+
+    <div class="mb-3">
+    <label class="add-catgry-label">Banner Image (Mobile)</label>
+    <input type="file" id="banner_image_mobile" name="banner_image_mobile" class="add-catgry-input d-none" accept="image/*">
+    <label for="banner_image_mobile" class="add-catgry-dropzone" id="bannerDropzoneMobile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+            </svg>
+        <span id="bannerImageTextMobile">Drag & drop your image or <span class="add-catgry-select-file">Select files</span></span>
+        {% if item.image_mobile %}
+            <img id="bannerImagePreviewMobile" src="{{ item.image_mobile.url }}" alt="Current Banner Image" width="100" style="display: block;">
+        {% else %}
+            <img id="bannerImagePreviewMobile" src="" alt="Preview" style="display: none;">
+        {% endif %}
+    </label>
+</div>
+
+
+    <div class="mb-3">
+    <label class="add-catgry-label">Card Image</label>
+    <input type="file" id="card_image" name="card_image" class="add-catgry-input d-none" accept="image/*">
+    <label for="card_image" class="add-catgry-dropzone" id="cardDropzone">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+            </svg>
+        <span id="cardImageText">Drag & drop your image or <span class="add-catgry-select-file">Select files</span></span>
+        {% if item.card_image %}
+            <img id="cardImagePreview" src="{{ item.card_image.url }}" alt="Current Card Image" width="100" style="display: block;">
+        {% else %}
+            <img id="cardImagePreview" src="" alt="Preview" style="display: none;">
+        {% endif %}
+    </label>
+</div>
+
+    <!-- Category Dropdown -->
+    <div class="form-section">
+        <label class="pkg-label">Select Category</label>
+        <select name="category" class="pkg-input">
+            <option value="">-- Select Category --</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if cat.id == item.category.id %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Parent Choice -->
+    <div class="form-section">
+        <label class="pkg-label">Parent Choice</label>
+        <select name="parent_choice" class="pkg-select">
+            <option value="">-- Choose Parent Category --</option>
+            {% for val, label in parent_choices %}
+                <option value="{{ val }}" {% if item.parent_choice == val %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Submit -->
+    <div class="text-center">
+        <button type="submit" class="pkg-btn">Update Package</button>
+    </div>
+</form>
+
+
+</div>
+
+<script>
+    function setupDropzone(dropzoneId, inputId, previewId, textId) {
+        const dropzone = document.getElementById(dropzoneId);
+        const input = document.getElementById(inputId);
+        const imageText = document.getElementById(textId);
+        const imagePreview = document.getElementById(previewId);
+
+        // Handle drag and drop
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropzone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropzone.classList.add('dragover');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropzone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        // Click on dropzone opens file input
+        dropzone.addEventListener('click', () => {
+            input.click();
+        });
+
+        // Drop event handling
+        dropzone.addEventListener('drop', e => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                updatePreview(file, imagePreview, imageText);
+                // Set file manually using DataTransfer for the form to work properly
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                input.files = dataTransfer.files;
+            }
+        });
+
+        // Change event when user selects file using input
+        input.addEventListener('change', () => {
+            const file = input.files[0];
+            if (file) {
+                updatePreview(file, imagePreview, imageText);
+            }
+        });
+    }
+
+    function updatePreview(file, previewElement, textElement) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewElement.src = e.target.result;
+                previewElement.style.display = 'block';
+                textElement.innerHTML = `<strong>${file.name}</strong> selected.`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            textElement.innerHTML = 'Invalid file type. Please select an image.';
+            previewElement.style.display = 'none';
+        }
+    }
+
+    // Setup all dropzones on page load
+    window.addEventListener('DOMContentLoaded', function () {
+        setupDropzone('bannerDropzoneDesktop', 'banner_image_desktop', 'bannerImagePreviewDesktop', 'bannerImageTextDesktop');
+        setupDropzone('bannerDropzoneMobile', 'banner_image_mobile', 'bannerImagePreviewMobile', 'bannerImageTextMobile');
+        setupDropzone('cardDropzone', 'card_image', 'cardImagePreview', 'cardImageText');
+    });
+</script>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<!-- CK Text Editor -->
+ <script>
+  ClassicEditor
+    .create(document.querySelector('#longDescriptionEditor'))
+    .then(editor => {
+      editor.ui.view.editable.element.style.height = '250px';
+    })
+    .catch(error => {
+      console.error('There was a problem initializing CKEditor:', error);
+ });
+</script>
+{% endblock %}

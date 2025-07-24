@@ -1,0 +1,1236 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!------------ Hero ------------>
+<div class="hero-wrapper">
+    <div class="carousel" id="carousel">
+        <!-- Slide 1 -->
+        {% if hero_banners %}
+        {% for banner in hero_banners %}
+            <div class="carousel-slide {% if forloop.first %}active{% endif %}">
+                {% if banner.image_desktop %}
+                    <img class="mb-none" src="{{ banner.image_desktop.url }}" alt="{{ banner.title }}" />
+                {% else %}
+                    <img class="mb-none" src="{% static 'images/default_desktop_banner.jpg' %}" alt="Default Desktop Banner" />
+                {% endif %}
+
+                {% if banner.image_mobile %}
+                    <img class="dktp-none" src="{{ banner.image_mobile.url }}" alt="{{ banner.title }}" style="padding: 0;"/>
+                {% else %}
+                    <img class="dktp-none" src="{{ banner.image_desktop.url }}" alt="{{ banner.title }}" style="padding: 0;" />
+                {% endif %}
+
+                <div class="carousel-content">
+                    <div class="container">
+                        <div class="hero-content {% if forloop.counter|divisibleby:2 %}right{% endif %}">
+                            <h1>{{ banner.title }}</h1>
+                            <p>{{ banner.subtitle }}</p>
+                            <div class="custom-btn">
+                                <a href="{% url 'contact_us' %}">Enquire Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hero banners available.</p>
+    {% endif %}
+
+
+
+        <div class="thumbnails" id="thumbnails"></div>
+    </div>
+</div>
+<!---------- About Us ---------->
+<section class="abt-wrapper">
+    <img class="cloud-img" src="{% static 'assets/images/cloud.webp' %}" alt="Could Image" />
+    <img class="abt-rt-shape" src="{% static 'assets/images/abt-shape-top-right.webp' %}" alt="Camera Image" />
+    <img class="abt-lb-shape" src="{% static 'assets/images/abt-shape-bottom-left.webp' %}" alt="Backpack Image" />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="abt-img">
+                    <img src="{% static 'assets/images/about-us.webp' %}" alt="About Us" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="abt-content">
+                    <div class="sec-title">
+                        <h6>About Us</h6>
+                        <h2>
+                            We Make The Best <br>
+                            Self-crafted Travel Journeys!!!
+                        </h2>
+                    </div>
+
+                    <div class="abt-item">
+                        <div class="abt-item-img">
+                            <img src="{% static 'assets/images/abt-item-1.webp' %}" alt="About 1" />
+                        </div>
+                        <div class="abt-item-details">
+                            <h3>Who we are?</h3>
+                            <p>
+                                Eastora Holidays is a tour and destination management company born from a passion for
+                                travel and a commitment to deliver extraordinary experiences. Based out of Kochi,
+                                Kerala, we specialize in crafting personalized journeys for individual travellers,
+                                families, groups, and corporate clients.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="abt-item">
+                        <div class="abt-item-img">
+                            <img src="{% static 'assets/images/abt-item-2.webp' %}" alt="About 2" />
+                        </div>
+                        <div class="abt-item-details">
+                            <h3>What are we best at?</h3>
+                            <p>
+                                We craft memorable experiences through curated journeys for individuals, couple, family
+                                and groups. We make you relish a relaxed holiday at the destination of your choice. Our
+                                team takes all your responsibilities and keep you at ultimate leisure.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="custom-btn">
+                        <a href="{% url 'about_us' %}">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---------- Why Choose Us ---------->
+<section class="why-chooswe-wrapper" id="why-choose-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex align-items-center">
+                <div class="why-choose-content">
+                    <div class="sec-title">
+                        <h6>Our Strengths</h6>
+                        <h2>
+                            Why Choose Us
+                        </h2>
+                    </div>
+                    <p>Travel is more than just moving from one place to another — it's a transformative journey that
+                        connects you with new people, cultures, and the unseen beauty of the world. At Eastora Holidays,
+                        we craft your holidays into real-life fairytales, filled with unforgettable moments and
+                        meaningful experiences. </p>
+
+                    <!-- <div class="custom-btn">
+                        <a href="#">Explore Top Packages</a>
+                    </div> -->
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="why-choose-counter">
+                    <div class="counter-item">
+                        <div class="counter-inner coutr-1">
+                            <h3 class="counter" data-target="100">0+</h3>
+                            <p>Tours</p>
+                        </div>
+
+                    </div>
+                    <div class="counter-item coutr-2">
+                        <div class="counter-inner">
+                            <h3 class="counter" data-target="1000">0+</h3>
+                            <p>Clients</p>
+                        </div>
+                    </div>
+                    <div class="counter-item coutr-3">
+                        <div class="counter-inner">
+                            <h3 class="counter" data-target="100">0+</h3>
+                            <p>Destinations</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+</section>
+<!---------- India Destinations  ---------->
+<section class="ind-destini-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Explore India</h6>
+                    <h2>
+                        India Destinations
+                    </h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ind-destini-content">
+                    <h6>Incredible India, Tailored for You</h6>
+                    <p>At Eastora Holidays, our India tours are designed to immerse you in the country's rich heritage
+                        and natural beauty. Whether you're exploring the golden sands of Rajasthan, cruising the
+                        backwaters of Kerala, or walking the spiritual paths of Varanasi, we ensure every detail is
+                        taken care of — with local expertise and a personal touch.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="swiper ind-destini-slider">
+            <div class="swiper-wrapper">
+
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <div class="dest-card">
+                        <!-- Front -->
+                        <div class="dest-card-front">
+                            <img src="{% static 'assets/images/north-india.webp' %}" alt="North India">
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>North India</h4>
+                                <p>A land of majestic Himalayas, royal palaces, and spiritual heritage — North India
+                                    offers a journey through vibrant cultures and timeless history.</p>
+                            </div>
+                        </div>
+
+                        <!-- Back -->
+                        <div class="dest-card-back">
+                            <div class="image-overlay-wrapper">
+                                <img src="{% static 'assets/images/north-india.webp' %}" alt="North India">
+                            </div>
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>North India</h4>
+                                <ul>
+                                    {% if north_india_packages %}
+                                    {% for pkg in north_india_packages %}
+                                    <li>
+                                        <a
+                                            href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
+                                            {{ pkg.title }} ({{ pkg.get_duration }})
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <li>No packages available.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <div class="dest-card">
+                        <!-- Front -->
+                        <div class="dest-card-front">
+                            <img src="{% static 'assets/images/south-india.webp' %}" alt="South India">
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>South India</h4>
+                                <p>South India enchants with its lush landscapes, ancient temples, serene backwaters,
+                                    and rich traditions. Nature and culture blend seamlessly.</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="dest-card-back">
+                            <div class="image-overlay-wrapper">
+                                <img src="{% static 'assets/images/south-india.webp' %}" alt="South India">
+                            </div>
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>South India Back</h4>
+                                <ul>
+                                    {% if south_india_packages %}
+                                    {% for pkg in south_india_packages %}
+                                    <li><a
+                                        href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
+                                        {{ pkg.title }} ({{ pkg.get_duration }})
+                                    </a></li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <li>No packages available.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <div class="dest-card">
+                        <!-- Front -->
+                        <div class="dest-card-front">
+                            <img src="{% static 'assets/images/eat-india.webp' %}" alt="East India">
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>East India</h4>
+                                <p>Mystical and diverse, East India is where spirituality meets scenic beauty. A region
+                                    of hidden treasures and soulful experiences.</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="dest-card-back">
+                            <div class="image-overlay-wrapper">
+                                <img src="{% static 'assets/images/eat-india.webp' %}" alt="East India">
+                            </div>
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>East India</h4>
+                                <ul>
+                                    {% if east_india_packages %}
+                                    {% for pkg in east_india_packages %}
+                                    <li><li><a
+                                        href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
+                                        {{ pkg.title }} ({{ pkg.get_duration }})
+                                    </a></li></li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <li>No packages available.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <div class="dest-card">
+                        <!-- Front -->
+                        <div class="dest-card-front">
+                            <img src="{% static 'assets/images/west-india.webp' %}" alt="West India">
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>West India</h4>
+                                <p>From the golden deserts of Rajasthan to the sun-kissed beaches of Goa and the
+                                    bustling cityscapes of Mumbai and Gujarat — West India is a vibrant canvas of
+                                    history, festivals, and flavours.</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="dest-card-back">
+                            <div class="image-overlay-wrapper">
+                                <img src="{% static 'assets/images/west-india.webp' %}" alt="West India">
+                            </div>
+                            <div class="card-content">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icons/location-icon-1.webp' %}"
+                                        alt="Location Icon">
+                                </div>
+                                <h4>West India</h4>
+                                <ul>
+                                    {% if west_india_packages %}
+                                    {% for pkg in west_india_packages %}
+                                    <li><li><a
+                                        href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
+                                        {{ pkg.title }} ({{ pkg.get_duration }})
+                                    </a></li></li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <li>No packages available.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev ind-dest-prev"></div>
+            <div class="swiper-button-next ind-dest-next"></div>
+        </div>
+    </div>
+
+    <img class="ind-desti-bl-img" src="{% static 'assets/images/ind-desti-shape-bottom-lef.webp' %}" alt="Spects Shape">
+
+</section>
+<!---------- International Destinations ---------->
+<section class="intrntnl-destini-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Best Packages</h6>
+                    <h2>
+                        International <br>
+                        Tours
+                    </h2>
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-end">
+                <div class="intrntnl-destini-content">
+                    <h6>Global Journeys Curated for You</h6>
+                    <p>Eastora Holidays offers a diverse portfolio of international tours designed to bring you closer
+                        to culture, history, and nature around the world. Whether you seek luxury escapes, cultural
+                        immersion, or adventurous explorations, our team ensures seamless planning and exceptional
+                        experiences at every destination.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="intrntnl-package-wrapper">
+
+            <!-- Item 1 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/singapore.webp' %}" alt="Singapore">
+                <div class="intrntnl-package-info">
+                    <h3>Singapore</h3>
+                    <div class="intrntnl-package-info-enquire-box">
+                        <div class="intrntnl-package-info-content">
+                            <p>Singapore is a seamless blend of...</p>
+                        </div>
+                        <div>
+                            <a href="#">Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/malaysia.webp' %}" alt="Malaysia">
+                <div class="intrntnl-package-info">
+                    <h3>Malaysia</h3>
+                    <div class="intrntnl-package-info-enquire-box">
+                        <div class="intrntnl-package-info-content">
+                            <p>A country of contrasts — where bustling...</p>
+                        </div>
+                        <div>
+                            <a href="#">Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/thailand.webp' %}" alt="Thailand">
+                <div class="intrntnl-package-info">
+                    <h3>Bangkok</h3>
+                    <div class="intrntnl-package-info-enquire-box">
+                        <div class="intrntnl-package-info-content">
+                            <p>Bangkok is a city that never sleeps...</p>
+                        </div>
+                        <div>
+                            <a href="#">Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/dubai.webp' %}" alt="Dubai">
+                <div class="intrntnl-package-info">
+                    <h3>Dubai</h3>
+                    <div class="intrntnl-package-info-enquire-box">
+                        <div class="intrntnl-package-info-content">
+                            <p>A dazzling fusion of modern marvels...</p>
+                        </div>
+                        <div>
+                            <a href="#">Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/georgia.webp' %}" alt="Georgia">
+                <div class="intrntnl-package-info">
+                    <h3>Georgia</h3>
+                    <div class="intrntnl-package-info-enquire-box">
+                        <div class="intrntnl-package-info-content">
+                            <p>A hidden gem for wine lovers, history buffs...</p>
+                        </div>
+                        <div>
+                            <a href="#">Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/srilanka.webp' %}" alt="Sri Lanka">
+                <div class="intrntnl-package-info">
+                    <h3>Sri Lanka</h3>
+                    <div class="intrntnl-package-info-enquire-box">
+                        <div class="intrntnl-package-info-content">
+                            <p>An island of timeless beauty, golden...</p>
+                        </div>
+                        <div>
+                            <a href="#">Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Five Col -->
+        <div class="intrntnl-package-wrapper five-col">
+
+            <!-- Item 1 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/bali.webp' %}" alt="Bali">
+                <div class="intrntnl-package-info">
+                    <h3>Bali</h3>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/america.webp' %}" alt="America">
+                <div class="intrntnl-package-info">
+                    <h3>Vietnam</h3>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/maldives.webp' %}" alt="Maldives">
+                <div class="intrntnl-package-info">
+                    <h3>Maldives</h3>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/nepal.webp' %}" alt="Nepal">
+                <div class="intrntnl-package-info">
+                    <h3>Nepal</h3>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="intrntnl-package-item">
+                <img src="{% static 'assets/images/bhutan.webp' %}" alt="Bhutan">
+                <div class="intrntnl-package-info">
+                    <h3>Bhutan</h3>
+                </div>
+            </div>
+
+            <img class="intrntnl-rb" src="{% static 'assets/images/intrntnl-package-botto-right-shape.webp' %}"
+                alt="Shape">
+
+        </div>
+
+    </div>
+
+</section>
+<!---------- Ayurveda & Wellness ---------->
+  <section class="wellness-wrapper">
+      <div class="carousel-inner">
+
+        <!-- Slide 1 -->
+        <div class="wellness-item">
+          <!-- <img src="assets/images/wellness-bg-1.webp" class="d-block w-100 mb-none" alt="Slide">
+          <img src="assets/images/wellness-bg-1-mb.webp.webp" class="d-block w-100 dsk dktp-none" alt="Slide"> -->
+          <div class="wellness-caption d-flex align-items-center">
+            <div class="container">
+              <div class="caption-wrap ms-auto">
+                <div class="sec-title">
+                  <!-- <h6>Lorem Ipsum</h6> -->
+                  <h2>
+                    Ayurveda & Wellness
+                  </h2>
+                </div>
+                <div class="caption-box ">
+                  <h3>Ayurveda and Wellness Journeys</h5>
+                    <p> Eastora Holidays specializes in crafting wellness retreats centered around Ayurveda, India’s traditional system of healing. Enjoy personalized treatments, detox programs, meditation, and yoga sessions guided by experienced practitioners — all set in tranquil, natural surroundings.<br><br>
+Reconnect with your mind, body, and spirit through the ancient science of Ayurveda. Our wellness tours offer authentic healing therapies, yoga retreats, and holistic treatments in serene environments designed to rejuvenate and restore balance.
+
+</p>
+                    <div class="custom-btn">
+                      <a href="{% url 'ayurveda_tours' %}">Read More</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!-- <section class="wellness-wrapper">
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            Slide 1
+            <div class="carousel-item active">
+                <img src="{% static 'assets/images/wellness-bg-1.webp' %}" class="d-block w-100 mb-none" alt="Slide">
+                <img src="{% static 'assets/images/wellness-bg-1-mb.webp' %}" class="d-block w-100 dktp-none" alt="Slide">
+                <div class="carousel-caption d-flex align-items-center">
+                    <div class="container">
+                        <div class="caption-wrap ms-auto">
+                            <div class="sec-title">
+                                <h6>Lorem Ipsum</h6>
+                                <h2>
+                                    Ayurveda & Wellness
+                                </h2>
+                            </div>
+                            <div class="caption-box ">
+                                <h3>Ayurveda and Wellness Journeys</h5>
+                                    <p> Eastora Holidays specializes in crafting wellness retreats centered around
+                                        Ayurveda, India’s traditional system of healing. Enjoy personalized treatments,
+                                        detox programs, meditation, and yoga sessions guided by experienced
+                                        practitioners — all set in tranquil, natural surroundings.<br><br>
+                                        Reconnect with your mind, body, and spirit through the ancient science of
+                                        Ayurveda. Our wellness tours offer authentic healing therapies, yoga retreats,
+                                        and holistic treatments in serene environments designed to rejuvenate and
+                                        restore balance.
+
+                                    </p>
+                                    <div class="custom-btn">
+                                        <a href="{% url 'ayurveda_tours' %}">Read More</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            Slide 2
+            <div class="carousel-item">
+                <img src="{% static 'assets/images/wellness-bg-2.webp' %}" class="d-block w-100" alt="Slide">
+                <div class="carousel-caption d-flex align-items-center">
+                    <div class="container">
+                        <div class="caption-wrap ms-auto">
+                            <div class="sec-title">
+                                <h6>Lorem Ipsum</h6>
+                                <h2>
+                                    Ayurveda & Wellness
+                                </h2>
+                            </div>
+                            <div class="caption-box ">
+                                <h3>Lorem Ipsum is simply dummy text of the printing</h5>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <div class="custom-btn">
+                                        <a href="#">Read More</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            Slide 3
+            <div class="carousel-item">
+                <img src="{% static 'assets/images/wellness-bg-3.webp' %}" class="d-block w-100" alt="Slide">
+                <div class="carousel-caption d-flex align-items-center">
+                    <div class="container">
+                        <div class="caption-wrap ms-auto">
+                            <div class="sec-title">
+                                <h6>Lorem Ipsum</h6>
+                                <h2>
+                                    Ayurveda & Wellness
+                                </h2>
+                            </div>
+                            <div class="caption-box">
+                                <h3>Lorem Ipsum is simply dummy text of the printing</h5>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <div class="custom-btn">
+                                        <a href="#">Read More</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        Controls
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section> -->
+<!---------- Eastora Recommended Destinations ---------->
+<section class="recmntn-wrapper">
+    <img class="package-tl-shape" src="{% static 'assets/images/glob-shape.webp' %}" alt="Glob Shape">
+    <img class="package-cr-shape" src="{% static 'assets/images/plane-root-shape.webp' %}" alt="Airoplane Shape">
+    <div class="container recmntn">
+        <div class="recmntn-content">
+            <div class="sec-title">
+                <h6>Our Specials</h6>
+                <h2>
+                    Destinations Recommended For The Season
+                </h2>
+            </div>
+            <p>At Eastora, we bring you not only the best-known holiday spots but also hidden gems—untouched, serene
+                destinations where nature is at its purest. We suggest the best destination to visit according to the
+                season, like recommended places to visit during winter, summer or monsoon.<br><br>
+                Breathe in the freshness of unspoiled surroundings, feel the earth beneath your feet, and reconnect with
+                your inner self. These peaceful getaways offer a much-needed escape from the noise of everyday life,
+                bringing calm to your mind and soul.
+            </p>
+        </div>
+
+        <div class="recmntn-package-wrapper">
+
+            <!-- Item 1 -->
+            <!-- <div class="recmntn-package-item">
+                <img src="{% static 'assets/images/uae-package.webp' %}" alt="UEA Package">
+
+                <div class="recmntn-package-info">
+                    <div class="recmntn-package-info-details">
+                        <h3>UAE</h3>
+                        <p>Lorem Ipsum is simply dummy text</p>
+                    </div>
+                    <div class="recmntn-package-info-cta">
+                        <div class="recmntn-package-info-cta-icon">
+                            <a href="#">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Loop through featured tour packages -->
+            {% if featured_tourpackages %}
+            {% for package in featured_tourpackages %}
+            <div class="recmntn-package-item">
+                {% if package.card_image %}
+                <img src="{{ package.card_image.url }}" alt="{{ package.title }}">
+                {% endif %}
+
+                <div class="recmntn-package-info">
+                    <div class="recmntn-package-info-details">
+                        <h3>{{ package.title_main }}</h3>
+
+                        <p>{{ package.short_description|default:"Explore our featured tour package"|slice:":30" }}{% if package.short_description|length > 30 %}...{% endif %}</p>
+
+
+                    </div>
+                    <div class="recmntn-package-info-cta">
+                        <div class="recmntn-package-info-cta-icon">
+                            {% if package.category.parent_choice == 'india' %}
+                            <a
+                                href="{% url 'package_detail' subcategory_slug=package.category.slug package_slug=package.slug %}">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                            {% elif package.parent_choice == 'international' %}
+                            <a href="{% url 'international_package_detail' package_slug=package.slug %}">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                            {% elif package.parent_choice == 'ayurveda' %}
+                            <a href="{% url 'ayurveda_package_detail' package_slug=package.slug %}">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+            <!-- Loop through featured categories -->
+            {% if featured_categories %}
+            {% for category in featured_categories %}
+            <div class="recmntn-package-item">
+                {% if category.card_image %}
+                <img src="{{ category.card_image.url }}" alt="{{ category.name }}">
+                {% endif %}
+
+                <div class="recmntn-package-info">
+                    <div class="recmntn-package-info-details">
+                        <h3>{{ category.name }}</h3>
+                        <p>{{ category.short_description|default:"Explore our featured category" }}</p>
+                    </div>
+                    <div class="recmntn-package-info-cta">
+                        <div class="recmntn-package-info-cta-icon">
+                            <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+
+
+
+        </div>
+
+        <!-- <div class="custom-btn">
+            <a href="#">Explore Top Packages</a>
+        </div> -->
+
+    </div>
+</section>
+<!---------- Latest Trip Banner ---------->
+{% if seasonal_banners %}
+{% if seasonal_banners.image_desktop %}
+<section class="cuurent-trip-wrapper" style="background-image: url('{{ seasonal_banners.image_desktop.url }}');">
+    <img class="ltst-trip-tp-cld" src="{% static 'assets/images/cloud-down.webp' %}" alt="Cloud">
+    <img class="ltst-trip-tpl" src="{% static 'assets/images/suit-case.webp' %}" alt="Suit Case Shape">
+    <div class="container">
+        <div class="cuurent-trip-info">
+            <h2>{{ seasonal_banners.season }}</h2>
+            <!-- <p>{{ banner.description }}</p> -->
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endif %}
+
+<!---------- Client Review ---------->
+<section class="client-review-wrapper">
+    <img class="clnt-rvw-shape-tl" src="{% static 'assets/images/heart-left.png' %}" alt="Hear Shape">
+    <img class="clnt-rvw-shape-br" src="{% static 'assets/images/heart-right.webp' %}" alt="Hear Shape">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="clnt-revw-content">
+                    <div class="sec-title">
+                        <h6>Our Testimonials</h6>
+                        <h2>
+                            Client <br>
+                            Review
+                        </h2>
+                    </div>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the
+                        industry's standard dummy text ever since the 1500s, </p>
+
+                    <!-- <div class="custom-btn">
+                        <a href="#">Read All</a>
+                    </div> -->
+
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="client-review-slider">
+                    <div class="swiper client-testimonial">
+                        <div class="swiper-wrapper">
+                            <!-- Slide -->
+                            {% for review in client_reviews %}
+                            <div class="swiper-slide">
+                                <div class="testimonial-card">
+                                    <div class="testimonial-img">
+                                        {% if review.image %}
+                                        <img src="{{ review.image.url }}" alt="{{ review.name }}" />
+                                        {% else %}
+                                        <img src="{% static 'assets/images/client-1.webp' %}" alt="Client" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <h4>{{ review.name }}</h4>
+                                        <p>{{ review.message|default:"No review message provided"|slice:":80" }}{% if review.message|length > 30 %}...{% endif %}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- New Navigation Buttons -->
+                        <div class="swiper-button-prev testimonial-prev"></div>
+                        <div class="swiper-button-next testimonial-next"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<!---------- Get In Touch ---------->
+<section class="get-in-touch-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Get In Touch</h6>
+                    <h2>
+                        Customize Your<br>
+                        Dream Trip
+                    </h2>
+                </div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the </p>
+
+                <div class="get-in-touch-form">
+                    <form action=" " method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="destination" placeholder="Destination" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="text" name="number" placeholder="Contact Number" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="email" name="email" placeholder="Email Id" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" id="message" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="submit-btn">
+                                    <button type="submit">Get In Touch</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-lg-6"></div>
+        </div>
+
+    </div>
+</section>
+<!---------- Gallery ---------->
+<section class="gallery-wrapper mb-none d-none">
+    <img class="gallery-bg-shape" src="{% static 'assets/images/gallery-bg-shape.webp' %}" alt="Plane Image">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Our Beautiful Moments</h6>
+                    <h2>
+                        Gallery
+                    </h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="gallery-content">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the
+                        industry's standard dummy text ever since the 1500s, when an Lorem Ipsum is simply dummy text of
+                        the
+                        printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                        since the
+                        1500s, when an </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="gallery-grid-wrapper-first">
+            <div class="gallery-item">
+                <a href="{% static 'assets/images/gallery-1.webp' %}" class="glightbox" data-gallery="gallery1">
+                    <img src="{% static 'assets/images/gallery-1.webp' %}" alt="Gallery">
+                </a>
+            </div>
+
+            <div class="gallery-item  double">
+                <div class="gallery-item-sub ">
+                    <a href="{% static 'assets/images/gallery-2.png' %}" class="glightbox" data-gallery="gallery1">
+                        <img src="{% static 'assets/images/gallery-2.png' %}" alt="Gallery">
+                    </a>
+                </div>
+                <div class="gallery-item-sub">
+                    <a href="{% static 'assets/images/gallery-3.png' %}" class="glightbox" data-gallery="gallery1">
+                        <img src="{% static 'assets/images/gallery-3.png' %}" alt="Gallery">
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="{% static 'assets/images/gallery-4.png' %}" class="glightbox" data-gallery="gallery1">
+                    <img src="{% static 'assets/images/gallery-4.png' %}" alt="Gallery">
+                </a>
+            </div>
+
+            <div class="gallery-item  double">
+                <div class="gallery-item-sub ">
+                    <a href="{% static 'assets/images/gallery-5.png' %}" class="glightbox" data-gallery="gallery1">
+                        <img src="{% static 'assets/images/gallery-5.png' %}" alt="Gallery">
+                    </a>
+                </div>
+                <div class="gallery-item-sub">
+                    <a href="{% static 'assets/images/gallery-6.png' %}" class="glightbox" data-gallery="gallery1">
+                        <img src="{% static 'assets/images/gallery-6.png' %}" alt="Gallery">
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="{% static 'assets/images/gallery-7.png' %}" class="glightbox" data-gallery="gallery1">
+                    <img src="{% static 'assets/images/gallery-7.png' %}" alt="Gallery">
+                </a>
+            </div>
+
+        </div>
+
+        <div class="gallery-grid-wrapper-second">
+
+            <div class="gallery-item  double">
+                <div class="gallery-item-sub ">
+                    <a href="{% static 'assets/images/gallery-8.png' %}" class="glightbox" data-gallery="gallery1">
+                        <img src="{% static 'assets/images/gallery-8.png' %}" alt="Gallery">
+                    </a>
+                </div>
+                <div class="gallery-item-sub">
+                    <a href="{% static 'assets/images/gallery-9.png' %}" class="glightbox" data-gallery="gallery1">
+                        <img src="{% static 'assets/images/gallery-9.png' %}" alt="Gallery">
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="{% static 'assets/images/gallery-10.png' %}" class="glightbox" data-gallery="gallery1">
+                    <img src="{% static 'assets/images/gallery-10.png' %}" alt="Gallery">
+                </a>
+            </div>
+
+            <div class="gallery-item big">
+                <a href="{% static 'assets/images/gallery-11.png' %}" class="glightbox" data-gallery="gallery1">
+                    <img src="{% static 'assets/images/gallery-11.png' %}" alt="Gallery">
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="{% static 'assets/images/gallery-12.png' %}" class="glightbox" data-gallery="gallery1">
+                    <img src="{% static 'assets/images/gallery-12.png' %}" alt="Gallery">
+                </a>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<!---------- FAQ ---------->
+<section class="faq-wrapper" id="faq">
+    <img class="faq-bg-shape" src="{% static 'assets/images/faq-bg-shape.webp' %}" alt="FAQ BG">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="faq-img">
+                    <img src="{% static 'assets/images/faq.webp' %}" alt="FAQ">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="faq-content">
+                    <div class="sec-title">
+                        <h6>Faq</h6>
+                        <h2>
+                            What to Know Before <br>
+                            You Go
+                        </h2>
+                    </div>
+
+                    <div class="faq-accordian">
+                        <div class="faq-accordian-item">
+                            <div class="faq-accordian-header">
+                                <div class="faq-accordian-title">What types of tour packages does Eastora Holidays
+                                    offer?</div>
+                                <div class="faq-accordian-icon">+</div>
+                            </div>
+                            <div class="faq-accordian-content">
+                                <p>We offer a wide range of curated tour packages including domestic tours across India,
+                                    international holiday packages, customized honeymoon getaways, Ayurveda and wellness
+                                    retreats, adventure trips, and cultural experiences — all designed to suit your
+                                    travel style and budget.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-accordian-item">
+                            <div class="faq-accordian-header">
+                                <div class="faq-accordian-title">Can I customize my travel itinerary with Eastora
+                                    Holidays?</div>
+                                <div class="faq-accordian-icon">+</div>
+                            </div>
+                            <div class="faq-accordian-content">
+                                <p>Absolutely! We specialize in personalized travel planning. Whether you want to adjust
+                                    your itinerary, upgrade accommodation, or include specific experiences, our travel
+                                    consultants will tailor the package to match your preferences.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordian-item">
+                        <div class="faq-accordian-header">
+                            <div class="faq-accordian-title">Do your packages include flights and visas?</div>
+                            <div class="faq-accordian-icon">+</div>
+                        </div>
+                        <div class="faq-accordian-content">
+                            <p>Yes, many of our international packages are inclusive of flights and visa assistance. For
+                                transparency, each package will clearly mention what's included. We also provide
+                                standalone flight bookings and complete visa support as optional add-ons.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordian-item">
+                        <div class="faq-accordian-header">
+                            <div class="faq-accordian-title">What is the booking and payment process?</div>
+                            <div class="faq-accordian-icon">+</div>
+                        </div>
+                        <div class="faq-accordian-content">
+                            <p>Booking with Eastora Holidays is easy and secure. Once you select a package, our team
+                                will guide you through the confirmation process. A booking amount is required to reserve
+                                your trip, with the remaining balance payable before departure. Multiple payment options
+                                are available for your convenience.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordian-item">
+                        <div class="faq-accordian-header">
+                            <div class="faq-accordian-title">Is travel insurance included in the tour packages?</div>
+                            <div class="faq-accordian-icon">+</div>
+                        </div>
+                        <div class="faq-accordian-content">
+                            <p>Travel insurance is not included by default but can be added to your package upon
+                                request. We highly recommend opting for travel insurance to ensure protection against
+                                unforeseen events such as medical emergencies, trip cancellations, or lost baggage.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordian-item">
+                        <div class="faq-accordian-header">
+                            <div class="faq-accordian-title">How can I get in touch with Eastora Holidays for more
+                                information or assistance?</div>
+                            <div class="faq-accordian-icon">+</div>
+                        </div>
+                        <div class="faq-accordian-content">
+                            <p>You can reach us through our website's contact form, email us at <a
+                                    href="mailto:info@eastoraholidays.com">info@eastoraholidays.com</a> , or call our
+                                customer support number. Our travel advisors are available to assist you with any
+                                queries, bookings, or custom travel requirements.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!---------- Recent Blogs ---------->
+<section class="blog-wrapper d-none">
+    <div class="container">
+        <div class="sec-title">
+            <h6>Recent Blogs</h6>
+            <h2>Latest Travel Insights &<br>
+                Expert Tips</h2>
+        </div>
+
+        <div class="blog-posts">
+            <div class="first-post">
+                <div class="post-item">
+                    <div class="post-item-img">
+                        <img src="{% static 'assets/images/blog-post-1.webp' %}" alt="Blog">
+                    </div>
+                    <div class="post-item-content">
+                        <div class="post-info">
+                            <span>Travel Advise</span> <span>19-May-2025, 11:50 AM</span>
+                        </div>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="double-posts">
+
+                <div class="post-item">
+                    <div class="post-item-img">
+                        <img src="{% static 'assets/images/blog-post-1.webp' %}" alt="Blog">
+                    </div>
+                    <div class="post-item-content">
+                        <div class="post-info">
+                            <span>Travel Advise</span> <span>19-May-2025, 11:50 AM</span>
+                        </div>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                        </p>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-item-img">
+                        <img src="{% static 'assets/images/blog-post-1.webp' %}" alt="Blog">
+                    </div>
+                    <div class="post-item-content">
+                        <div class="post-info">
+                            <span>Travel Advise</span> <span>19-May-2025, 11:50 AM</span>
+                        </div>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <img class="blog-bg-shape" src="{% static 'assets/images/plane-root-shape.webp' %}" alt="plane">
+        <div class="custom-btn">
+            <a href="#">Read All</a>
+        </div>
+    </div>
+    </div>
+
+</section>
+
+<!---- Fixed Call To Actions ---->
+<div class="sticky-cta-wrapper">
+    <div>
+        <a href="tel:+91 00000000000">
+            <img src="{% static 'assets/images/icons/cta-tele.webp' %}" alt="Telephone">
+        </a>
+    </div>
+    <div class="sticky-cta-item">
+        <a href="https://wa.me/+91 00000000000" target="_blank">
+            <img src="{% static 'assets/images/icons/cta-whatsapp.webp' %}" alt="Whatsapp">
+        </a>
+    </div>
+</div>
+
+{% endblock %}

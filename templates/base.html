@@ -1,0 +1,316 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eastora</title>
+
+    <!-- Fontawesome -->
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/swiper/css/swiper-bundle.min.css' %}">
+
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/lightbox/css/glightbox.min.css' %}" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" />
+</head>
+
+<body>
+    <!------------ Header ------------>
+    <div class="container-fluid hrd-wrapper">
+        <header class="header" id="main-header">
+            <div class="container">
+                <div class="logo">
+                    <a href="{% url 'home' %}">
+                        <img src=" {% static 'assets/images/eastora-holidays-logo.webp' %}" alt="Eastora Holidays Logo" />
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'home' %}" >Home</a></li>
+                        <li><a href="{% url 'about_us' %}">About</a></li>
+                        <li><a href="{% url 'india_tours' %}">India Tours</a></li>
+                        <li><a href="{% url 'international_tours' %}">International Tours</a></li>
+                        <li><a href="{% url 'ayurveda_tours' %}">Ayurveda & Wellness</a></li>
+                        <!-- <li><a href="##">Eastora Specials</a></li> -->
+                        <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    </ul>
+                    <!-- Mobile Search Bar -->
+                    <!-- <div class="search-bar dktp-none">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search"
+                                oninput="showSuggestions(this.value)" />
+                            <a href="#"><i class="fa fa-search search-icon"></i></a>
+                            <ul class="suggestions" id="suggestionsList"></ul>
+                        </div>
+                    </div> -->
+                </nav>
+                <!-- Deskto Search Bar -->
+                <div class="search-bar mb-none">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search"
+                            oninput="showSuggestions(this.value)" />
+                        <a href="#"><i class="fa fa-search search-icon"></i></a>
+                        <ul class="suggestions" id="suggestionsList"></ul>
+                    </div>
+                </div>
+                <div class="menu-toggle"><i class="fa fa-bars"></i></div>
+            </div>
+        </header>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!---------- Footer ---------->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="ftr-content">
+                        <div class="ftr-log">
+                            <a href="{% url 'home' %}">
+                                <img src="{% static 'assets/images/ftr-logo.webp' %}" alt="Eastora Holidays Logo">
+                            </a>
+                        </div>
+
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                            industry's standard dummy text ever since the 1500s, </p>
+
+                        <div class="ftr-social-media-wrapper mb-none">
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/facebook.webp' %}" alt="Facebook">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/linkedin.webp' %}" alt="LinkedIN">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/instagram.webp' %}" alt="Instagram">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/whatsapp.webp' %}" alt="Whatsapp">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/x.webp' %}" alt="x">
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-8 ftr-links-wrapper">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <div class="ftr-quick-links">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                                    <li><a href="{% url 'home' %}#why-choose-us">Why Choose Us</a></li>
+                                    <li><a href="{% url 'home' %}#faq">FAQ</a></li>
+                                    <li><a href="{% url 'contact_us' %}">Enquiry</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="ftr-quick-links">
+                                <h4>Tours</h4>
+                                <ul>
+                                    <li><a href="{% url 'india_tours' %}">India Tours</a></li>
+                                    <li><a href="{% url 'international_tours' %}">International Tours</a></li>
+                                    <li><a href="{% url 'ayurveda_tours' %}">Ayurveda Wellness</a></li>
+                                    <li><a href="#">Eastora Specials</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="ftr-quick-links">
+                                <div class="ftr-contact-item">
+                                    <div class="ftr-contact-item-icon">
+                                        <img src="{% static 'assets/images/icons/tele-phone.webp' %}" alt="Telephone">
+                                    </div>
+                                    <div class="ftr-contact-item-details">
+                                        <a href="tel:+91 0000000000">+91 0000000000</a> <br>
+                                        <a href="tel:+91 0000000000">+91 0000000000</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="ftr-contact-item">
+                                    <div class="ftr-contact-item-icon">
+                                        <img src="{% static 'assets/images/icons/mail-icon.webp' %}" alt="Mail">
+                                    </div>
+                                    <div class="ftr-contact-item-details">
+                                        <a href="mailto:loremipsum@gmail.com">loremipsum@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="ftr-contact-item">
+                                    <div class="ftr-contact-item-icon">
+                                        <img src="{% static 'assets/images/icons/location-icon-2.webp' %}" alt="Location">
+                                    </div>
+                                    <div class="ftr-contact-item-details">
+                                        <p>Lorem Ipsum is simply dummy text of the printing and...</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ftr-social-media-wrapper dktp-none">
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/facebook.webp' %}" alt="Facebook">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/linkedin.webp' %}" alt="LinkedIN">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/instagram.webp' %}" alt="Instagram">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/whatsapp.webp' %}" alt="Whatsapp">
+                                </a>
+                            </div>
+
+                            <div class="ftr-social-media-item">
+                                <a href="#">
+                                    <img src="{% static 'assets/images/icons/x.webp' %}" alt="x">
+                                </a>
+                            </div>
+
+                        </div>
+            </div>
+        </div>
+
+        <!-- <img class="ftr-btm-cloud" src="{% static 'assets/images/cloud.webp' %}" alt="cloud"> -->
+    </footer>
+
+
+    <!-- Bootstrap Bundle -->
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="{% static 'assets/vendor/swiper/js/swiper-bundle.min.js' %}"></script>
+    <!-- GLightbox JS -->
+    <script src="{% static 'assets/vendor/lightbox/js/glightbox.min.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- India Destinations Slider -->
+    <script>
+        const indSlider = new Swiper(".ind-destini-slider", {
+            loop: true, // Infinite loop
+            autoplay: {
+                delay: 5000,  // 5 seconds
+                disableOnInteraction: false,
+            },
+            slidesPerView: 4,
+            spaceBetween: 0,
+            navigation: {
+                nextEl: ".ind-dest-next",
+                prevEl: ".ind-dest-prev",
+            },
+            breakpoints: {
+                0: { slidesPerView: 1.2 },
+                576: { slidesPerView: 2 },
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 },
+                1200: { slidesPerView: 4 }
+            }
+        });
+    </script>
+
+    <!-- Client Testimonial -->
+    <script>
+        const testimonialSlider = new Swiper(".client-testimonial", {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            slidesPerView: 3,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: ".testimonial-next",
+                prevEl: ".testimonial-prev",
+            },
+            breakpoints: {
+                0: { slidesPerView: 1.2 },
+                576: { slidesPerView: 1.5 },
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 },
+                1200: { slidesPerView: 3 }
+            }
+        });
+
+    </script>
+
+    <!-- Gallery Lightbox -->
+    <script>
+        const lightbox = GLightbox({
+            selector: '.glightbox'
+        });
+    </script>
+
+
+<script>
+  // Get the current path (e.g., "/about-us/")
+  const currentPath = window.location.pathname;
+
+  // Select all nav links
+  const navLinks = document.querySelectorAll("nav ul li a");
+
+  navLinks.forEach(link => {
+    // Create a temporary anchor to extract the pathname from the href
+    const linkPath = new URL(link.href).pathname;
+
+    // Compare link path with current path
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+    }
+  });
+</script>
+
+
+
+</body>

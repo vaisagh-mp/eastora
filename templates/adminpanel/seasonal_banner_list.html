@@ -1,0 +1,50 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">Seasonal Banner</h4>
+            </div>
+            <div class="breadcrumb-list">
+                <ul>
+                    <li class="breadcrumb-link">
+                        <a href="#"><i class="far fa-images m-2"></i>Seasonal Banner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="add-ctgry-btn">
+            <a href="{% url 'admin_seasonal_banner_create'%}"><i class="fas fa-plus"></i> Add Banner</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="seasonal-pckg-wrapper">
+    {% if banner %}
+    <div class="seasonal-pckg-item">
+        <div class="edit-ssnl-pckg">
+            <a href="{% url 'admin_seasonal_banner_update' banner.id %}"><i class="far fa-edit"></i></a>
+        </div>
+
+        <!-- Show uploaded image (desktop image as default) -->
+        {% if banner.image_desktop %}
+            <img src="{{ banner.image_desktop.url }}" alt="Seasonal Package">
+        {% else %}
+            <img src="{% static 'admin/assets/images/kerela-trip-bg.webp' %}" alt="Default Banner">
+        {% endif %}
+
+        <div class="seasonal-pckg-info">
+            <h2>{{ banner.season }}</h2>
+        </div>
+    </div>
+    {% else %}
+        <p>No seasonal banners available.</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}

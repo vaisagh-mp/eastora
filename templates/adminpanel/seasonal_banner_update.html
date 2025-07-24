@@ -1,0 +1,71 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">Update Seasonal Banner</h4>
+            </div>
+            <div class="breadcrumb-list">
+                <!-- <ul>
+                    <li class="breadcrumb-link">
+                        <a href="index.html"><i class="fas fa-layer-group mr-2"></i>Hero Banner</a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Orders Start -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="hero-banner-col">
+            <div class="hero-banner-card">
+                <h3 class="hero-banner-title">Update Seasonal Banner</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Banner Image -->
+                    <div class="mb-3">
+                        <label class="hero-banner-label">Banner Image</label>
+                        <input type="file" id="bannerImage" name="bannerImage" class="d-none" accept="image/*">
+                        <div class="hero-banner-dropzone" id="bannerDropzone">
+                            <!-- Icon and Drag Text -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+                            </svg>
+                            <p id="bannerImageText">Drag & drop or <span
+                                    style="color:#007bff;text-decoration:underline">Select file</span></p>
+                            {% if item.image_desktop %}
+                            <img id="bannerImagePreview" src="{{ item.image_desktop.url }}" alt="Preview" style="display: block;">
+                            {% else %}
+                            <img id="bannerImagePreview" src="" alt="Preview">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="bannerTitle" class="hero-banner-label">Banner Title</label>
+                        <input type="text" id="bannerTitle" name="bannerTitle" class="hero-banner-input"
+                            value="{{ item.season }}" placeholder="Enter banner title">
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-center">
+                        <button type="submit" class="hero-banner-btn">Update Banner</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

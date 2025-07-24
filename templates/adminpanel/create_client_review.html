@@ -1,0 +1,116 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">Add Review</h4>
+            </div>
+            <div class="breadcrumb-list">
+                <ul>
+                    <li class="breadcrumb-link">
+                        <a href="client-review.html"><i class="fas fa-star-half-alt mr-2"></i>Client
+                            Reviews</a>
+                    </li>
+                    <li class="breadcrumb-link active">Add Review</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Orders Start -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="hero-banner-col">
+            <div class="hero-banner-card">
+                <h3 class="hero-banner-title">Add Review</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Banner Image -->
+                    <div class="mb-3">
+                        <label class="hero-banner-label">Image</label>
+                        <input type="file" name="image" id="bannerImage" class="d-none" accept="image/*">
+                        <div class="hero-banner-dropzone" id="bannerDropzone">
+                            <!-- SVG and Drag Text -->
+                            <p id="bannerImageText">Drag & drop or <span style="color:#007bff;text-decoration:underline">Select file</span></p>
+                            <img id="bannerImagePreview" src="" alt="Preview">
+                        </div>
+                    </div>
+                
+                    <!-- Client Name -->
+                    <div class="mb-3">
+                        <label for="bannerTitle" class="hero-banner-label">Client Name</label>
+                        <input type="text" name="name" id="bannerTitle" class="hero-banner-input" placeholder="Enter client name">
+                    </div>
+                
+                    <!-- Review Content -->
+                    <div class="mb-4">
+                        <label for="bannerContent" class="hero-banner-label">Review</label>
+                        <textarea name="message" id="bannerContent" rows="4" class="hero-banner-textarea" placeholder="Enter review content"></textarea>
+                    </div>
+                
+                    <!-- Submit -->
+                    <div class="text-center">
+                        <button type="submit" class="hero-banner-btn">Add Review</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+ <script>
+        const dropzone = document.getElementById('bannerDropzone');
+        const input = document.getElementById('bannerImage');
+        const preview = document.getElementById('bannerImagePreview');
+        const text = document.getElementById('bannerImageText');
+
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropzone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropzone.classList.add('dragover');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropzone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        dropzone.addEventListener('click', () => input.click());
+
+        dropzone.addEventListener('drop', e => {
+            input.files = e.dataTransfer.files;
+            previewBanner(input.files[0]);
+        });
+
+        input.addEventListener('change', () => {
+            previewBanner(input.files[0]);
+        });
+
+        function previewBanner(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    text.innerHTML = `<strong>${file.name}</strong> selected.`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+                text.innerHTML = 'Invalid file. Please upload an image.';
+            }
+        }
+    </script>
+{% endblock %}

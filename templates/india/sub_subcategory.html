@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Hero -->
+<div class="sub-page-hero singapore-packages">
+    <div class="tour-hero-content">
+        <h1>{{ category.name }}</h1>
+    </div>
+</div>
+
+<!-- Packages -->
+<section class="sub-page-package-listing-wrapper">
+    <img class="sub-page-package-listing-bg-shape" src="{% static 'assets/images/abt-shape-top-right.webp' %}" alt="sub-page-package-listing">
+    <div class="container">
+        <div class="sub-page-package-listing-content">
+            <div class="sec-title">
+                <h2>{{ category.name }}</h2>
+            </div>
+            <p>{{ category.long_description }}</p>
+        </div>
+
+        <div class="sub-page-package-listing">
+            {% if packages %}
+                {% for package in packages %}
+                <div class="sub-page-package-listing-item">
+                    <div class="sub-page-package-listing-item-img">
+                        <img src="{{ package.card_image.url }}" alt="{{ package.title }}">
+                    </div>
+                    <div class="sub-page-package-listing-item-details">
+                        <h4>{{ package.title }}</h4>
+                        <p>{{ package.short_description }}</p>
+                        <div class="days-count">
+                            <div class="days-count-item">
+                                <img src="{% static 'assets/images/icons/group.png' %}" alt="Groups">
+                                <span>Group Tour</span>
+                            </div>
+                            <div class="days-count-item">
+                                <img src="{% static 'assets/images/icons/bed.png' %}" alt="Days">
+                                <span>{{ package.days }}D, {{ package.nights }}N</span>
+                            </div>
+                        </div>
+                        <div class="sub-page-package-listing-item-details-btn">
+                            <a href="{% url 'package_detail' subcategory_slug=package.category.slug package_slug=package.slug %}">
+                                Know More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No packages available in this category.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Get A Discount -->
+<section class="get-a-discount-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <div class="get-a-discount-content">
+                    <div class="sec-tilte">
+                        <h2>Get A Discount</h2>
+                    </div>
+                    <h3>Lorem Ipsum is <br> simply dummy text</h3>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 d-flex align-items-center">
+                <div class="get-a-discount-cta">
+                    <div class="custom-btn">
+                        <a href="#">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sub Page Content -->
+<section class="sub-page-package-content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sub-page-package-conten-img">
+                    <img src="{% static 'assets/images/sub-page-package-conten-img-1.webp' %}" alt="Image">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="sub-page-package-content">
+                    <div class="sec-title">
+                        <h6>LOREM IPSUM</h6>
+                        <h2>Lorem ipsum</h2>
+                    </div>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row sub-page-package-content-snd-row">
+            <div class="col-lg-6 order-lg-2">
+                <div class="sub-page-package-conten-img">
+                    <img style="margin: auto;display: block;" src="{% static 'assets/images/sub-page-package-conten-img-2.webp' %}" alt="Image">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="sub-page-package-content">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

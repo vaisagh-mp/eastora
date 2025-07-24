@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!------------ Hero ------------>
+<div class="sub-page-hero mb-none" style="background-image: url('{{ package.image_desktop.url }}');">
+    <div class="tour-hero-content">
+        <h1>{{ title_main }}</h1>
+    </div>
+</div>
+<div class="sub-page-hero dktp-none" style="background-image: url('{{ package.image_mobile.url }}');">
+    <div class="tour-hero-content">
+        <h1>{{ title_main }}</h1>
+    </div>
+</div>
+
+<!---------- Tour Program ---------->
+<section class="tour-prgrm-wrapper">
+    <div class="container">
+
+
+        <!---- Form ---->
+        <div class="tour-prgrm-enqry-frm-wrapper">
+            <div class="tour-prgrm-enqry-frm">
+                <form action=" " method="post">{% csrf_token %}
+                    <h3>Have Questions? </h3>
+                    <div class="form-fields">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-fields">
+                        <input type="email" name="email" placeholder="Email Id" required>
+                    </div>
+                    <div class="form-fields">
+                        <input type="text" name="number" placeholder="Contact Number" required>
+                    </div>
+                    <div class="enqry-frm-submit-btn">
+                        <button type="submit">Enquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="sec-title">
+            <h2>{{ package.title }}</h2>
+        </div>
+        <div class="tour-prgrm-cta-wrapper">
+
+            <div class="tour-prgrm-cta-item">
+                <a href="tel:+91 0000000000">
+                    <img src="{% static 'assets/images/icons/cta-tele-2.webp' %}" alt="Telephone">
+                    <span>Call Us</span>
+                </a>
+            </div>
+
+            <div class="tour-prgrm-cta-item">
+                <a href="https://wa.me/+91 00000000000" target="_blank">
+                    <img src="{% static 'assets/images/icons/cta-whatsapp-2.webp' %}" alt="Whatsapp">
+                    <span>Chat With Us</span>
+                </a>
+            </div>
+
+        </div>
+
+
+        <!---- Tab Start ---->
+        <div class="tour-prgrm-tab-btns">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                        aria-selected="true">Overview</button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">Itinerary</button>
+                </li> -->
+
+            </ul>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <!----- Overview ----->
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="tour-prgrm-info">
+                             {{ package.description|safe }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4"> </div>
+                </div>
+
+                <div class="overview-details-wrapper " style="display: none;">
+
+                    <div class="overview-details-item">
+                        <h4>Highlights include:</h4>
+                        <div class="overview-highlights">
+
+                            <div class="overview-highlights-item">
+                                <img src="{% static 'assets/images/icons/check.png' %}" alt="Check Icon">
+                                <p>Luxury resort accommodations with beach or overwater villas</p>
+                            </div>
+
+                            <div class="overview-highlights-item">
+                                <img src="{% static 'assets/images/icons/check.png' %}" alt="Check Icon">
+                                <p>Luxury resort accommodations with beach or overwater villas</p>
+                            </div>
+
+                            <div class="overview-highlights-item">
+                                <img src="{% static 'assets/images/icons/check.png' %}" alt="Check Icon">
+                                <p>Luxury resort accommodations with beach or overwater villas</p>
+                            </div>
+
+                            <div class="overview-highlights-item">
+                                <img src="{% static 'assets/images/icons/check.png' %}" alt="Check Icon">
+                                <p>Luxury resort accommodations with beach or overwater villas</p>
+                            </div>
+
+                            <div class="overview-highlights-item">
+                                <img src="{% static 'assets/images/icons/check.png' %}" alt="Check Icon">
+                                <p>Luxury resort accommodations with beach or overwater villas</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!---- Itinerary ---->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                style="display: none;">
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="tour-prgrm-info">
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the
+                                industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                                galley of type and
+                                scrambled it to make a type specimen book. It has survived not only five centuries, but
+                                also the leap
+                                into
+                                electronic typesetting, remaining essentially unchanged. </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"> </div>
+                </div>
+
+                <div class="overview-details-wrapper">
+
+                    <div class="overview-details-item">
+                        <h6>Day 1</h6>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                            of type and
+                            scrambled it to make a type specimen book. It has survived not only five centuries, but also
+                            the leap
+                            into electronic typesetting, remaining essentially unchanged. </p>
+                    </div>
+
+                    <div class="overview-details-item">
+                        <h6>Day 1</h6>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                            of type and
+                            scrambled it to make a type specimen book. It has survived not only five centuries, but also
+                            the leap
+                            into electronic typesetting, remaining essentially unchanged. </p>
+                    </div>
+
+                    <div class="overview-details-item">
+                        <h6>Day 1</h6>
+                        <h4>Lorem Ipsum</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the
+                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                            of type and
+                            scrambled it to make a type specimen book. It has survived not only five centuries, but also
+                            the leap
+                            into electronic typesetting, remaining essentially unchanged. </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!---------- Gallery ---------->
+<!-- <section class="tour-prgrm-gallery-wrapper">
+    <div class="container">
+        <div class="sec-title">
+            <h2>Gallery</h2>
+        </div>
+        <div class="tour-prgrm-gallery-item-wrapper">
+
+            <div class="tour-prgrm-gallery-item">
+                <img src="{% static 'assets/images/maldives-gallery-1.webp' %}" alt="Maldives Tour Program">
+            </div>
+
+            <div class="tour-prgrm-gallery-item">
+                <img src="{% static 'assets/images/maldives-gallery-2.webp' %}" alt="Maldives Tour Program">
+            </div>
+            <div class="tour-prgrm-gallery-item">
+                <img src="{% static 'assets/images/maldives-gallery-3.webp' %}" alt="Maldives Tour Program">
+            </div>
+
+
+        </div>
+    </div>
+</section> -->
+
+{% endblock %}

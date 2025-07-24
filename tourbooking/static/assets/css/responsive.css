@@ -1,0 +1,676 @@
+
+/*---------- Common ---------*/
+@media(max-width:767px){
+  section{padding: 50px 0 50px 0;}
+  .sticky-cta-wrapper img{width: 75px !important;}
+  .sticky-cta-item{margin-top: -21px;}
+}
+@media(max-width:991px){
+  .sec-title{text-align: center;}
+}
+
+/*---------- Header----------*/
+
+@media (max-width: 991px) {
+  header {
+    padding:0;
+    border-radius: 0;
+    top: 0;
+  }
+  header .container{padding: 15px;}
+  header.scrolled{padding: 0;}
+
+  .menu-toggle {
+    display: block;
+  }
+
+  header nav {
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background: #fff;
+    top: 80px;
+    left: -100%;
+    transition: left 0.5s ease;
+  }
+
+  header nav.active {
+    left: 0;
+  }
+
+  header nav ul {
+    border-top: 1px solid #ccc;
+    display: block;
+    text-align: left;
+  }
+  .dktp-none{padding: 15px;}
+    .dktp-none .search-container{width: 100%;}
+
+ 
+  .logo img {
+    width: 70%;
+  }
+
+  .hrd-wrapper{padding: 0;}
+  header nav ul li a{padding: 10px;}
+}
+
+/* Responsive Adjustment for Scrolled Header */
+@media (min-width: 991px) {
+  .header.scrolled {
+    max-width: 100% !important;
+    border-radius: 0px !important;
+  }
+}
+
+@media(min-width:992px) and (max-width:1199px){
+header nav ul li a{padding: 0 8px;font-size: 10px;}
+}
+/*---------- Hero -----------*/
+@media(max-width:767px){
+   .thumbnails{display: none;}
+   .hero-wrapper .carousel{height:500px;}
+}
+@media(max-width:991px){
+    .hero-content{text-align: center !important;}
+    .hero-content h1{font-size: 34px;text-align: center;}
+    .hero-content p{text-align: center;}
+}
+
+ @media(min-width:992px){
+    .hero-content{width: 480px;}
+    }
+
+
+/*---------- About Us  ----------*/
+
+@media(max-width:767px){
+ .cloud-img {
+ top: -40px;}
+.abt-rt-shape, .abt-lb-shape{width: 22%;}
+.abt-item{flex-direction: column;align-items: center;justify-content: center;text-align: center;}
+}
+
+@media(max-width:991px){
+   
+    .abt-img img{width: 65%;}
+    .abt-content{padding-top: 50px;}
+    .cloud-img{display: none;}
+}
+
+@media(min-width:767px) and (max-width:991px){
+ .abt-img img {
+    width: 45%;}
+     .cloud-img{top: -98px;}
+
+     .abt-item {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+    .abt-content .custom-btn {
+    width: max-content;
+    margin: auto}
+    .abt-content h2 br{display: none !important;}
+ }
+
+@media(min-width:1660px){
+    .cloud-img{top: -219px;}
+}
+
+/*---------- Why Choose Us   ----------*/
+
+@media(max-width:574px){
+  .dest-card{width:88%;}
+  .dest-card-front, .dest-card-back{width: 100%;}
+}
+@media(max-width:767px){
+  .why-choose-content .custom-btn{width: max-content;margin: auto;margin-top: 50px;}
+  .why-choose-content p{max-width: 100%;}
+
+  .why-choose-counter{margin-top: 80px;gap: 17px;}
+  .coutr-2, .coutr-2, .coutr-3{position: unset !important;}
+
+  .counter-item{width: 120px;height:120px;}
+  .counter-inner {
+  width: 100px;
+  height: 100px;
+  }
+
+  .counter-item h3{font-size: 22px;}
+  .counter-item p{margin: 0;font-size: 13px;}
+ .ind-desti-bl-img{bottom:0;width: 25%;}
+ .ind-destini-content{text-align: center;margin-top: 20px;}
+}
+
+@media(min-width:767px) and (max-width:991px){
+  .why-choose-content h2{text-align: center;}
+.coutr-2, .coutr-2, .coutr-3{position: unset !important;}
+.counter-item{width: 120px;height:120px;}
+  .counter-inner {
+  width: 100px;
+  height: 100px;
+  }
+  .why-choose-counter{margin-top: 80px;gap: 17px;}
+   .counter-item h3{font-size: 22px;}
+  .counter-item p{margin: 0;font-size: 13px;}
+  .why-choose-content p{max-width: 100%;text-align: center;}
+   .why-choose-content .custom-btn {
+    width: max-content;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 50px;
+  }
+}
+
+@media(min-width:992px){
+  .why-chooswe-wrapper{height: 551px; }
+  .why-chooswe-wrapper .col-lg-6{height:450px;}
+}
+
+
+/*---------- International Destinations ----------*/
+@media(max-width:767px){
+  .intrntnl-package-wrapper{grid-template-columns: repeat(1, 1fr);margin-top: 30px;}
+  .intrntnl-destini-content p{text-align: center;}
+
+  .five-col{margin-top: 20px;grid-template-columns: repeat(2, 1fr);column-gap:15px;}
+  .five-col .intrntnl-package-item img{height: 100% !important;}
+  .ind-destini-slider{padding: 40px 0px 40px 16px;}
+  .intrntnl-package-item img{height: unset;}
+
+  .intrntnl-rb {
+  bottom: 25px;
+  right: -60px;
+  width: 50%;
+}
+}
+
+@media(min-width:767px) and (max-width:991px){
+.intrntnl-package-wrapper{grid-template-columns: repeat(2, 1fr);margin-top: 50px;}
+.intrntnl-destini-content p{text-align: center;}
+.five-col{margin-top: 20px;grid-template-columns: repeat(3, 1fr);column-gap:15px;}
+}
+
+@media(min-width:992px) and (max-width:1199px){
+  .intrntnl-package-item{height: 220px;}
+  .five-col .intrntnl-package-item img{height: 100% !important;}
+}
+
+
+/*---------- Ayurveda & Wellness ----------*/
+
+@media(max-width:767px){
+  .caption-box {text-align: center;}
+  .carousel-control-next, .carousel-control-prev{display: none !important;}
+}
+
+@media(min-width:767px) and (max-width:991px){
+  .caption-box {text-align: center;}
+}
+
+
+/*---------- Eastora Recommended Destinations ----------*/
+@media(max-width:767px){
+  .recmntn{padding: 15px;}
+  .recmntn-package-wrapper{grid-template-columns: repeat(1, 1fr);gap: 20px;margin-top:50px;}
+  .recmntn-package-item{max-width:100% !important;}
+  .recmntn .custom-btn{margin-top: 50px;}
+  .package-tl-shape{width: 60px;top:20px;left: 20px;}
+  .package-cr-shape{display: none;}
+}
+
+@media(min-width:575px) and (max-width:991px){
+.recmntn-package-wrapper{grid-template-columns: repeat(2, 1fr);}
+}
+
+@media(min-width:767px) and (max-width:991px){
+  .recmntn {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ .recmntn-package-item{max-width:100% !important;}
+  .package-tl-shape{width: 80px;top:20px;left: 20px;}
+}
+
+@media(min-width:992px) and (max-width:1199px){
+  .recmntn-package-wrapper{grid-template-columns: repeat(2, 1fr);}
+  .recmntn-package-item{max-width:100% !important;}
+}
+
+/*---------- Latest Trip Banner ----------*/
+@media(max-width:767px){
+  .cuurent-trip-wrapper{width: 100%;}
+  .cuurent-trip-info{width: 100%;}
+  .ltst-trip-tpl{width: 60px;left: 10px;top: -60px;}
+  
+}
+
+@media(min-width:767px) and (max-width:991px){
+.ltst-trip-tpl{width: 110px;}
+}
+
+
+/*---------- Client Review ----------*/
+@media(max-width:767px){
+  
+.client-review-wrapper{padding: 90px 0 90px 0 !important;}
+.clnt-revw-content{text-align: center;}
+.clnt-revw-content h2 br{display: none !important;}
+.client-review-slider{margin-top: 60px;}
+.testimonial-card{width: 100%;}
+.testimonial-content{bottom: 50px;}
+.client-testimonial{padding-bottom: 35px;}
+.clnt-revw-content p{text-align:center !important;}
+.clnt-rvw-shape-br{width: 100px;}
+.clnt-rvw-shape-tl{width: 65px;}
+}
+
+@media(min-width:767px) and (max-width:991px){
+  .testimonial-card{width: 100%;}         
+  .testimonial-content{bottom: 50px;}
+  .client-review-slider{margin-top: 60px;}
+  .clnt-revw-content p{text-align:center !important;}
+  .clnt-revw-content .custom-btn{width:max-content !important;margin: auto;margin-top: 50px;}
+  .clnt-revw-content h2 br{display: none !important;}
+}
+
+@media(min-width:992px) and (max-width:1199px){
+  .clnt-rvw-shape-tl {
+  top: -17px;}
+}
+
+
+/*---------- Get In Touch -----------*/
+@media(max-width:767px){
+  .get-in-touch-wrapper p{text-align: center;}
+  .get-in-touch-form{width: 100%;padding: 40px 15px 65px 15px;}
+  .submit-btn button{padding: 25px;}
+}
+@media(min-width:767px) and (max-width:991px){
+.get-in-touch-wrapper p{text-align: center;}
+  .get-in-touch-form{width: 100%;}
+
+}
+
+/*---------- Gallery ----------*/
+
+@media(min-width:767px) and (max-width:991px){
+  .gallery-item.big {
+  width: 268px;
+}
+  .gallery-item img, .gallery-item-sub img{height: 100%;}
+}
+
+@media(min-width:992px) and (max-width:1199px){
+  .gallery-item img, .gallery-item-sub img{height: 100%;}
+}
+
+
+/*---------- FAQ ----------*/
+@media(max-width:767px){
+  .faq-bg-shape{width: 80px;top: -25px;left: 15px;}
+  .faq-img img{width: 100% !important;margin: auto;display: block;}
+.faq-accordian-title{font-size: 14px;}
+ .faq-accordian-content p{font-size: 12px;}
+}
+
+@media(min-width:767px) and (max-width:991px){
+  .faq-img img{width:50% !important;margin: auto;display: block;}
+  .faq-bg-shape{top: 160px;}
+}
+
+ /*---------- Recent Blogs  ----------*/
+ @media(max-width:767px){
+.blog-posts{flex-direction: column;margin-top: 50px;gap: 0;}
+.first-post{width: 100%;}
+.blog-bg-shape{display: none;}
+
+.double-posts .post-item{flex-direction: column;height: 100%;}
+.double-posts .post-item .post-item-img{width: 100%;}
+.double-posts .post-item-img img{border-bottom-left-radius: 0;border-top-right-radius: 20px !important;}
+
+ }
+
+ /*---------- Footer ----------*/
+ @media(max-width:767px){
+  footer{height: 100%;padding: 50px 0 200px 0;background-image: url(../images/footer-bg-mb.webp);text-align: center !important;}
+  .ftr-links-wrapper{padding-left: 15px;}
+  .ftr-btm-cloud{bottom: -40px;}
+  .ftr-log img{width: 190px; margin: auto;display: block;}
+  .ftr-content p{text-align: center;}
+  .ftr-quick-links{width: 200px;margin: auto;}
+  .ftr-contact-item-icon img{width: 35px;}
+  .ftr-contact-item-details p{text-align: left !important;}
+  .ftr-social-media-wrapper{justify-content: center;margin-top: 0;}
+  .ftr-social-media-item img{width: 35px;}
+ }
+
+ @media(min-width:767px) and (max-width:991px){
+    footer{height: 100%;padding: 50px 0;}
+     .ftr-links-wrapper{padding-left: 15px;margin-top: 30px;}
+      .ftr-btm-cloud{bottom: -75px;}
+      .ftr-log img{width: 190px;}
+ }
+
+ @media(min-width:992px) and (max-width:1199px){
+   .ftr-links-wrapper{padding-left: 50px;}
+    .ftr-btm-cloud{bottom: -100px;}
+ }
+
+
+ /*==================== International Tours Page =====================*/
+/*---------- Hero ----------*/
+@media(max-width:767px){
+ .sub-page-hero .tour-hero-content h1{font-size: 30px;}
+ .sub-page-hero .tour-hero-content{width: 100%; max-width: 100%;padding:0 15px;}
+}
+
+
+/*--------- International Destinations ---------*/
+@media(max-width:767px){
+.internation-top-destini{grid-template-columns: repeat(1, 1fr) !important;}
+.internation-top-destini .recmntn-package-item{width: 100%;}
+.subpage-packages .trolly-bb-shape {
+  position: absolute;
+  top: 25px;
+  left: 5px;
+  width: 60px;}
+}
+
+ @media(min-width:767px) and (max-width:991px){
+  .internation-top-destini{grid-template-columns: repeat(2, 1fr) !important;}
+  .internation-top-destini .recmntn-package-item{width: 100%;}
+  .subpage-packages .trolly-bb-shape {
+  position: absolute;
+  top: 25px;
+  left: 5px;
+  width: 100px;}
+
+ }
+
+  @media(min-width:992px) and (max-width:1199px){
+   .internation-top-destini{grid-template-columns: repeat(3, 1fr) !important;} 
+  }
+
+/*---------- First Content Section ----------*/
+@media(max-width:767px){
+  .first-content-sec-img img{width: 75%;}
+  .sub-page-first-content-sec .container{
+    padding-left: 15px;
+  padding-right: 15px;
+  }
+  .first-content-sec-img{margin-bottom: 30px;}
+  .first-content-sec-content {
+  padding-left: 0px;
+}
+.first-content-sec-content p{text-align: center;}
+}
+
+ @media(min-width:767px) and (max-width:991px){
+  .sub-page-first-content-sec .container{
+    padding-left: 15px;
+  padding-right: 15px;
+  }
+  .first-content-sec-img img{width: 50%;}
+    .first-content-sec-img{margin-bottom: 50px;}
+    
+ }
+
+
+ /*---------- Second Content Section ----------*/
+ @media(max-width:767px){
+  .second-content-sec-img img{width: 75%;}
+  .sub-page-second-content-sec .container{
+    padding-left: 15px;
+  padding-right: 15px;
+  }
+  .get-in-touch-wrapper.sub-page .container{
+padding-left: 15px;padding-right: 15px;
+}
+
+  .second-content-sec-img{margin-bottom: 30px;}
+  .second-content-sec-content {
+  padding-left: 0px;
+}
+.second-content-sec-content p{text-align: center;}
+.photo-frame-bg{width: 60px;bottom: 20px;right: 10px;}
+.second-content-sec-img{padding-left: 0;}
+}
+
+ @media(min-width:767px) and (max-width:991px){
+  .sub-page-second-content-sec .container{
+    padding-left: 15px;
+  padding-right: 15px;
+  }
+  .second-content-sec-img img{width: 50%;}
+    .second-content-sec-img{margin-bottom: 50px;}
+
+    .get-in-touch-wrapper.sub-page .container{
+padding-left: 15px;padding-right: 15px;
+}
+ .second-content-sec-img{padding-left: 0;}
+    
+ }
+
+ /*---------- special offers ----------*/
+  @media(max-width:767px){
+ .offer-widget-actions {flex-direction: column;}
+ .offer-widget h2{text-align: center;}
+ .offer-widget{padding: 40px 30px 30px 30px;}
+ .offer-video{margin-top: 50px;}
+  }
+
+   @media(min-width:992px) and (max-width:1199px){
+     .offer-widget{padding: 40px 30px 30px 30px;}
+     .offer-widget-actions .custom-btn a {
+  padding: 13px 70px;
+}
+   }
+
+
+
+  /*==================== Contact Us Page =====================*/
+  /*---------- Contact Us ----------*/
+    @media(max-width:767px){
+      .contact-hero-wrapper{background-image: url(../images/contact-us-bg-mb.webp);}
+      .contact-us-info{margin-top: 50px;}
+      .contact-us-info p{text-align: center;}
+    }
+
+     @media(min-width:767px) and (max-width:991px){
+      .contact-us-info{margin-top: 50px;}
+       .contact-us-info p{text-align: center;}
+       .contact-us-img img{width: 50%;}
+     }
+      @media(min-width:992px) and (max-width:1199px){
+  .get-in-touch-wrapper.sub-page .container{padding-left: 50px;padding-right:50px;}
+ }
+
+/*---------- Why Reach Out to Us ----------*/     
+    @media(max-width:767px){
+      .reach-out-wrapper {padding-top: 180px;}
+      .reach-out-wrapper .container {padding-left: 15px;padding-right: 15px;}
+      .reach-out-item-wrapper{margin-top: 50px;margin-bottom: 50px;}
+      .reach-out-item-wrapper{grid-template-columns: repeat(1, 1fr);}
+    }
+
+       @media(min-width:575px) and (max-width:767px){
+   .reach-out-item-wrapper{grid-template-columns: repeat(2, 1fr);}
+ }
+
+ @media(min-width:767px) and (max-width:991px){
+ .reach-out-wrapper .container {padding-left: 15px;padding-right: 15px;}
+   .reach-out-item-wrapper{grid-template-columns: repeat(2, 1fr);}
+        }
+ @media(min-width:992px) and (max-width:1199px){
+  .reach-out-wrapper .container {padding-left: 50px;padding-right:50px;}
+ }
+
+
+ /*==================== Inner Page - Maldives =====================*/
+   @media(max-width:767px){
+.tour-prgrm-enqry-frm-wrapper{width: max-content;margin: auto; position: unset;margin-bottom: 50px;width: 100%;border-top-right-radius: 150px;}
+
+.tour-prgrm-enqry-frm{width: 100%;}
+
+    .tour-prgrm-cta-item{width: max-content;margin: auto;}
+    .tour-prgrm-cta-item a{padding: 14px 15px;}
+    .tour-prgrm-info{padding: 0;margin-bottom: 30px;}
+    .tour-prgrm-info p{padding-right: 0;}
+    .overview-details-item{padding: 20px;}
+    .tour-prgrm-wrapper .sec-title { padding-left: 0px;}
+    .tour-prgrm-cta-wrapper{padding-left: 0;}
+     .overview-highlights {
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+  }
+    .tour-prgrm-tab-btns{padding: 0;}
+   }
+ @media(min-width:767px) and (max-width:991px){
+  .overview-highlights{width: 100%;}
+ .overview-highlights-item P{width: 100% !important;}
+ }
+
+  @media(min-width:992px) and (max-width:1199px){
+     .overview-highlights{width: 100%;}
+  }
+
+  @media(min-width:1200px){
+    .tour-prgrm-wrapper .sec-title {max-width: 715px;}
+    .tour-prgrm-wrapper .sec-title h2{font-size: 36px;}
+  }
+
+/*==================== About Us Page =====================*/
+/*---------- About Us ----------*/
+ @media(max-width:767px){
+  .sub-page-hero{height: 500px; background-position: 100% 100%;}
+  .sub-page-hero.about-us{background-image: url(../images/abt-us-page-hero-bg-mb.webp);}
+  .abt-page-abt-sec-content-wrapper{margin-top: 50px;}
+  .abt-page-abt-sec-wrapper h2{font-size: 22px;}
+  .abt-page-abt-sec-content p{padding-right: 0;}
+  .abt-page-abt-sec-img .counter-inner{right: 25px;}
+  .abt-page-abt-sec-right{padding: 15px;}
+  .abt-page-abt-sec-img{margin-bottom: 50px;}
+  .abt-page-abt-sec-img img{width: 70%;}
+  .abt-page-abt-sec-img .counter-inner h3{font-size: 24px;margin: 0;}
+  .abt-page-abt-sec-img .counter-inner p{font-size: 16px;}
+  .abt-page-abt-sec-shape{display: none;}
+  .abt-page-abt-sec-glob-shape{width: 70px;bottom: 12px;}
+ }
+
+  @media(min-width:767px) and (max-width:991px){
+    .abt-page-abt-sec-content-wrapper{margin-top: 50px;}
+  .abt-page-abt-sec-content p{padding-right: 0;}
+  .abt-page-abt-sec-img .counter-inner{right: 130px;}
+  .abt-page-abt-sec-right{padding: 15px;}
+  .abt-page-abt-sec-img{margin-bottom: 50px;}
+  .abt-page-abt-sec-img img{width: 50%;}
+  .abt-page-abt-sec-shape{display: none;}
+  .abt-page-abt-sec-img .counter-inner{width: 130px;height: 130px;}
+    .abt-page-abt-sec-glob-shape{width: 80px; bottom: 12px;}
+  }
+
+
+  /*---------- Services ----------*/
+   @media(max-width:767px){
+    .abt-page-ser-sec-wrapper{height: 100%;}
+    .abt-page-ser-item-wrapper{grid-template-columns: repeat(1, 1fr);}
+    .abt-page-ser-item-details{padding: 0;}
+   }
+
+@media(min-width:767px) and (max-width:991px){
+  .abt-page-ser-item-details{padding: 0;}
+}
+
+ @media(min-width:992px) and (max-width:1199px){
+   .abt-page-ser-item-details{padding: 0;}
+ }
+
+
+ /*---------- Our Journey  -----------*/
+  @media(max-width:767px){
+    .our-jrny-wrapper{padding-bottom: 80px;}
+    .our-jrny-wrapper .container{padding: 15px;}
+    .our-jrny-img{margin-bottom: 50px;}
+    .our-jrny-content h2 br{display: none;}
+    .our-jrny-canera-shape{right: 20px;width: 85px;}
+    .our-jrny-content .custom-btn{width: max-content;margin: auto;}
+  }
+
+  
+@media(min-width:767px) and (max-width:991px){
+  .our-jrny-img{margin-bottom: 50px;}
+}
+
+
+/*---------- Our Expert Team ----------*/
+  @media(max-width:767px){
+   .our-expert-wrapper .container{padding: 15px;}
+   .our-expert-content{width: 100%;}
+   .team-wrapper{grid-template-columns: repeat(2, 1fr);}
+   .team-item-img img{width: 70%;}
+   .team-info h4{font-size: 18px;}
+  }
+ 
+ @media(min-width:767px) and (max-width:991px){
+  .team-wrapper{grid-template-columns: repeat(3, 1fr);}
+  .our-expert-content{width: 100%;}
+  
+ } 
+
+
+ /*==================== Packages Page =====================*/
+   @media(max-width:767px){
+    .sub-page-package-listing{display: grid;grid-template-columns: repeat(1, 1fr);gap: 30px;}
+    .sub-page-package-listing-item{margin: auto;}
+    .sub-page-package-listing-bg-shape{display: none;}
+    .intrnl-tour-wrapper{background-image: url(../images/internation-tours-hero-bg-mb.webp);}
+   }
+
+   @media(min-width:767px) and (max-width:991px){
+       .sub-page-package-listing{display: grid;grid-template-columns: repeat(2, 1fr);}
+       .sub-page-package-listing-bg-shape{width:100px;top:38px;}
+   }
+
+  @media(min-width:992px) and (max-width:1199px){
+    .sub-page-package-listing{column-gap: 20px;row-gap: 40px;}
+    .sub-page-package-listing-item{width: 300px;}
+  }
+  @media(min-width:1200px){
+
+  .sub-page-package-listing-wrapper .container{width: 1030px;}
+  }
+
+  /*---------- Get A Discount ----------*/
+    @media(max-width:767px){
+      .get-a-discount-content{text-align: center;}
+      .get-a-discount-cta{width: max-content;margin: auto; margin-top: 50px;}
+      .get-a-discount-content h3{font-size: 24px;}
+    }
+
+     @media(min-width:1600px){
+.get-a-discount-wrapper{height: 520px;}
+     }
+
+
+
+
+/* ------------------------------------------------------------- */
+
+    @media(max-width:767px){
+.sub-page-package-conten-img img{width: 70%;margin: auto;display: block;}
+.sub-page-package-content-snd-row{margin-top:0;}
+
+    }
+
+    
+   @media(min-width:767px) and (max-width:991px){
+    .sub-page-package-conten-img img{width: 70%;margin: auto;display: block;}
+   }
+ @media (min-width: 1200px) {
+  .sub-page-package-content-wrapper .container {
+    width: 1030px;
+  }
+}

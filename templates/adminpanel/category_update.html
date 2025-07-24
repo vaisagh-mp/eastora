@@ -1,0 +1,157 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="add-catgry-col">
+            <div class="add-catgry-card">
+                <h3 class="add-catgry-title mb-4">Update Category</h3>
+                <form class="add-catgry-form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Category Name -->
+                    <div class="mb-3">
+                        <label for="categoryName" class="add-catgry-label">Category Name</label>
+                        <input type="text" name="categoryName" id="categoryName" class="add-catgry-input"
+                            placeholder="Enter category name" value="{{ category.name }}" required>
+                    </div>
+
+                    <!-- Parent Category -->
+                    <div class="mb-3">
+                        <label for="parentCategory" class="add-catgry-label">Parent Category</label>
+                        <select id="parentCategory" name="parentCategory" class="add-catgry-select">
+                            <option value="">None</option>
+                            {% for cat in parent_categories %}
+                                <option value="{{ cat.id }}"
+                                    {% if cat.id|stringformat:"s" == selected_parent_id|stringformat:"s" %}selected{% endif %}>
+                                    {{ cat.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Parent Choice -->
+                    <div class="mb-3">
+                        <label for="parentChoice" class="add-catgry-label">Parent Choice</label>
+                        <select id="parentChoice" name="parentChoice" class="add-catgry-select">
+                            <option value="">None</option>
+                            {% for value, label in parent_choices %}
+                            <option value="{{ value }}" {% if category.parent_choice|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                    <!-- Banner Image with Drag & Drop -->
+                    <div class="mb-3">
+                        <label class="add-catgry-label">Category Banner Image</label>
+                        <input type="file" id="bannerImage" name="bannerImage" class="add-catgry-input d-none"
+                            accept="image/*">
+                        <label for="bannerImage" class="add-catgry-dropzone" id="bannerDropzone">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+                            </svg>
+                            <span id="bannerImageText">Drag & drop your image or <span
+                                    class="add-catgry-select-file">Select files</span></span>
+
+                                        {% if category.banner_image_desktop %}
+                                            <img id="bannerImagePreview" src="{{ category.banner_image_desktop.url }}" alt="Current Banner Image" style="display: block;">
+                                        {% else %}
+                                            <img id="bannerImagePreview" src="" alt="Preview" style="display: none;">
+                                        {% endif %}
+                        </label>
+                    </div>
+
+                    <!-- Short Description -->
+                    <div class="mb-3">
+                        <label for="shortDesc" class="add-catgry-label">Short Description</label>
+                        <input type="text" name="shortDesc" id="shortDesc" class="add-catgry-input"
+                            value="{{ category.short_description }}" placeholder="Brief description">
+                    </div>
+
+                    <!-- Long Description -->
+                    <div class="mb-4">
+                        <label for="longDesc" class="add-catgry-label">Long Description</label>
+                        <textarea name="longDesc" id="longDesc" rows="5" class="add-catgry-textarea"
+                            placeholder="Write full description here...">{{ category.long_description }}</textarea>
+                    </div>
+
+                    <!-- Recommended -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="recomanded" name="recomanded" 
+                        {% if category.is_featured %}checked{% endif %}>
+                        <label class="form-check-label add-catgry-label" for="recomanded">Recommended</label>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-center">
+                        <button type="submit" class="add-catgry-btn">Update Category</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        const dropzone = document.getElementById('bannerDropzone');
+        const input = document.getElementById('bannerImage');
+        const imageText = document.getElementById('bannerImageText');
+        const imagePreview = document.getElementById('bannerImagePreview');
+
+        // Highlight on drag
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropzone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropzone.classList.add('dragover');
+            });
+        });
+
+        // Remove highlight on dragleave/drop
+        ['dragleave', 'drop'].forEach(evt => {
+            dropzone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        // Open file dialog on click
+        dropzone.addEventListener('click', () => input.click());
+
+        // When file is dropped
+        dropzone.addEventListener('drop', e => {
+            e.preventDefault();
+            input.files = e.dataTransfer.files;
+            handleImagePreview(input.files[0]);
+        });
+
+        // When file is selected manually
+        input.addEventListener('change', () => {
+            handleImagePreview(input.files[0]);
+        });
+
+        function handleImagePreview(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    imageText.innerHTML = `<strong>${file.name}</strong> selected.`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imageText.innerHTML = 'Invalid file type. Please select an image.';
+                imagePreview.style.display = 'none';
+            }
+        }
+    </script>
+{% endblock %}

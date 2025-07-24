@@ -1,0 +1,161 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">Add Package</h4>
+            </div>
+            <div class="breadcrumb-list">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Orders Start -->
+
+<div class="pkg-card">
+
+    <!-- <h3 class="pkg-title">Add New Package</h3> -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div class="form-section">
+            <label class="pkg-label">Title</label>
+            <input type="text" name="title" class="pkg-input" placeholder="Enter package title">
+        </div>
+
+        <!-- Slug -->
+        <div class="form-section">
+            <label class="pkg-label">Slug</label>
+            <input type="text" name="slug" class="pkg-input" placeholder="your-package-slug">
+        </div>
+
+        <!-- Short Description -->
+        <div class="form-section">
+            <label class="pkg-label">Short Description</label>
+            <input type="text" name="short_description" class="pkg-input" placeholder="Enter short description">
+        </div>
+
+        <!-- Long Description -->
+        <div class="form-section">
+            <label class="pkg-label">Long Description</label>
+            <textarea id="longDescriptionEditor" name="description" rows="4" class="pkg-textarea" placeholder="Enter long description"></textarea>
+        </div>
+
+        <!-- Location -->
+        <div class="form-section">
+            <label class="pkg-label">Location</label>
+            <input type="text" name="location" class="pkg-input" placeholder="e.g. Dubai, UAE">
+        </div>
+
+        <!-- Price -->
+        <div class="form-section">
+            <label class="pkg-label">Price</label>
+            <input type="number" name="price" class="pkg-input" placeholder="Enter price">
+        </div>
+
+        <!-- Days and Nights -->
+        <div class="form-section">
+            <label class="pkg-label">Duration</label>
+            <div class="d-flex gap-3">
+                <input type="number" name="days" class="pkg-input" style="width: 50%;" placeholder="Days">
+                <input type="number" name="nights" class="pkg-input" style="width: 50%;" placeholder="Nights">
+            </div>
+        </div>
+
+        <!-- Banner Images -->
+        <div class="form-section">
+            <label class="pkg-label">Banner Image (Desktop)</label>
+            <input type="file" name="image_desktop" class="pkg-input">
+        </div>
+        <div class="form-section">
+            <label class="pkg-label">Banner Image (Mobile)</label>
+            <input type="file" name="image_mobile" class="pkg-input">
+        </div>
+
+        <!-- Card Image -->
+        <div class="form-section">
+            <label class="pkg-label">Card Image</label>
+            <input type="file" name="card_image" class="pkg-input">
+        </div>
+
+        <!-- Is Recommended -->
+        <div class="form-check form-switch form-section">
+            <input class="form-check-input" type="checkbox" name="is_featured" id="isRecommended">
+            <label class="form-check-label" for="isRecommended">Is Recommended</label>
+        </div>
+
+        <!-- Select Category -->
+        <div class="form-section">
+            <label class="pkg-label">Select Category</label>
+            <select name="category" class="pkg-select">
+                <option value="">-- Select Category --</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Parent Choice -->
+        <div class="form-section">
+            <label class="pkg-label">Parent Choice</label>
+            <select name="parent_choice" class="pkg-select">
+                <option value="">-- Choose Parent Package (if any) --</option>
+                {% for value, label in parent_choices %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center">
+            <button type="submit" class="pkg-btn">Add Package</button>
+        </div>
+    </form>
+
+</div>
+
+
+<!-- TinyMCE Script -->
+<!-- <script src="https://cdn.tiny.cloud/1/lp4po79dbhjuetthidjnhbo199jjp1fgmpbthwxq3ebj2qls/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> -->
+
+<!-- Initialize TinyMCE -->
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    tinymce.init({
+      selector: '#longDescriptionEditor',
+      height: 300,
+      menubar: false,
+      plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
+        'preview', 'anchor', 'searchreplace', 'visualblocks',
+        'code', 'fullscreen', 'insertdatetime', 'media', 'table',
+        'wordcount'
+      ],
+      toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
+               'alignleft aligncenter alignright alignjustify | ' +
+               'bullist numlist outdent indent | removeformat | help',
+      branding: false
+    });
+  });
+</script> -->
+
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<!-- CK Text Editor -->
+ <script>
+  ClassicEditor
+    .create(document.querySelector('#longDescriptionEditor'))
+    .then(editor => {
+      editor.ui.view.editable.element.style.height = '250px';
+    })
+    .catch(error => {
+      console.error('There was a problem initializing CKEditor:', error);
+ });
+</script>
+{% endblock %}

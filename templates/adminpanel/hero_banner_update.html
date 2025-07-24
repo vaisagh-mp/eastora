@@ -1,0 +1,215 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">Update Hero Banner</h4>
+            </div>
+            <div class="breadcrumb-list">
+                <!-- <ul>
+                                    <li class="breadcrumb-link">
+                                        <a href="index.html"><i class="fas fa-layer-group mr-2"></i>Hero Banner</a>
+                                    </li>
+                                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Orders Start -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="hero-banner-col">
+            <div class="hero-banner-card">
+                <h3 class="hero-banner-title">Update Hero Banner</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Banner Image -->
+                    <div class="mb-3">
+                        <label class="hero-banner-label">Banner Image</label>
+                        <input type="file" id="bannerImage" name="bannerImage" class="d-none" accept="image/*">
+
+                        <div class="hero-banner-dropzone" id="bannerDropzone">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+                            </svg>
+                            <p id="bannerImageText">Drag & drop or <span
+                                    style="color:#007bff;text-decoration:underline">Select file</span>
+                            </p>
+
+                            <!-- Show existing image if available -->
+                            {% if banner.image_desktop %}
+                                <img id="bannerImagePreview" src="{{ banner.image_desktop.url }}" alt="Current Banner Image" style="display: block;">
+                            {% else %}
+                                <img id="bannerImagePreview" src="" alt="Preview" style="display: none;">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Mobile Banner Image -->
+                    <div class="mb-3">
+                        <label class="hero-banner-label">Mobile Banner Image</label>
+                        <input type="file" id="mobileBannerImage" name="mobileBannerImage" class="d-none" accept="image/*">
+                    
+                        <div class="hero-banner-dropzone" id="mobileBannerDropzone">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+                            </svg>
+                            <p id="mobileBannerImageText">Drag & drop or <span
+                                    style="color:#007bff;text-decoration:underline">Select file</span>
+                            </p>
+                        
+                            <!-- Show existing mobile image if available -->
+                            {% if banner.image_mobile %}
+                                <img id="mobileBannerImagePreview" src="{{ banner.image_mobile.url }}" alt="Current Mobile Banner Image" style="display: block;">
+                            {% else %}
+                                <img id="mobileBannerImagePreview" src="" alt="Preview" style="display: none;">
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="bannerTitle" class="hero-banner-label">Banner Title</label>
+                        <input type="text" id="bannerTitle" name="bannerTitle" class="hero-banner-input"
+                            placeholder="Enter banner title" value="{{ banner.title }}">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="mb-4">
+                        <label for="bannerContent" class="hero-banner-label">Banner Content</label>
+                        <textarea id="bannerContent" name="bannerContent" rows="4" class="hero-banner-textarea"
+                            placeholder="Enter banner content">{{ banner.subtitle }}</textarea>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-center">
+                        <button type="submit" class="hero-banner-btn">Update Banner</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // ======= Desktop Banner Handling =======
+    const desktopDropzone = document.getElementById('bannerDropzone');
+    const desktopInput = document.getElementById('bannerImage');
+    const desktopPreview = document.getElementById('bannerImagePreview');
+    const desktopText = document.getElementById('bannerImageText');
+
+    // Highlight on drag enter / over
+    ['dragenter', 'dragover'].forEach(evt => {
+        desktopDropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            desktopDropzone.classList.add('dragover');
+        });
+    });
+
+    // Remove highlight on drag leave / drop
+    ['dragleave', 'drop'].forEach(evt => {
+        desktopDropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            desktopDropzone.classList.remove('dragover');
+        });
+    });
+
+    // Click to open file selector
+    desktopDropzone.addEventListener('click', () => desktopInput.click());
+
+    // Handle file drop
+    desktopDropzone.addEventListener('drop', e => {
+        const file = e.dataTransfer.files[0];
+        desktopInput.files = e.dataTransfer.files;  // Trigger input
+        previewDesktopBanner(file);
+    });
+
+    // Handle file selection
+    desktopInput.addEventListener('change', () => {
+        const file = desktopInput.files[0];
+        previewDesktopBanner(file);
+    });
+
+    function previewDesktopBanner(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                desktopPreview.src = e.target.result;
+                desktopPreview.style.display = 'block';
+                desktopText.innerHTML = `<strong>${file.name}</strong> selected.`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            desktopPreview.style.display = 'none';
+            desktopText.innerHTML = 'Invalid file. Please upload an image.';
+        }
+    }
+
+    // ======= Mobile Banner Handling =======
+    const mobileDropzone = document.getElementById('mobileBannerDropzone');
+    const mobileInput = document.getElementById('mobileBannerImage');
+    const mobilePreview = document.getElementById('mobileBannerImagePreview');
+    const mobileText = document.getElementById('mobileBannerImageText');
+
+    ['dragenter', 'dragover'].forEach(evt => {
+        mobileDropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            mobileDropzone.classList.add('dragover');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+        mobileDropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            mobileDropzone.classList.remove('dragover');
+        });
+    });
+
+    mobileDropzone.addEventListener('click', () => mobileInput.click());
+
+    mobileDropzone.addEventListener('drop', e => {
+        const file = e.dataTransfer.files[0];
+        mobileInput.files = e.dataTransfer.files;
+        previewMobileBanner(file);
+    });
+
+    mobileInput.addEventListener('change', () => {
+        const file = mobileInput.files[0];
+        previewMobileBanner(file);
+    });
+
+    function previewMobileBanner(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                mobilePreview.src = e.target.result;
+                mobilePreview.style.display = 'block';
+                mobileText.innerHTML = `<strong>${file.name}</strong> selected.`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            mobilePreview.style.display = 'none';
+            mobileText.innerHTML = 'Invalid file. Please upload an image.';
+        }
+    }
+</script>
+
+
+{% endblock %}

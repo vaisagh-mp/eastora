@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!------------ Hero ------------>
+<div class="sub-page-hero contact-hero-wrapper">
+    <div class="tour-hero-content">
+        <h1>Contact US</h1>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    </div>
+</div>
+<!------------ Contact Us ------------>
+<section class="contact-us-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="contact-us-img">
+                    <img src="{% static 'assets/images/contact-man.webp' %}" alt="Contact Us">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="contact-us-info">
+                    <div class="sec-title">
+                        <h6>Contact Us</h6>
+                        <h2>Get In Touch</h2>
+                    </div>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the
+                        industry's standard dummy text ever since the 1500s, Lorem Ipsum is
+                    <p>
+
+                    <div class="contact-us-item-wrapper">
+
+                        <div class="contact-us-item">
+                            <div class="contact-us-item-icon">
+                                <img src="{% static 'assets/images/icons/tele-phone-2.webp' %}" alt="Telephone">
+                            </div>
+                            <div class="contact-us-item-dtls">
+                                <h5>Phone</h5>
+                                <a href="tel:+91 000000000">+91 000000000</a>
+                                <a href="tel:+91 000000000">+91 000000000</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-us-item">
+                            <div class="contact-us-item-icon">
+                                <img src="{% static 'assets/images/icons/mail-2.webp' %}" alt="Email">
+                            </div>
+                            <div class="contact-us-item-dtls">
+                                <h5>Email Us</h5>
+                                <a href="mailto:loremipsum@gmail.com">loremipsum@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-us-item">
+                            <div class="contact-us-item-icon">
+                                <img src="{% static 'assets/images/icons/location-icon-3.webp' %}" alt="Location">
+                            </div>
+                            <div class="contact-us-item-dtls">
+                                <h5>Office Address</h5>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---------- Get In Touch ---------->
+<section class="ctct-page get-in-touch-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Enquiry</h6>
+                    <h2>
+                        Customize Your<br>
+                        Dream Trip
+                    </h2>
+                </div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the </p>
+
+                <div class="get-in-touch-form">
+                    <form action=" " method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="destination" placeholder="Destination" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="text" name="number" placeholder="Contact Number" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="email" name="email" placeholder="Email Id" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" id="message" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="submit-btn">
+                                    <button type="submit">Get In Touch</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+
+    </div>
+</section>
+<!---------- Why Reach Out to Us ---------->
+<section class="reach-out-wrapper">
+    <div class="container">
+        <div class="sec-title">
+            <h2>Why Reach Out to Us</h2>
+        </div>
+
+        <div class="reach-out-item-wrapper">
+
+            <div class="reach-out-item">
+                <div class="reach-out-item-icon">
+                    <img src="{% static 'assets/images/icons/support.webp' %}" alt="24/7 Support">
+                </div>
+                <div class="reach-out-item-tex">
+                    <h5>24/7 Support</h5>
+                </div>
+            </div>
+
+            <div class="reach-out-item">
+                <div class="reach-out-item-icon">
+                    <img src="{% static 'assets/images/icons/personalized.webp' %}" alt="Personalized Travel Planning">
+                </div>
+                <div class="reach-out-item-tex">
+                    <h5>Personalized
+                        Travel Planning</h5>
+                </div>
+            </div>
+
+            <div class="reach-out-item">
+                <div class="reach-out-item-icon">
+                    <img src="{% static 'assets/images/icons/local-travel.webp' %}" alt="Local Travel Experts">
+                </div>
+                <div class="reach-out-item-tex">
+                    <h5>Local Travel
+                        Experts</h5>
+                </div>
+            </div>
+
+            <div class="reach-out-item">
+                <div class="reach-out-item-icon">
+                    <img src="{% static 'assets/images/icons/fast-secure.webp' %}" alt=" Fast & Secure Booking">
+                </div>
+                <div class="reach-out-item-tex">
+                    <h5>Fast & Secure
+                        Booking</h5>
+                </div>
+            </div>
+
+            <div class="reach-out-item">
+                <div class="reach-out-item-icon">
+                    <img src="{% static 'assets/images/icons/travel-deals.webp' %}" alt="Exclusive Travel Deals">
+                </div>
+                <div class="reach-out-item-tex">
+                    <h5>Exclusive
+                        Travel Deals</h5>
+                </div>
+            </div>
+
+            <div class="reach-out-item">
+                <div class="reach-out-item-icon">
+                    <img src="{% static 'assets/images/icons/reach-out-icon.webp' %}" alt="24/7 Support">
+                </div>
+                <div class="reach-out-item-tex">
+                    <h5>Lorem Ipsum
+                        Is a dummy</h5>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <img class="reach-out-btm-bg" src="{% static 'assets/images/reach-out-btm-bg.webp' %}" alt="Reach Out Bg">
+
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!------------ Hero ------------>
+<div class="sub-page-hero intrnl-tour-wrapper">
+    <div class="tour-hero-content">
+        <h1>Ayurveda & Wellness</h1>
+        <p>Explore the World with Eastora Holidays</p>
+    </div>
+</div>
+
+<!---------- Ayurveda & Wellness ---------->
+<section class="recmntn-wrapper subpage-packages">
+    <img class="package-cr-shape" src="{% static 'assets/images/plane-root-shape.webp' %}" alt="Airoplane Shape">
+    <img class="trolly-bb-shape" src="{% static 'assets/images/trolley-bag.webp' %}" alt="Trolly Bag">
+    <div class="container recmntn">
+        <div class="recmntn-content">
+            <div class="sec-title">
+                <h6>TOP PACKAGES</h6>
+                <h2>
+                    Ayurveda and Wellness Journeys
+                </h2>
+            </div>
+            <p>  Eastora Holidays specializes in crafting wellness retreats centered around Ayurveda, India’s traditional system of healing. Enjoy personalized treatments, detox programs, meditation, and yoga sessions guided by experienced practitioners — all set in tranquil, natural surroundings.
+Reconnect with your mind, body, and spirit through the ancient science of Ayurveda. Our wellness tours offer authentic healing therapies, yoga retreats, and holistic treatments in serene environments designed to rejuvenate and restore balance.
+</p>
+
+            <!-- <h3>Handpicked Destinations, Hassle-Free Travel</h3>
+            <p> Whether you dream of strolling through the romantic streets of Paris, experiencing the northern lights
+                in Scandinavia, cruising along the Mediterranean, or diving into the vibrant cultures of Southeast Asia,
+                Eastora Holidays offers a range of meticulously planned international itineraries. Our team takes care
+                of everything — from visa support and flights to guided tours and curated experiences — so that you can
+                travel stress-free and focus on enjoying every moment.</p>
+
+
+            <h3>Personalized Journeys to Suit Every Traveller</h3>
+            <p> We understand that no two travelers are the same. That’s why our international packages come with
+                customizable options that align with your preferences, budget, and travel pace. Whether it’s a luxury
+                escape, an adventure-filled journey, or a cultural immersion, Eastora Holidays brings you world-class
+                experiences with a personal touch — making your international holiday truly your own.</p> -->
+
+        </div>
+
+        <div class="recmntn-package-wrapper internation-top-destini">
+
+            <!-- Item 1 -->
+            <!-- <div class="recmntn-package-item">
+                <img src="{% static 'assets/images/uae-package.webp' %}" alt="UEA Package">
+
+                <div class="recmntn-package-info">
+                    <div class="recmntn-package-info-details">
+                        <h3>Dubai</h3>
+                        <span>5 Tours</span>
+                    </div>
+                    <div class="recmntn-package-info-cta">
+                        <div class="recmntn-package-info-cta-icon">
+                            <a href="#">
+                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="sub-page-package-listing">
+                {% if ayurveda_packages %}
+                {% for package in ayurveda_packages %}
+                <div class="sub-page-package-listing-item">
+                    <div class="sub-page-package-listing-item-img">
+                        <a href="{% url 'ayurveda_package_detail' package_slug=package.slug %}">
+                        <img src="{{ package.card_image.url }}" alt="{{ package.title }}">
+                        </a>
+                    </div>
+                    <div class="sub-page-package-listing-item-details">
+                        <h4>{{ package.title }}</h4>
+                        <p>{{ package.short_description|slice:":103" }}{% if package.short_description|length > 103 %}...{% endif %}</p>
+                        <!-- <div class="days-count">
+                            <div class="days-count-item">
+                                <img src="{% static 'assets/images/icons/group.png' %}" alt="Groups">
+                                <span>Group Tour</span>
+                            </div>
+                            <div class="days-count-item">
+                                <img src="{% static 'assets/images/icons/bed.png' %}" alt="Days">
+                                <span>{{ package.days }}D, {{ package.nights }}N</span>
+                            </div>
+                        </div> -->
+                        <div class="sub-page-package-listing-item-details-btn">
+                            <a href="{% url 'ayurveda_package_detail' package_slug=package.slug %}">
+                                Know More
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No packages available in this category.</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- <div class="custom-btn">
+            <a href="#">Explore Top Packages</a>
+        </div> -->
+
+    </div>
+</section>
+<!---------- special offers ---------->
+<section class="spl-offer-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="offer-widget">
+                    <h2>Exclusive travel discounts <br>
+                        & special offers</h2>
+
+                    <div class="offer-widget-actions">
+                        <div class="custom-btn">
+                            <a href="#">View All</a>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <div class="offer-video">
+                    <a href="#"><img src="{% static 'assets/images/play-btn.webp' %}" alt="Play Button"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---------- First Content Section ---------->
+<section class="sub-page-first-content-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="first-content-sec-img">
+                    <img src="{% static 'assets/images/content-sec-img-1.webp' %}" alt="International Destinations ">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="first-content-sec-content">
+                    <div class="sec-title">
+                        <!-- <h6>LOREM IPSUM</h6> -->
+                        <h2 style="font-size: 30px;"> Ayurveda & Wellness with Eastora Holidays</h2>
+                    </div>
+                    <p>Discover the ancient wisdom of Ayurveda and rejuvenate your mind, body, and spirit. At Eastora Holidays, we offer curated wellness experiences that blend traditional Ayurvedic healing with serene natural surroundings, professional therapies, organic cuisine, and soulful retreats. Whether you seek detoxification, stress relief, or a complete lifestyle reset, our holistic wellness packages are designed to restore balance and harmony in your life.</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <img class="sub-page-sec-btm-pattern" src="{% static 'assets/images/sub-page-sec-btm-pattern.webp' %}"
+        alt="BG Pattern">
+</section>
+<!---------- Get In Touch ---------->
+<section class="get-in-touch-wrapper sub-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h6>Get In Touch</h6>
+                    <h2>
+                        Customize Your<br>
+                        Dream Trip
+                    </h2>
+                </div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the </p>
+
+                <div class="get-in-touch-form">
+                    <form action=" " method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="destination" placeholder="Destination" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="text" name="number" placeholder="Contact Number" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="email" name="email" placeholder="Email Id" required>
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" id="message" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="submit-btn">
+                                    <button type="submit">Get In Touch</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+
+    </div>
+</section>
+<!---------- Second Content Section ---------->
+<section class="sub-page-second-content-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 order-lg-2">
+                <div class="second-content-sec-img">
+                    <img src="{% static 'assets/images/content-sec-img-2.webp' %}" alt="International Destinations">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="second-content-sec-content">
+                    <!-- <div class="sec-title">
+              <h6>LOREM IPSUM</h6>
+              <h2>Your Gateway to the World’s Most Captivating Destinations</h2>
+            </div> -->
+
+                    <h3>Crafted Experiences Across Asia, Europe & Beyond</h3>
+                    <p> Step into the vibrant markets and cultural delights of Bangkok and Malaysia, or journey into the
+                        mystical highlands of Bhutan and Nepal. For those craving cooler climates and charming
+                        cityscapes, our tours to Georgia and London provide a rich mix of history, nature, and
+                        contemporary lifestyle. Whether it’s a honeymoon, family getaway, or a solo escape, each
+                        destination is curated to give you an unforgettable experience.</p>
+
+                    <h3>Hassle-Free Holidays, the Eastora Way</h3>
+                    <p> With seamless planning, personalized itineraries, and end-to-end travel assistance, Eastora
+                        Holidays ensures every international trip is smooth and memorable. From visa support and guided
+                        tours to comfortable stays and local experiences, we take care of it all — so you can enjoy the
+                        journey, stress-free. Explore the world with confidence — travel with Eastora.</p>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <img class="photo-frame-bg" src="{% static 'assets/images/photo-shape-bg.webp' %}" alt="Photo Frame">
+</section>
+
+{% endblock %}
