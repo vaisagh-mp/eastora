@@ -65,11 +65,6 @@ def home(request):
             category=west_india_category
         ).order_by('-id')[:5]
 
-    for package in featured_tourpackages:
-        package.title_main = package.title.split('–')[0].strip() if '–' in package.title else package.title
-
-
-
     return render(request, 'home.html', {
         'packages': packages,
         'resorts': resorts,

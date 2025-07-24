@@ -216,7 +216,7 @@
                                     <li>
                                         <a
                                             href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
-                                            {{ pkg.title }} ({{ pkg.get_duration }})
+                                            {{ pkg.title_main }}
                                         </a>
                                     </li>
                                     {% endfor %}
@@ -261,7 +261,7 @@
                                     {% for pkg in south_india_packages %}
                                     <li><a
                                         href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
-                                        {{ pkg.title }} ({{ pkg.get_duration }})
+                                        {{ pkg.title_main }}
                                     </a></li>
                                     {% endfor %}
                                     {% else %}
@@ -307,7 +307,7 @@
                                     {% for pkg in east_india_packages %}
                                     <li><li><a
                                         href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
-                                        {{ pkg.title }} ({{ pkg.get_duration }})
+                                        {{ pkg.title_main }}
                                     </a></li></li>
                                     {% endfor %}
                                     {% else %}
@@ -351,7 +351,7 @@
                                     {% for pkg in west_india_packages %}
                                     <li><li><a
                                         href="{% url 'package_detail' subcategory_slug=pkg.category.slug package_slug=pkg.slug %}">
-                                        {{ pkg.title }} ({{ pkg.get_duration }})
+                                        {{ pkg.title_main }}
                                     </a></li></li>
                                     {% endfor %}
                                     {% else %}

@@ -96,6 +96,10 @@ class TourPackage(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    @property
+    def title_main(self):
+        return self.title.split('–')[0].strip() if '–' in self.title else self.title
+
     def __str__(self):
         return self.title
 
