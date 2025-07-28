@@ -53,6 +53,12 @@
 
   .hrd-wrapper{padding: 0;}
   header nav ul li a{padding: 10px;}
+
+  .search-container{
+    border-radius: 5px;background-color: transparent;border: 1px solid #D12027;
+  }
+  .search-container input{color: #000 !important;}
+  .search-container .search-icon{color: #D12027 !important;}
 }
 
 /* Responsive Adjustment for Scrolled Header */

@@ -14,42 +14,42 @@
 
 
 // Search Bar
-async function showSuggestions(value) {
-    const suggestionList = document.getElementById("suggestionsList");
+async function showSuggestions(value, type) {
+    const suggestionListId = type === "Mobile" ? "suggestionsListMobile" : "suggestionsListDesktop";
+    const suggestionList = document.getElementById(suggestionListId);
+
     suggestionList.innerHTML = "";
 
     if (value.trim() === "") {
-      suggestionList.style.display = "none";
-      return;
+        suggestionList.style.display = "none";
+        return;
     }
 
     try {
-      const response = await fetch(`/search-packages/?q=${encodeURIComponent(value)}`);
-      const data = await response.json();
-      const suggestions = data.results;
+        const response = await fetch(`/search-packages/?q=${encodeURIComponent(value)}`);
+        const data = await response.json();
+        const suggestions = data.results;
 
-      if (suggestions.length === 0) {
-        suggestionList.style.display = "none";
-        return;
-      }
+        if (suggestions.length === 0) {
+            suggestionList.style.display = "none";
+            return;
+        }
 
-      suggestions.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item.title;
+        suggestions.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = item.title;
+            li.onclick = () => {
+                window.location.href = item.url;
+            };
+            suggestionList.appendChild(li);
+        });
 
-        // Redirect to the package detail URL provided by Django
-        li.onclick = () => {
-          window.location.href = item.url;
-        };
-
-        suggestionList.appendChild(li);
-      });
-
-      suggestionList.style.display = "block";
+        suggestionList.style.display = "block";
     } catch (error) {
-      console.error("Error fetching suggestions:", error);
+        console.error("Error fetching suggestions:", error);
     }
-  }
+}
+
 
 
 // Hero Carousel

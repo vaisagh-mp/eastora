@@ -36,6 +36,15 @@
                     </a>
                 </div>
                 <nav>
+                    <!-- Mobile Search Bar -->
+                    <div class="search-bar dktp-none">
+                        <div class="search-container">
+                            <input type="text" id="searchInputMobile" placeholder="Search"
+                                oninput="showSuggestions(this.value, 'Mobile')" />
+                            <a href="#"><i class="fa fa-search search-icon"></i></a>
+                            <ul class="suggestions" id="suggestionsListMobile"></ul>
+                        </div>
+                    </div>
                     <ul>
                         <li><a href="{% url 'home' %}" >Home</a></li>
                         <li><a href="{% url 'about_us' %}">About</a></li>
@@ -45,23 +54,14 @@
                         <!-- <li><a href="##">Eastora Specials</a></li> -->
                         <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
                     </ul>
-                    <!-- Mobile Search Bar -->
-                    <!-- <div class="search-bar dktp-none">
-                        <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Search"
-                                oninput="showSuggestions(this.value)" />
-                            <a href="#"><i class="fa fa-search search-icon"></i></a>
-                            <ul class="suggestions" id="suggestionsList"></ul>
-                        </div>
-                    </div> -->
                 </nav>
                 <!-- Deskto Search Bar -->
                 <div class="search-bar mb-none">
                     <div class="search-container">
-                        <input type="text" id="searchInput" placeholder="Search"
-                            oninput="showSuggestions(this.value)" />
+                        <input type="text" id="searchInputDesktop" placeholder="Search"
+                            oninput="showSuggestions(this.value, 'Desktop')" />
                         <a href="#"><i class="fa fa-search search-icon"></i></a>
-                        <ul class="suggestions" id="suggestionsList"></ul>
+                        <ul class="suggestions" id="suggestionsListDesktop"></ul>
                     </div>
                 </div>
                 <div class="menu-toggle"><i class="fa fa-bars"></i></div>
@@ -146,7 +146,7 @@
                                     <li><a href="{% url 'india_tours' %}">India Tours</a></li>
                                     <li><a href="{% url 'international_tours' %}">International Tours</a></li>
                                     <li><a href="{% url 'ayurveda_tours' %}">Ayurveda Wellness</a></li>
-                                    <li><a href="#">Eastora Specials</a></li>
+                                    <!-- <li><a href="#">Eastora Specials</a></li> -->
                                 </ul>
                             </div>
                         </div>

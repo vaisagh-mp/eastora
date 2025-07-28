@@ -449,12 +449,15 @@ def search_packages(request):
 
         if parent == 'india' and pkg.category:
             url = reverse('package_detail', args=[pkg.category.slug, pkg.slug])
-        elif parent == 'international':
-            url = reverse('international_package_detail', args=[pkg.slug])
+
+        elif parent == 'international' and pkg.category:
+            url = reverse('international_package_detail', args=[pkg.category.slug, pkg.slug])
+
         elif parent == 'ayurveda':
             url = reverse('ayurveda_package_detail', args=[pkg.slug])
+
         else:
-            continue  # Skip 'specials' or any other unknown category
+            continue  # Skip 'specials' or any unknown category
 
         results.append({
             'title': pkg.title,
