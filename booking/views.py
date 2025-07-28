@@ -39,30 +39,60 @@ def home(request):
     # Fetch last 5 packages in "North India"
     north_india_category = Category.objects.filter(name="North India").first()
     north_india_packages = []
+
     if north_india_category:
+        # Get all subcategory ids including nested ones
+        subcategories = Category.objects.filter(parent=north_india_category)
+        subcategory_ids = list(subcategories.values_list('id', flat=True))
+
+        # Optional: include deeper nested levels (if needed)
+        deeper_subcategories = Category.objects.filter(parent__in=subcategory_ids)
+        subcategory_ids += list(deeper_subcategories.values_list('id', flat=True))
+
+        # Filter packages in all those subcategories
         north_india_packages = TourPackage.objects.filter(
-            category=north_india_category
+            category__id__in=subcategory_ids
         ).order_by('-id')[:5]
 
     south_india_category = Category.objects.filter(name="South India").first()
     south_india_packages = []
+
     if south_india_category:
+        subcategories = Category.objects.filter(parent=south_india_category)
+        subcategory_ids = list(subcategories.values_list('id', flat=True))
+        deeper_subcategories = Category.objects.filter(parent__in=subcategory_ids)
+        subcategory_ids += list(deeper_subcategories.values_list('id', flat=True))
+
         south_india_packages = TourPackage.objects.filter(
-            category=south_india_category
+            category__id__in=subcategory_ids
         ).order_by('-id')[:5]
+
 
     east_india_category = Category.objects.filter(name="East India").first()
     east_india_packages = []
+    
     if east_india_category:
+        subcategories = Category.objects.filter(parent=east_india_category)
+        subcategory_ids = list(subcategories.values_list('id', flat=True))
+        deeper_subcategories = Category.objects.filter(parent__in=subcategory_ids)
+        subcategory_ids += list(deeper_subcategories.values_list('id', flat=True))
+    
         east_india_packages = TourPackage.objects.filter(
-            category=east_india_category
+            category__id__in=subcategory_ids
         ).order_by('-id')[:5]
+
 
     west_india_category = Category.objects.filter(name="West India").first()
     west_india_packages = []
+    
     if west_india_category:
+        subcategories = Category.objects.filter(parent=west_india_category)
+        subcategory_ids = list(subcategories.values_list('id', flat=True))
+        deeper_subcategories = Category.objects.filter(parent__in=subcategory_ids)
+        subcategory_ids += list(deeper_subcategories.values_list('id', flat=True))
+    
         west_india_packages = TourPackage.objects.filter(
-            category=west_india_category
+            category__id__in=subcategory_ids
         ).order_by('-id')[:5]
 
     return render(request, 'home.html', {
@@ -142,15 +172,16 @@ def india_tours_view(request):
             message=message
         )
         return redirect(request.path_info)
-    
-    india_category = Category.objects.filter(parent_choice='India Tours', parent__isnull=True).first()
 
-    india_subcategories = Category.objects.filter(parent=india_category).annotate(
+    # ✅ Get all India-level regions like North India, South India (whose parent has parent = null)
+    india_subcategories = Category.objects.filter(
+        parent_choice='india',
+        parent__isnull=True,
+    ).annotate(
         package_count=Count('packages'),
         has_children=Count('subcategories')
     )
 
-    # Annotate sub-subcategories with package_count
     for subcat in india_subcategories:
         subcat.children = Category.objects.filter(parent=subcat).annotate(
             package_count=Count('packages')
@@ -163,17 +194,22 @@ def india_tours_view(request):
 def india_subcategory_detail(request, subcategory_slug):
     subcategory = get_object_or_404(Category, slug=subcategory_slug, parent_choice='india')
 
-    # Get child categories of this subcategory
-    child_categories = Category.objects.filter(parent=subcategory)
-
-    # Fetch packages for subcategory and its children
-    packages = TourPackage.objects.filter(
-        Q(category=subcategory) | Q(category__in=child_categories)
+    # Get child categories of this subcategory (sub-subcategories)
+    subcategories = Category.objects.filter(parent=subcategory).annotate(
+        package_count=Count('packages')
     )
+
+    if subcategories.exists():
+        # This subcategory has child categories, so don't show packages yet
+        packages = None
+    else:
+        # No subcategories → show packages under this category
+        packages = TourPackage.objects.filter(category=subcategory)
 
     return render(request, 'india/india_subcategory_detail.html', {
         'subcategory': subcategory,
-        'packages': packages
+        'subcategories': subcategories,
+        'packages': packages,
     })
 
 def international_tours_view(request):
@@ -187,15 +223,65 @@ def international_tours_view(request):
         )
         return redirect(request.path_info)
 
-    international_packages = TourPackage.objects.filter(parent_choice='international')
+    international_subcategories = Category.objects.filter(
+        parent_choice='international',
+        parent__isnull=True,
+    ).annotate(
+        package_count=Count('packages'),
+        has_children=Count('subcategories')
+    )
 
-    return render(request, 'international/packages.html', {
-        'international_packages': international_packages
+    for subcat in international_subcategories:
+        subcat.children = Category.objects.filter(parent=subcat).annotate(
+            package_count=Count('packages')
+        )
+
+    return render(request, 'international/destinations.html', {
+        'international_subcategories': international_subcategories
     })
 
-def international_package_detail_view(request,package_slug):
-    # category = get_object_or_404(Category, slug=subcategory_slug)
-    package = get_object_or_404(TourPackage, slug=package_slug)
+def is_international_category(category):
+    while category:
+        if category.parent_choice == 'international':
+            return True
+        category = category.parent
+    return False
+
+from django.http import Http404
+def international_subcategory_detail(request, subcategory_slug):
+    # Get the subcategory by slug
+    subcategory = get_object_or_404(Category, slug=subcategory_slug)
+
+    # Traverse up the category tree to ensure it's under international
+    if not is_international_category(subcategory):
+        raise Http404("This subcategory is not under International Tours.")
+
+    # Get its direct children with annotated package count
+    subcategories = Category.objects.filter(parent=subcategory).annotate(
+        package_count=Count('packages')
+    )
+
+    if subcategories.exists():
+        packages = None
+    else:
+        packages = TourPackage.objects.filter(category=subcategory)
+
+    return render(request, 'international/international_subcategory_detail.html', {
+        'subcategory': subcategory,
+        'subcategories': subcategories,
+        'packages': packages,
+    })
+def international_package_detail_view(request, subcategory_slug, package_slug):
+    # Get the category by slug (no need to filter by parent_choice)
+    category = get_object_or_404(Category, slug=subcategory_slug)
+
+    # Get the tour package by slug and category, but ensure it's under 'international' via TourPackage
+    package = get_object_or_404(
+        TourPackage,
+        slug=package_slug,
+        category=category,
+        # parent_choice='international'  # This ensures it's an international package
+    )
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -208,10 +294,11 @@ def international_package_detail_view(request,package_slug):
             contact_number=contact_number,
             related_package=package
         )
-        return redirect(request.path_info)  # Reload page or redirect to thank-you
+        return redirect(request.path_info)
 
     return render(request, 'international/package_detail.html', {
-        'package': package
+        'package': package,
+        'title_main': package.title.split('–')[0].strip() if '–' in package.title else package.title,
     })
 
 

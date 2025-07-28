@@ -7,16 +7,15 @@ urlpatterns = [
     path('contact-us/', views.contact_us_view, name='contact_us'),
     path('search-packages/', views.search_packages, name='search_packages'),
     # ---- INDIA TOURS ROUTES ----
-    # path('india-tours/<slug:subcategory_slug>/<slug:child_slug>/<slug:package_slug>/', views.nested_package_detail_view, name='nested_package_detail'),
-    # path('india-tours/<slug:subcategory_slug>/<slug:child_slug>/', views.india_subcategories_sub_detail, name='india_subcategories_sub_detail'),
-    # path('india-tours/<slug:subcategory_slug>/packages', views.india_subcategory_subpackages_detail, name='india_subcategory_subpackages_detail'),
     path('india-tours/<slug:subcategory_slug>/<slug:package_slug>/', views.package_detail_view, name='package_detail'),
     path('india-tours/<slug:subcategory_slug>/', views.india_subcategory_detail, name='india_subcategory_detail'),
     path('india-tours/', views.india_tours_view, name='india_tours'),
 
     # ---- OTHERS ----
+    
+    path('international-tours/<slug:subcategory_slug>/<slug:package_slug>/', views.international_package_detail_view, name='international_package_detail'),
+    path('international-tours/<slug:subcategory_slug>/', views.international_subcategory_detail, name='international_subcategory_detail'),
     path('international-tours/', views.international_tours_view, name='international_tours'),
-    path('international-tours/<slug:package_slug>/', views.international_package_detail_view, name='international_package_detail'),
 
     path('ayurveda/', views.ayurveda_tours_view, name='ayurveda_tours'),
     path('ayurveda/<slug:package_slug>/', views.ayurveda_package_detail_view, name='ayurveda_package_detail'),

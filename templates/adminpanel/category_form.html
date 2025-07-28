@@ -12,9 +12,9 @@
                 <form method="POST" class="add-catgry-form" enctype="multipart/form-data"> {% csrf_token %}
                     <!-- Category Name -->
                     <div class="mb-3">
-                        <label for="categoryName" class="add-catgry-label">Category Name</label>
-                        <input type="text" name="categoryName" id="categoryName" class="add-catgry-input" placeholder="Enter category name"
-                            required>
+                        <label for="categoryName" class="add-catgry-label">Category Name<span style="color:red">*</span></label>
+                        <input type="text" name="categoryname" id="categoryName" class="add-catgry-input"
+                            placeholder="Enter category name" required>
                     </div>
 
                     <!-- Parent Category -->
@@ -29,8 +29,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="parentChoice" class="add-catgry-label">Parent Choice</label>
-                        <select id="parentChoice" name="parentChoice" class="add-catgry-select">
+                        <label for="parentChoice" class="add-catgry-label">Parent Choice<span style="color:red">*</span></label>
+                        <select id="parentChoice" name="parentChoice" class="add-catgry-select" required>
                             <option value="">Select a tour category</option>
                             <option value="india">India Tours</option>
                             <option value="international">International Tours</option>
@@ -42,7 +42,7 @@
 
                     <!-- Banner Image with Drag & Drop -->
                     <div class="mb-3">
-                        <label class="add-catgry-label">Category Banner Image</label>
+                        <label class="add-catgry-label">Category Banner Image<span style="color:red">*</span></label>
                         <!-- Hidden native file input -->
                         <input type="file" id="bannerImage" class="add-catgry-input d-none" accept="image/*">
 
@@ -64,18 +64,58 @@
                         </label>
                     </div>
 
+                    <!-- Card Image -->
+                    <div class="form-section">
+                        <label class="pkg-label">Card Image<span style="color:red">*</span></label>
+                        <input type="file" name="card_image" class="pkg-input" required>
+                    </div>
+
                     <!-- Short Description -->
                     <div class="mb-3">
-                        <label for="shortDesc" class="add-catgry-label">Short Description</label>
-                        <input type="text" name="shortDesc" id="shortDesc" class="add-catgry-input" placeholder="Brief description">
+                        <label for="shortDesc" class="add-catgry-label">Short Description <span
+                                style="color:red">*</span></label>
+                        <input type="text" name="shortDesc" id="shortDesc" class="add-catgry-input"
+                            placeholder="Brief description" required minlength="5" maxlength="150">
                     </div>
 
                     <!-- Long Description -->
                     <div class="mb-4">
-                        <label for="longDesc" class="add-catgry-label">Long Description</label>
-                        <textarea name="longDesc" id="longDesc" rows="5" class="add-catgry-textarea"
+                        <label for="longDesc" class="add-catgry-label">Long Description <span
+                                style="color:red">*</span></label>
+                        <textarea name="longDesc" id="longDescriptionEditor" rows="5" class="add-catgry-textarea"
                             placeholder="Write full description here..."></textarea>
                     </div>
+
+                    <!-- Tittle Name One -->
+                    <div class="mb-3">
+                        <label for="tittlefirst" class="add-catgry-label">Tittle Name One</label>
+                        <input type="text" name="tittlefirst" id="tittlefirst" class="add-catgry-input"
+                            placeholder="Enter title first" required>
+                    </div>
+
+                    <!-- Tittle Name two -->
+                    <div class="mb-3">
+                        <label for="tittlesecond" class="add-catgry-label">Tittle Name two</label>
+                        <input type="text" name="tittlesecond" id="tittlesecond" class="add-catgry-input"
+                            placeholder="Enter title second" required>
+                    </div>
+
+                    <!-- Content 1 -->
+                    <div class="mb-4">
+                        <label for="contentfir" class="add-catgry-label">Content 1 <span
+                                style="color:red">*</span></label>
+                        <textarea name="contentfir" id="Content1" rows="5" class="add-catgry-textarea"
+                            placeholder="Write full description here..."></textarea>
+                    </div>
+
+                    <!-- Content 2 -->
+                    <div class="mb-4">
+                        <label for="contentsec" class="add-catgry-label">Content 2 <span
+                                style="color:red">*</span></label>
+                        <textarea name="contentsec" id="Content2" rows="5" class="add-catgry-textarea"
+                            placeholder="Write full description here..."></textarea>
+                    </div>
+
 
                     <!-- Recommended -->
                     <div class="mb-3 form-check">
@@ -96,56 +136,90 @@
 
 
 <script>
-        const dropzone = document.getElementById('bannerDropzone');
-        const input = document.getElementById('bannerImage');
-        const imageText = document.getElementById('bannerImageText');
-        const imagePreview = document.getElementById('bannerImagePreview');
+    const dropzone = document.getElementById('bannerDropzone');
+    const input = document.getElementById('bannerImage');
+    const imageText = document.getElementById('bannerImageText');
+    const imagePreview = document.getElementById('bannerImagePreview');
 
-        // Highlight on drag
-        ['dragenter', 'dragover'].forEach(evt => {
-            dropzone.addEventListener(evt, e => {
-                e.preventDefault();
-                dropzone.classList.add('dragover');
-            });
-        });
-
-        // Remove highlight on dragleave/drop
-        ['dragleave', 'drop'].forEach(evt => {
-            dropzone.addEventListener(evt, e => {
-                e.preventDefault();
-                dropzone.classList.remove('dragover');
-            });
-        });
-
-        // Open file dialog on click
-        dropzone.addEventListener('click', () => input.click());
-
-        // When file is dropped
-        dropzone.addEventListener('drop', e => {
+    // Highlight on drag
+    ['dragenter', 'dragover'].forEach(evt => {
+        dropzone.addEventListener(evt, e => {
             e.preventDefault();
-            input.files = e.dataTransfer.files;
-            handleImagePreview(input.files[0]);
+            dropzone.classList.add('dragover');
         });
+    });
 
-        // When file is selected manually
-        input.addEventListener('change', () => {
-            handleImagePreview(input.files[0]);
+    // Remove highlight on dragleave/drop
+    ['dragleave', 'drop'].forEach(evt => {
+        dropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
         });
+    });
 
-        function handleImagePreview(file) {
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                    imageText.innerHTML = `<strong>${file.name}</strong> selected.`;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                imageText.innerHTML = 'Invalid file type. Please select an image.';
-                imagePreview.style.display = 'none';
-            }
+    // Open file dialog on click
+    dropzone.addEventListener('click', () => input.click());
+
+    // When file is dropped
+    dropzone.addEventListener('drop', e => {
+        e.preventDefault();
+        input.files = e.dataTransfer.files;
+        handleImagePreview(input.files[0]);
+    });
+
+    // When file is selected manually
+    input.addEventListener('change', () => {
+        handleImagePreview(input.files[0]);
+    });
+
+    function handleImagePreview(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                imageText.innerHTML = `<strong>${file.name}</strong> selected.`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imageText.innerHTML = 'Invalid file type. Please select an image.';
+            imagePreview.style.display = 'none';
         }
-    </script>
+    }
+</script>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<!-- CK Text Editor -->
+ <script>
+  ClassicEditor
+    .create(document.querySelector('#longDescriptionEditor'))
+    .then(editor => {
+      editor.ui.view.editable.element.style.height = '250px';
+    })
+    .catch(error => {
+      console.error('There was a problem initializing CKEditor:', error);
+ });
+</script>
+
+ <script>
+  ClassicEditor
+    .create(document.querySelector('#Content1'))
+    .then(editor => {
+      editor.ui.view.editable.element.style.height = '250px';
+    })
+    .catch(error => {
+      console.error('There was a problem initializing CKEditor:', error);
+ });
+</script>
+
+ <script>
+  ClassicEditor
+    .create(document.querySelector('#Content2'))
+    .then(editor => {
+      editor.ui.view.editable.element.style.height = '250px';
+    })
+    .catch(error => {
+      console.error('There was a problem initializing CKEditor:', error);
+ });
+</script>
 {% endblock %}

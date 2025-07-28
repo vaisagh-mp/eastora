@@ -45,28 +45,28 @@
                 <div class="recmntn-package-info">
                     <div class="recmntn-package-info-details">
                         <h3>{{ category.name }}</h3>
-                        {% if category.has_children %}
-                        {% for child in category.children %}
-                        <span>{{ child.package_count }} Tours</span>
-                        {% endfor %}
-                        {% else %}
-                        <span>{{ category.package_count }} Tours</span>
-                        {% endif %}
+                        <span>
+                            {% if category.has_children %}
+                                {{ category.children|length }} Destinations
+                            {% else %}
+                                {{ category.package_count }} Tours
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="recmntn-package-info-cta">
 
                         <div class="recmntn-package-info-cta-icon">
                             {% if subcategories %}
-                            {% for sub in subcategories %}
-                            <a href="{% url 'india_subcategory' parent_slug=category.slug subcategory_slug=sub.slug %}">
-                                {{ sub.name }}
-                            </a>
-                            {% endfor %}
+                                {% for sub in subcategories %}
+                                    <a href="{% url 'india_subcategory_detail' subcategory_slug=sub.slug %}">
+                                        <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                                    </a>
+                                {% endfor %}
                             {% else %}
-                            {# If no subcategories, link directly to the category's packages #}
-                            <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
-                                <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
-                            </a>
+                                {# If no subcategories, link directly to the current category's packages #}
+                                <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
+                                    <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                                </a>
                             {% endif %}
                         </div>
 

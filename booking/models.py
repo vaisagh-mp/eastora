@@ -44,6 +44,10 @@ class Category(models.Model):
 
     short_description = models.CharField(max_length=255, blank=True)
     long_description = models.TextField(blank=True)
+    tittle_first = models.CharField(max_length=100, null=True, blank=True)
+    tittle_second = models.CharField(max_length=100, null=True, blank=True)
+    content_first = models.TextField(blank=True)
+    content_second = models.TextField(blank=True)
     is_featured = models.BooleanField(default=False)
 
     def __str__(self):

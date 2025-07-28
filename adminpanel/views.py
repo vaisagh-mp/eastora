@@ -61,19 +61,31 @@ def category_list(request):
 @login_required(login_url='admin_login')
 def category_create(request):
     if request.method == 'POST':
-        category_name = request.POST.get('categoryName')
+        category_name = request.POST.get('categoryname')
+        tittle_first = request.POST.get('tittlefirst')
+        tittle_second = request.POST.get('tittlesecond')
         parent_id = request.POST.get('parentCategory') or None
+        parent_choice = request.POST.get('parentChoice')
         short_description = request.POST.get('shortDesc')
         long_description = request.POST.get('longDesc')
+        content_first = request.POST.get('contentfir')
+        content_second = request.POST.get('contentsec')
         is_featured = request.POST.get('recomanded') == 'on'
         banner_image = request.FILES.get('bannerImage')
+        card_image = request.FILES.get('card_image')
 
         Category.objects.create(
             name=category_name,
+            tittle_first=tittle_first,
+            tittle_second=tittle_second,
             parent_id=parent_id,
+            parent_choice=parent_choice,
             short_description=short_description,
             long_description=long_description,
+            content_first=content_first,
+            content_second=content_second,
             banner_image_desktop=banner_image,
+            card_image=card_image,
             is_featured=is_featured
         )
         return redirect('admin_category_list')
@@ -85,20 +97,26 @@ def category_create(request):
 
 @login_required(login_url='admin_login')
 def category_update(request, pk):
-    PARENT_CHOICES = [
-    ('india', 'India Tours'),
-    ('international', 'International Tours'),
-    ('ayurveda', 'Ayurveda & Wellness'),
-    ('specials', 'Eastora Specials'),
-]
     category = get_object_or_404(Category, pk=pk)
-    parent_categories = Category.objects.exclude(pk=category.pk)  # Optional: exclude self as parent
+
+    # Use static PARENT_CHOICES from the model
+    parent_choices = Category.PARENT_CHOICES
+
+    parent_categories = Category.objects.exclude(pk=category.pk)
+
     if request.method == 'POST':
         category.name = request.POST.get('categoryName')
+        category.tittle_first = request.POST.get('tittlefirst')
+        category.tittle_second = request.POST.get('tittlesecond')
         parent_id = request.POST.get('parentCategory') or None
         category.parent_id = parent_id
+
         category.short_description = request.POST.get('shortDesc')
         category.long_description = request.POST.get('longDesc')
+        category.content_first = request.POST.get('contentfir')
+        category.content_second = request.POST.get('contentsec')
+        category.parent_choice = request.POST.get('parentChoice')  # save the selected one
+
         category.is_featured = request.POST.get('recomanded') == 'on'
 
         if request.FILES.get('bannerImage'):
@@ -110,9 +128,11 @@ def category_update(request, pk):
     return render(request, 'adminpanel/category_update.html', {
         'category': category,
         'parent_categories': parent_categories,
-        'parent_choices': PARENT_CHOICES,
+        'parent_choices': parent_choices,  # use static choices
         'selected_parent_id': category.parent.id if category.parent else ''
     })
+
+
 
 @login_required(login_url='admin_login')
 def category_delete(request, pk):
