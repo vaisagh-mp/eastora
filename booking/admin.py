@@ -33,7 +33,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 # TourPackage model display
 class TourPackageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'parent_choice', 'price', 'days', 'nights', 'get_duration', 'location', 'image_tag')
+    list_display = (
+        'title', 'category', 'parent_choice', 'price',
+        'days', 'nights', 'get_duration', 'location',
+        'image_tag', 'created_at', 'updated_at'
+    )
     search_fields = ('title', 'location')
     list_filter = ('parent_choice', 'is_featured', 'category')
     ordering = ('-price',)
@@ -46,7 +50,8 @@ class TourPackageAdmin(admin.ModelAdmin):
     def get_duration(self, obj):
         return f"{obj.days} days {obj.nights} nights"
 
-    image_tag.short_description = 'Image Preview' 
+    image_tag.short_description = 'Image Preview'
+    get_duration.short_description = 'Duration'
 
 
 # Resort model display

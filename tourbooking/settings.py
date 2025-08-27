@@ -26,12 +26,7 @@ SECRET_KEY = 'django-insecure-f-@_9i0@vxsve#836qu%obk0m#ha9!6g9cwz(6)^ij(3v^1wn5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    'eastora.onrender.com'
-]
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -45,6 +40,7 @@ INSTALLED_APPS = [
 
     'booking',
     'adminpanel',
+    'taggit',
     
 ]
 
@@ -94,6 +90,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'eastora',
+#             'USER': 'eastora',
+#             'PASSWORD': 'eastora',
+#             'HOST': 'localhost',
+#             'PORT': '',
+#         }
+# }
+
 
 
 # Password validation

@@ -88,7 +88,7 @@
                                     <td>{{ pkg.category.name }}</td>
                                     <td>{{ pkg.get_parent_choice_display }}</td>
                                     <td>
-                                        <p style="max-width: 250px;">{{ pkg.description|truncatechars:100 }}</p>
+                                        <p style="max-width: 250px;">{{ pkg.description|truncatechars:100 |safe }}</p>
                                     </td>
                                     <td>
                                         <div class="form-check form-switch active-bnr">

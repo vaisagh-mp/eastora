@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 from django.contrib.auth.models import AbstractUser
 
 # Custom User model
@@ -74,6 +75,7 @@ class TourPackage(models.Model):
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True, null=True)
+    tags = TaggableManager(blank=True)
     short_description = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
@@ -94,6 +96,9 @@ class TourPackage(models.Model):
         default='india',
         help_text="Top-level classification for the tour package"
     )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

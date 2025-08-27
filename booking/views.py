@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
+from django.db import models
 from .models import TourPackage, Resort, Booking, Enquiry, Review, HeroBanner, SeasonalBanner, Category, Contact, ClientReview
 from .forms import EnquiryForm, ReviewForm
 from django.contrib.auth import login, authenticate, logout
@@ -440,28 +441,54 @@ def submit_review(request, item_id, item_type):
     return render(request, 'submit_review.html', {'form': form})
 
 def search_packages(request):
-    query = request.GET.get('q', '')
-    packages = TourPackage.objects.filter(title__icontains=query).select_related('category')[:10]
-
+    query = request.GET.get('q', '').strip()
     results = []
-    for pkg in packages:
-        parent = pkg.parent_choice
 
-        if parent == 'india' and pkg.category:
-            url = reverse('package_detail', args=[pkg.category.slug, pkg.slug])
+    if query:
+        # --- 1. Check if query matches a subcategory slug ---
+        subcategories = Category.objects.filter(
+            slug__icontains=query,
+            parent__isnull=False  # Only subcategories, not top-level
+        )[:5]
 
-        elif parent == 'international' and pkg.category:
-            url = reverse('international_package_detail', args=[pkg.category.slug, pkg.slug])
+        for sub in subcategories:
+            if sub.parent_choice == 'india':
+                url = reverse('india_subcategory_detail', args=[sub.slug])
+            elif sub.parent_choice == 'international':
+                url = reverse('international_subcategory_detail', args=[sub.slug])
+            else:
+                continue
 
-        elif parent == 'ayurveda':
-            url = reverse('ayurveda_package_detail', args=[pkg.slug])
+            results.append({
+                'title': f"Subcategory: {sub.name}",
+                'url': url,
+            })
 
-        else:
-            continue  # Skip 'specials' or any unknown category
+        # --- 2. Check if query matches a package (slug, title, or tags) ---
+        packages = TourPackage.objects.filter(
+            Q(slug__icontains=query) |
+            Q(title__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct().select_related('category')[:10]
 
-        results.append({
-            'title': pkg.title,
-            'url': url,
-        })
+        for pkg in packages:
+            parent = pkg.parent_choice
+            if parent == 'india' and pkg.category:
+                url = reverse('package_detail', args=[pkg.category.slug, pkg.slug])
+            elif parent == 'international' and pkg.category:
+                url = reverse('international_package_detail', args=[pkg.category.slug, pkg.slug])
+            elif parent == 'ayurveda':
+                url = reverse('ayurveda_package_detail', args=[pkg.slug])
+            else:
+                continue
+
+            # Include tags in results
+            tags = [tag.name for tag in pkg.tags.all()]
+
+            results.append({
+                'title': pkg.title,
+                'tags': tags,   # <-- include tags here
+                'url': url,
+            })
 
     return JsonResponse({'results': results})

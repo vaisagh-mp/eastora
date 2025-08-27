@@ -175,7 +175,7 @@ def toggle_featured_is_active(request):
 # TourPackage
 @login_required(login_url='admin_login')
 def tourpackage_list(request):
-    items = TourPackage.objects.all()
+    items = TourPackage.objects.all().order_by('created_at')
 
     # Filters
     search_query = request.GET.get('search', '').strip()
@@ -218,6 +218,7 @@ def tourpackage_create(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         slug = request.POST.get('slug') or slugify(title)
+        tags = request.POST.get('tags')
         short_description = request.POST.get('short_description')
         description = request.POST.get('description')
         location = request.POST.get('location')
@@ -234,8 +235,8 @@ def tourpackage_create(request):
 
         category = Category.objects.filter(id=category_id).first() if category_id else None
 
-        # Save the TourPackage
-        TourPackage.objects.create(
+        # Save the TourPackage instance first
+        tour_package = TourPackage.objects.create(
             title=title,
             slug=slug,
             short_description=short_description,
@@ -251,10 +252,19 @@ def tourpackage_create(request):
             parent_choice=parent_choice,
             is_featured=is_featured,
         )
+
+        # Add tags after object creation
+        if tags:
+            tag_list = [tag.strip() for tag in tags.split(',')]
+            tour_package.tags.add(*tag_list)
+
         return redirect('admin_tourpackage_list')
 
     categories = Category.objects.all()
-    return render(request, 'adminpanel/tourpackage_form.html', {'categories': categories, 'parent_choices': Category.PARENT_CHOICES})
+    return render(request, 'adminpanel/tourpackage_form.html', {
+        'categories': categories,
+        'parent_choices': Category.PARENT_CHOICES
+    })
 
 @login_required(login_url='admin_login')
 def tourpackage_update(request, pk):
@@ -262,12 +272,11 @@ def tourpackage_update(request, pk):
 
     if request.method == 'POST':
         item.title = request.POST.get('title')
-        item.slug = request.POST.get('slug')
+        item.slug = request.POST.get('slug') or slugify(item.title)
         item.short_description = request.POST.get('short_description')
         item.description = request.POST.get('description')
         item.location = request.POST.get('location')
 
-        # Handle blank values properly
         price = request.POST.get('price')
         item.price = price if price else None
 
@@ -279,7 +288,6 @@ def tourpackage_update(request, pk):
 
         item.is_featured = request.POST.get('is_featured') == 'on'
 
-        # Set category and parent package if valid
         category_id = request.POST.get('category')
         if category_id:
             item.category = Category.objects.get(pk=category_id)
@@ -288,7 +296,6 @@ def tourpackage_update(request, pk):
         if parent_id:
             item.parent_package = TourPackage.objects.get(pk=parent_id)
 
-        # Handle file uploads
         if request.FILES.get('banner_image_desktop'):
             item.image_desktop = request.FILES['banner_image_desktop']
         if request.FILES.get('banner_image_mobile'):
@@ -296,14 +303,26 @@ def tourpackage_update(request, pk):
         if request.FILES.get('card_image'):
             item.card_image = request.FILES['card_image']
 
+        # Update tags
+        tags = request.POST.get('tags')
+        if tags:
+            tag_list = [tag.strip() for tag in tags.split(',')]
+            item.tags.set(tag_list)
+        else:
+            item.tags.clear()
+
         item.save()
         return redirect('admin_tourpackage_list')
+
+    # Convert tag list to comma-separated string for form field
+    existing_tags = ', '.join(tag.name for tag in item.tags.all())
 
     return render(request, 'adminpanel/tourpackage_update_form.html', {
         'item': item,
         'categories': Category.objects.all(),
         'parent_choices': Category.PARENT_CHOICES,
-        'all_packages': TourPackage.objects.exclude(id=item.id)
+        'all_packages': TourPackage.objects.exclude(id=item.id),
+        'existing_tags': existing_tags
     })
 
 @login_required(login_url='admin_login')
