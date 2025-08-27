@@ -32,7 +32,7 @@ def home(request):
     packages = TourPackage.objects.all()
     resorts = Resort.objects.all()
     hero_banners = HeroBanner.objects.filter(is_active=True)
-    seasonal_banners =  SeasonalBanner.objects.latest('created_at')
+    seasonal_banners = SeasonalBanner.objects.order_by('-created_at').first()
     featured_tourpackages = TourPackage.objects.filter(is_featured=True)
     featured_categories = Category.objects.filter(is_featured=True)
     client_reviews = ClientReview.objects.all()
