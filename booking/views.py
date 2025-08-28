@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 from .models import TourPackage, Resort, Booking, Enquiry, Review, HeroBanner, SeasonalBanner, Category, Contact, ClientReview
 from .forms import EnquiryForm, ReviewForm
 from django.contrib.auth import login, authenticate, logout
@@ -34,7 +35,7 @@ def home(request):
     hero_banners = HeroBanner.objects.filter(is_active=True)
     try:
         seasonal_banners = SeasonalBanner.objects.latest('created_at')
-    except SeasonalBanner.DoesNotExist:
+    except ObjectDoesNotExist:
         seasonal_banners = None
     featured_tourpackages = TourPackage.objects.filter(is_featured=True)
     featured_categories = Category.objects.filter(is_featured=True)
