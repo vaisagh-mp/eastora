@@ -510,7 +510,11 @@ def hero_banner_delete(request, pk):
 # SeasonalBanner
 @login_required(login_url='admin_login')
 def seasonal_banner_list(request):
-    item = SeasonalBanner.objects.latest('created_at')
+    try:
+        item = SeasonalBanner.objects.latest('created_at')
+    except SeasonalBanner.DoesNotExist:
+        item = None  # No banner found
+
     return render(request, 'adminpanel/seasonal_banner_list.html', {'banner': item})
 
 @login_required(login_url='admin_login')
@@ -519,13 +523,20 @@ def seasonal_banner_create(request):
         season = request.POST.get('bannerTitle')
         image_desktop = request.FILES.get('bannerImage')
 
-        if season and image_desktop:
-            SeasonalBanner.objects.create(season=season, image_desktop=image_desktop)
-            return redirect('admin_seasonal_banner_list')
-        else:
+        if not season or not image_desktop:
             error = "All fields are required."
             return render(request, 'adminpanel/seasonal_banner_form.html', {'error': error})
-    
+
+        # Create the seasonal banner
+        SeasonalBanner.objects.create(
+            season=season,
+            image_desktop=image_desktop
+        )
+
+        # Redirect to the list view after successful creation
+        return redirect('admin_seasonal_banner_list')
+
+    # GET request: render the empty form
     return render(request, 'adminpanel/seasonal_banner_form.html')
 
 
