@@ -23,7 +23,7 @@
 
                 <div class="carousel-content">
                     <div class="container">
-                        <div class="hero-content {% if forloop.counter|divisibleby:2 %}right{% endif %}">
+                        <div class="hero-content {{ banner.content_alignment }}">
                             <h1>{{ banner.title }}</h1>
                             <p>{{ banner.subtitle }}</p>
                             <div class="custom-btn">

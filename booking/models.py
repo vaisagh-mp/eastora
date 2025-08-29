@@ -74,7 +74,7 @@ class TourPackage(models.Model):
     ]
 
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True, null=True, max_length=200)
     tags = TaggableManager(blank=True)
     short_description = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True, null=True)
@@ -178,10 +178,18 @@ class Review(models.Model):
 
 # Hero Banner Model
 class HeroBanner(models.Model):
+    ALIGN_CHOICES = [
+        ('left', 'Left'),
+        ('right', 'Right'),
+    ]
+
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=255, blank=True)
     image_desktop = models.ImageField(upload_to='banners/hero/desktop/', null=True, blank=True)
     image_mobile = models.ImageField(upload_to='banners/hero/mobile/', null=True, blank=True)
+    content_alignment = models.CharField(
+        max_length=10, choices=ALIGN_CHOICES, default='left'
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

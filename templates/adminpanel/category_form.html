@@ -40,15 +40,11 @@
                     </div>
 
 
-                    <!-- Banner Image with Drag & Drop -->
+                    <!-- Category Banner Image (Desktop) -->
                     <div class="mb-3">
-                        <label class="add-catgry-label">Category Banner Image<span style="color:red">*</span></label>
-                        <!-- Hidden native file input -->
-                        <input type="file" id="bannerImage" class="add-catgry-input d-none" accept="image/*">
-
-                        <!-- Custom dropzone -->
-                        <label for="bannerImage" class="add-catgry-dropzone" id="bannerDropzone">
-                            <!-- Cloud upload icon (Heroicons outline) -->
+                        <label class="add-catgry-label">Category Banner Image (Desktop)<span style="color:red">*</span></label>
+                        <input type="file" id="bannerImageDesktop" name="bannerImageDesktop" class="add-catgry-input d-none" accept="image/*">
+                        <label for="bannerImageDesktop" class="add-catgry-dropzone" id="bannerDropzoneDesktop">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -56,13 +52,28 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
                             </svg>
-                            <span id="bannerImageText">Drag & drop your image or <span
-                                    class="add-catgry-select-file">Select files</span></span>
-                            <img id="bannerImagePreview" src="" alt="Preview"
-                                style="display:none; margin-top: 10px; max-height: 100px;">
-
+                            <span id="bannerImageDesktopText">Drag & drop your image or <span class="add-catgry-select-file">Select files</span></span>
+                            <img id="bannerImageDesktopPreview" src="" alt="Preview" style="display:none; margin-top: 10px; max-height: 100px;">
                         </label>
                     </div>
+
+                    <!-- Category Banner Image (Mobile) -->
+                    <div class="mb-3">
+                        <label class="add-catgry-label">Category Banner Image (Mobile)<span style="color:red">*</span></label>
+                        <input type="file" id="bannerImageMobile" name="bannerImageMobile" class="add-catgry-input d-none" accept="image/*">
+                        <label for="bannerImageMobile" class="add-catgry-dropzone" id="bannerDropzoneMobile">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 15a4 4 0 01.88-7.903 5.5 5.5 0 0110.658 2.35h.462A5 5 0 1120 15H3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" />
+                            </svg>
+                            <span id="bannerImageMobileText">Drag & drop your image or <span class="add-catgry-select-file">Select files</span></span>
+                            <img id="bannerImageMobilePreview" src="" alt="Preview" style="display:none; margin-top: 10px; max-height: 100px;">
+                        </label>
+                    </div>
+
 
                     <!-- Card Image -->
                     <div class="form-section">
@@ -93,19 +104,19 @@
                             placeholder="Enter title first" required>
                     </div>
 
-                    <!-- Tittle Name two -->
-                    <div class="mb-3">
-                        <label for="tittlesecond" class="add-catgry-label">Tittle Name two</label>
-                        <input type="text" name="tittlesecond" id="tittlesecond" class="add-catgry-input"
-                            placeholder="Enter title second" required>
-                    </div>
-
                     <!-- Content 1 -->
                     <div class="mb-4">
                         <label for="contentfir" class="add-catgry-label">Content 1 <span
                                 style="color:red">*</span></label>
                         <textarea name="contentfir" id="Content1" rows="5" class="add-catgry-textarea"
                             placeholder="Write full description here..."></textarea>
+                    </div>
+
+                    <!-- Tittle Name two -->
+                    <div class="mb-3">
+                        <label for="tittlesecond" class="add-catgry-label">Tittle Name two</label>
+                        <input type="text" name="tittlesecond" id="tittlesecond" class="add-catgry-input"
+                            placeholder="Enter title second" required>
                     </div>
 
                     <!-- Content 2 -->
@@ -135,7 +146,7 @@
 </div>
 
 
-<script>
+<!-- <script>
     const dropzone = document.getElementById('bannerDropzone');
     const input = document.getElementById('bannerImage');
     const imageText = document.getElementById('bannerImageText');
@@ -186,6 +197,61 @@
             imagePreview.style.display = 'none';
         }
     }
+</script> -->
+
+
+<script>
+function setupDropzone(inputId, dropzoneId, textId, previewId) {
+    const dropzone = document.getElementById(dropzoneId);
+    const input = document.getElementById(inputId);
+    const imageText = document.getElementById(textId);
+    const imagePreview = document.getElementById(previewId);
+
+    ['dragenter', 'dragover'].forEach(evt => {
+        dropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+        dropzone.addEventListener(evt, e => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+        });
+    });
+
+    dropzone.addEventListener('click', () => input.click());
+
+    dropzone.addEventListener('drop', e => {
+        e.preventDefault();
+        input.files = e.dataTransfer.files;
+        handleImagePreview(input.files[0]);
+    });
+
+    input.addEventListener('change', () => {
+        handleImagePreview(input.files[0]);
+    });
+
+    function handleImagePreview(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                imageText.innerHTML = `<strong>${file.name}</strong> selected.`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imageText.innerHTML = 'Invalid file type. Please select an image.';
+            imagePreview.style.display = 'none';
+        }
+    }
+}
+
+// Setup both desktop & mobile
+setupDropzone("bannerImageDesktop", "bannerDropzoneDesktop", "bannerImageDesktopText", "bannerImageDesktopPreview");
+setupDropzone("bannerImageMobile", "bannerDropzoneMobile", "bannerImageMobileText", "bannerImageMobilePreview");
 </script>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>

@@ -71,7 +71,10 @@ def category_create(request):
         content_first = request.POST.get('contentfir')
         content_second = request.POST.get('contentsec')
         is_featured = request.POST.get('recomanded') == 'on'
-        banner_image = request.FILES.get('bannerImage')
+
+        # handle both desktop & mobile images
+        banner_image_desktop = request.FILES.get('bannerImageDesktop')
+        banner_image_mobile = request.FILES.get('bannerImageMobile')
         card_image = request.FILES.get('card_image')
 
         Category.objects.create(
@@ -84,7 +87,8 @@ def category_create(request):
             long_description=long_description,
             content_first=content_first,
             content_second=content_second,
-            banner_image_desktop=banner_image,
+            banner_image_desktop=banner_image_desktop,
+            banner_image_mobile=banner_image_mobile,
             card_image=card_image,
             is_featured=is_featured
         )
@@ -95,13 +99,12 @@ def category_create(request):
         'parent_categories': parent_categories
     })
 
+
 @login_required(login_url='admin_login')
 def category_update(request, pk):
     category = get_object_or_404(Category, pk=pk)
 
-    # Use static PARENT_CHOICES from the model
     parent_choices = Category.PARENT_CHOICES
-
     parent_categories = Category.objects.exclude(pk=category.pk)
 
     if request.method == 'POST':
@@ -115,12 +118,20 @@ def category_update(request, pk):
         category.long_description = request.POST.get('longDesc')
         category.content_first = request.POST.get('contentfir')
         category.content_second = request.POST.get('contentsec')
-        category.parent_choice = request.POST.get('parentChoice')  # save the selected one
-
+        category.parent_choice = request.POST.get('parentChoice')
         category.is_featured = request.POST.get('recomanded') == 'on'
 
+        # Update desktop banner if uploaded
         if request.FILES.get('bannerImage'):
             category.banner_image_desktop = request.FILES['bannerImage']
+
+        # Update mobile banner if uploaded
+        if request.FILES.get('bannerImageMobile'):
+            category.banner_image_mobile = request.FILES['bannerImageMobile']
+
+        # Update card image if uploaded
+        if request.FILES.get('card_image'):
+            category.card_image = request.FILES['card_image']
 
         category.save()
         return redirect('admin_category_list')
@@ -128,7 +139,7 @@ def category_update(request, pk):
     return render(request, 'adminpanel/category_update.html', {
         'category': category,
         'parent_categories': parent_categories,
-        'parent_choices': parent_choices,  # use static choices
+        'parent_choices': parent_choices,
         'selected_parent_id': category.parent.id if category.parent else ''
     })
 
@@ -461,13 +472,14 @@ def hero_banner_create(request):
         subtitle = request.POST.get('bannerContent')
         image_desktop = request.FILES.get('bannerImage')
         image_mobile = request.FILES.get('mobileBannerImage')
-
+        content_alignment = request.POST.get('contentAlignment', 'left')
         if title and subtitle and image_desktop:
             HeroBanner.objects.create(
                 title=title,
                 subtitle=subtitle,
                 image_desktop=image_desktop,
-                image_mobile=image_mobile
+                image_mobile=image_mobile,
+                content_alignment=content_alignment
             )
             return redirect('admin_hero_banner_list')
         else:
@@ -486,9 +498,11 @@ def hero_banner_update(request, pk):
         subtitle = request.POST.get('bannerContent')
         image_desktop = request.FILES.get('bannerImage')
         image_mobile = request.FILES.get('mobileBannerImage')
+        content_alignment = request.POST.get('contentAlignment', 'left')
 
         banner.title = title
         banner.subtitle = subtitle
+        banner.content_alignment = content_alignment
 
         if image_desktop:
             banner.image_desktop = image_desktop 
@@ -499,6 +513,7 @@ def hero_banner_update(request, pk):
         return redirect('admin_hero_banner_list')
 
     return render(request, 'adminpanel/hero_banner_update.html', {'banner': banner})
+
 
 @login_required(login_url='admin_login')
 def hero_banner_delete(request, pk):

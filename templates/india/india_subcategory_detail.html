@@ -4,11 +4,13 @@
 
 
 <!------------ Hero ------------>
-<div class="sub-page-hero singapore-packages">
+<div class="sub-page-hero singapore-packages"
+     style="background-image: url('{% if subcategory.banner_image_desktop %}{{ subcategory.banner_image_desktop.url }}{% else %}{% static "images/default-banner.webp" %}{% endif %}');">
     <div class="tour-hero-content">
         <h1>{{ subcategory.name }}</h1>
     </div>
 </div>
+
 <!---------- Packages ---------->
 <section class="sub-page-package-listing-wrapper">
     <img class="sub-page-package-listing-bg-shape" src="{% static 'assets/images/abt-shape-top-right.webp' %}"
@@ -106,16 +108,12 @@
             </div>
             <div class="col-lg-6">
                 <div class="sub-page-package-content">
-                    <div class="sec-title">
-                        {% if subcategory.tittle_first %}
-                            <h6>{{ subcategory.tittle_first|safe }}</h6>
-                        {% endif %}
-                                            
+                    <div class="sec-title">      
                         {% if subcategory.tittle_second %}
-                            <h2>{{ subcategory.tittle_second|safe }}</h2>
+                            <h2>{{ subcategory.tittle_first|safe }}</h2>
                         {% endif %}
                     </div>
-                    <p><p>{{ subcategory.content_second | safe }} </p></p>
+                    <p><p>{{ subcategory.content_first | safe }} </p></p>
 
                 </div>
             </div>
@@ -131,25 +129,12 @@
             <div class="col-lg-6 order-lg-1">
                 <div class="sub-page-package-content">
 
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                        type and
-                        scrambled it to make a type specimen book. It has survived </p>
-
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                        type and
-                        scrambled it to make a type specimen book. It has survived </p>
-
-
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                        type and
-                        scrambled it to make a type specimen book. It has survived </p>
-
+                    <div class="sec-title">          
+                        {% if subcategory.tittle_second %}
+                            <h2>{{ subcategory.tittle_second|safe }}</h2>
+                        {% endif %}
+                    </div>
+                    <p><p>{{ subcategory.content_second | safe }} </p></p>
                 </div>
             </div>
         </div>
