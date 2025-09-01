@@ -211,7 +211,7 @@ def toggle_featured(request, pk):
 # TourPackage
 @login_required(login_url='admin_login')
 def tourpackage_list(request):
-    items = TourPackage.objects.all().order_by('created_at')
+    items = TourPackage.objects.all().order_by('-created_at')
 
     # Filters
     search_query = request.GET.get('search', '').strip()
