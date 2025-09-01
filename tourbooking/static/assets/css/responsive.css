@@ -632,7 +632,9 @@ padding-left: 15px;padding-right: 15px;
     .sub-page-package-listing{display: grid;grid-template-columns: repeat(1, 1fr);gap: 30px;}
     .sub-page-package-listing-item{margin: auto;}
     .sub-page-package-listing-bg-shape{display: none;}
-    .intrnl-tour-wrapper{background-image: url(../images/internation-tours-hero-bg-mb.webp);}
+    .intrnl-tour-wrapper{background-image: url(../images/international-bnr-mb.webp);}
+    .intrnl-tour-wrapper.ind{background-image: url(../images/india-tour-banner-mobile.webp);}
+    .intrnl-tour-wrapper.ayur{ background-image: url(../images/wellness-bg-1-mb.webp);}
    }
 
    @media(min-width:767px) and (max-width:991px){

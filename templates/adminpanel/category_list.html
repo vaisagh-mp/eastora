@@ -52,7 +52,7 @@
                                         </span>
                                     </td>
                                     <td>{{ category.parent.full_path|default:category.get_parent_choice_display }}</td>
-                                    <td>{{ category.packages.count }}</td>
+                                    <td>{{ category.total_package_count }}</td>
                                     <td>
                                         <p style="max-width: 250px;">{{ category.short_description }}</p>
                                     </td>

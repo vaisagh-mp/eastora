@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.db import IntegrityError
 from django.contrib import messages
 import json
+from decimal import Decimal,InvalidOperation
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -252,54 +253,94 @@ def tourpackage_list(request):
 @login_required(login_url='admin_login')
 def tourpackage_create(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        slug = request.POST.get('slug') or slugify(title)
-        tags = request.POST.get('tags')
-        short_description = request.POST.get('short_description')
-        description = request.POST.get('description')
-        location = request.POST.get('location')
-        price = request.POST.get('price') or 0
-        days = request.POST.get('days') or 0
-        nights = request.POST.get('nights') or 0
-        category_id = request.POST.get('category')
-        parent_choice = request.POST.get('parent_choice') or 'india'
-        is_featured = True if request.POST.get('is_featured') == 'on' else False
+        title = (request.POST.get('title') or "").strip()
+        if not title:
+            messages.error(request, "Title is required ❌")
+            return redirect('admin_tourpackage_create')
 
+        # Slug fallback
+        slug = (request.POST.get('slug') or slugify(title)).strip()
+
+        tags = request.POST.get('tags', '').strip()
+        short_description = request.POST.get('short_description', '').strip()
+        description = request.POST.get('description', '').strip()
+        location = request.POST.get('location', '').strip()
+
+        # Price validation
+        try:
+            price_input = request.POST.get('price', '').strip()
+            price = Decimal(price_input) if price_input else Decimal("0")
+
+            # Check if price fits in the DB field (10 total digits, 2 decimals)
+            if price >= Decimal("100000000"):  # 8 digits before decimal
+                messages.error(request, "Price too large ❌ (must be below 99,999,999.99)")
+                return redirect('admin_tourpackage_create')
+
+            if price < 0:
+                raise InvalidOperation
+        except (InvalidOperation, ValueError):
+            messages.error(request, "Invalid price value ❌")
+            return redirect('admin_tourpackage_create')
+
+        # Duration validation
+        try:
+            days = int(request.POST.get('days') or 0)
+            nights = int(request.POST.get('nights') or 0)
+        except ValueError:
+            messages.error(request, "Days/Nights must be valid numbers ❌")
+            return redirect('admin_tourpackage_create')
+
+        # Category & parent choice
+        category_id = request.POST.get('category')
+        category = Category.objects.filter(id=category_id).first() if category_id else None
+        parent_choice = request.POST.get('parent_choice') or 'india'
+        if parent_choice not in dict(TourPackage.PARENT_CHOICES).keys():
+            parent_choice = 'india'
+
+        # Featured flag
+        is_featured = request.POST.get('is_featured') == 'on'
+
+        # Images (optional)
         image_desktop = request.FILES.get('image_desktop')
         image_mobile = request.FILES.get('image_mobile')
         card_image = request.FILES.get('card_image')
 
-        category = Category.objects.filter(id=category_id).first() if category_id else None
+        try:
+            # Save the package
+            tour_package = TourPackage.objects.create(
+                title=title,
+                slug=slug,
+                short_description=short_description,
+                description=description,
+                location=location,
+                price=price,
+                days=days,
+                nights=nights,
+                image_desktop=image_desktop,
+                image_mobile=image_mobile,
+                card_image=card_image,
+                category=category,
+                parent_choice=parent_choice,
+                is_featured=is_featured,
+            )
 
-        # Save the TourPackage instance first
-        tour_package = TourPackage.objects.create(
-            title=title,
-            slug=slug,
-            short_description=short_description,
-            description=description,
-            location=location,
-            price=price,
-            days=days,
-            nights=nights,
-            image_desktop=image_desktop,
-            image_mobile=image_mobile,
-            card_image=card_image,
-            category=category,
-            parent_choice=parent_choice,
-            is_featured=is_featured,
-        )
+            # Add tags
+            if tags:
+                tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
+                tour_package.tags.add(*tag_list)
 
-        # Add tags after object creation
-        if tags:
-            tag_list = [tag.strip() for tag in tags.split(',')]
-            tour_package.tags.add(*tag_list)
+            messages.success(request, "Tour package created successfully")
+            return redirect('admin_tourpackage_list')
 
-        return redirect('admin_tourpackage_list')
+        except IntegrityError:
+            messages.error(request, "Slug already exists ❌ Please use a unique slug.")
+            return redirect('admin_tourpackage_create')
 
+    # GET request → show form
     categories = Category.objects.all()
     return render(request, 'adminpanel/tourpackage_form.html', {
         'categories': categories,
-        'parent_choices': Category.PARENT_CHOICES
+        'parent_choices': TourPackage.PARENT_CHOICES
     })
 
 @login_required(login_url='admin_login')

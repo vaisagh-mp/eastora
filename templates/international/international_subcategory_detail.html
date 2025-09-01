@@ -4,7 +4,13 @@
 
 
 <!------------ Hero ------------>
-<div class="sub-page-hero singapore-packages">
+<!-- <div class="sub-page-hero singapore-packages">
+    <div class="tour-hero-content">
+        <h1>{{ subcategory.name }}</h1>
+    </div>
+</div> -->
+<div class="sub-page-hero singapore-packages"
+     style="background-image: url('{% if subcategory.banner_image_desktop %}{{ subcategory.banner_image_desktop.url }}{% else %}{% static "images/default-banner.webp" %}{% endif %}');">
     <div class="tour-hero-content">
         <h1>{{ subcategory.name }}</h1>
     </div>
@@ -105,16 +111,12 @@
             </div>
             <div class="col-lg-6">
                 <div class="sub-page-package-content">
-                    <div class="sec-title">
-                        {% if subcategory.tittle_first %}
-                            <h6>{{ subcategory.tittle_first|safe }}</h6>
-                        {% endif %}
-                                            
+                    <div class="sec-title">      
                         {% if subcategory.tittle_second %}
-                            <h2>{{ subcategory.tittle_second|safe }}</h2>
+                            <h2>{{ subcategory.tittle_first|safe }}</h2>
                         {% endif %}
                     </div>
-                    <p>{{ subcategory.content_first | safe }}</p>
+                    <p><p>{{ subcategory.content_first | safe }} </p></p>
 
                 </div>
             </div>
@@ -130,8 +132,12 @@
             <div class="col-lg-6 order-lg-1">
                 <div class="sub-page-package-content">
 
-                    <p>{{ subcategory.content_second | safe }} </p>
-
+                    <div class="sec-title">          
+                        {% if subcategory.tittle_second %}
+                            <h2>{{ subcategory.tittle_second|safe }}</h2>
+                        {% endif %}
+                    </div>
+                    <p><p>{{ subcategory.content_second | safe }} </p></p>
                 </div>
             </div>
         </div>

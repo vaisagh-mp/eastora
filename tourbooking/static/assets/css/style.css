@@ -899,7 +899,9 @@ footer{height: 630px; background-image: url(../images/footer-bg.webp);background
 /*==================== International Tours Page =====================*/
 /*---------- Hero ----------*/
 .sub-page-hero{height: 540px;background-position: 100% 100%;background-repeat: no-repeat !important;background-size: cover; position: relative;}
-.intrnl-tour-wrapper{ background-image: url(../images/internation-tours-hero-bg.webp);}
+.intrnl-tour-wrapper{ background-image: url(../images/international-bnr.webp);}
+.intrnl-tour-wrapper.ind{ background-image: url(../images/india-tour-banner.webp);}
+.intrnl-tour-wrapper.ayur{ background-image: url(../images/wellness-bg-1.webp);}
 
 .sub-page-hero .tour-hero-content {max-width: 70%;margin: auto;position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);}
 .sub-page-hero .tour-hero-content h1{color: #fff;text-align: center;text-transform: uppercase;letter-spacing: 10%;}

@@ -63,6 +63,22 @@ class Category(models.Model):
         if self.parent:
             return f"{self.parent.full_path()} → {self.name}"
         return self.name
+
+    def get_all_packages(self):
+        """Return all packages under this category (including subcategories)."""
+        categories = [self.id] + list(self.subcategories.values_list("id", flat=True))
+        
+        # recursively fetch deeper levels
+        def collect_children(cat):
+            for child in cat.subcategories.all():
+                categories.append(child.id)
+                collect_children(child)
+        collect_children(self)
+
+        return TourPackage.objects.filter(category_id__in=categories)
+
+    def total_package_count(self):
+        return self.get_all_packages().count()
     
 # Tour Package Model
 class TourPackage(models.Model):
