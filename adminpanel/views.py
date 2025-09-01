@@ -4,6 +4,9 @@ from django.utils.timezone import now
 from django.utils.text import slugify
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
+from django.db import IntegrityError
+from django.contrib import messages
+import json
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -77,27 +80,34 @@ def category_create(request):
         banner_image_mobile = request.FILES.get('bannerImageMobile')
         card_image = request.FILES.get('card_image')
 
-        Category.objects.create(
-            name=category_name,
-            tittle_first=tittle_first,
-            tittle_second=tittle_second,
-            parent_id=parent_id,
-            parent_choice=parent_choice,
-            short_description=short_description,
-            long_description=long_description,
-            content_first=content_first,
-            content_second=content_second,
-            banner_image_desktop=banner_image_desktop,
-            banner_image_mobile=banner_image_mobile,
-            card_image=card_image,
-            is_featured=is_featured
-        )
-        return redirect('admin_category_list')
+        try:
+            Category.objects.create(
+                name=category_name,
+                tittle_first=tittle_first,
+                tittle_second=tittle_second,
+                parent_id=parent_id,
+                parent_choice=parent_choice,
+                short_description=short_description,
+                long_description=long_description,
+                content_first=content_first,
+                content_second=content_second,
+                banner_image_desktop=banner_image_desktop,
+                banner_image_mobile=banner_image_mobile,
+                card_image=card_image,
+                is_featured=is_featured
+            )
+            messages.success(request, "Category created successfully")
+            return redirect('admin_category_list')
+
+        except IntegrityError:
+            messages.error(request, f"A category with the same slug already exists ❌")
+            return redirect('admin_category_create')
 
     parent_categories = Category.objects.all()
     return render(request, 'adminpanel/category_form.html', {
         'parent_categories': parent_categories
     })
+
 
 
 @login_required(login_url='admin_login')
@@ -182,6 +192,21 @@ def toggle_featured_is_active(request):
         except HeroBanner.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Banner not found'})
     return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+@csrf_exempt
+def toggle_featured(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+
+    if request.method == "POST":
+        if request.headers.get("Content-Type") == "application/json":
+            data = json.loads(request.body)
+            category.is_featured = data.get("is_featured", False)
+        else:
+            category.is_featured = "is_featured" in request.POST
+        category.save()
+        return JsonResponse({"message": "Updated successfully", "is_featured": category.is_featured})
+    
 
 # TourPackage
 @login_required(login_url='admin_login')

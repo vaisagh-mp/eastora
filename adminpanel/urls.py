@@ -8,6 +8,8 @@ urlpatterns = [
 
     path('toggle-featured/', views.toggle_featured_status, name='toggle_featured_status'),
     path('toggle-featured-active/', views.toggle_featured_is_active, name='toggle_featured_is_active'),
+    path('category/<int:pk>/toggle-featured/', views.toggle_featured, name="toggle_featured"),
+
 
     path('categories/', views.category_list, name='admin_category_list'),
     path('categories/add/', views.category_create, name='admin_category_create'),

@@ -92,7 +92,7 @@
                     <div class="mb-3">
                         <label for="shortDesc" class="add-catgry-label">Short Description</label>
                         <input type="text" name="shortDesc" id="shortDesc" class="add-catgry-input"
-                            value="{{ category.short_description }}" placeholder="Brief description">
+                            value="{{ category.short_description|safe }}" placeholder="Brief description">
                     </div>
 
                     <!-- Long Description -->
@@ -109,18 +109,18 @@
                             placeholder="Enter title first" value="{{ category.tittle_first }}" required>
                     </div>
 
-                    <!-- Tittle Name two -->
-                    <div class="mb-3">
-                        <label for="tittlesecond" class="add-catgry-label">Tittle Name two</label>
-                        <input type="text" name="tittlesecond" id="tittlesecond" class="add-catgry-input"
-                            placeholder="Enter title second" value="{{ category.tittle_second }}" required>
-                    </div>
-
                     <!-- Content 1 -->
                     <div class="mb-4">
                         <label for="contentfir" class="add-catgry-label">Content 1 </label>
                         <textarea name="contentfir" id="Content1" rows="5" class="add-catgry-textarea"
                             placeholder="Write full description here...">{{ category.content_first }}</textarea>
+                    </div>
+
+                    <!-- Tittle Name two -->
+                    <div class="mb-3">
+                        <label for="tittlesecond" class="add-catgry-label">Tittle Name two</label>
+                        <input type="text" name="tittlesecond" id="tittlesecond" class="add-catgry-input"
+                            placeholder="Enter title second" value="{{ category.tittle_second }}" required>
                     </div>
 
                     <!-- Content 2 -->

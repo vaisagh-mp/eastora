@@ -58,8 +58,10 @@
                                     </td>
                                     <td>
                                         <div class="checkbox">
-                                            <input id="checkbox{{ category.id }}" type="checkbox" 
-                                            {% if category.is_featured %}checked{% endif %} disabled>
+                                            <input id="checkbox{{ category.id }}" 
+                                                   type="checkbox" 
+                                                   {% if category.is_featured %}checked{% endif %}
+                                                   onchange="toggleFeatured({{ category.id }}, this.checked)">
                                             <label for="checkbox{{ category.id }}"></label>
                                         </div>
                                     </td>
@@ -142,5 +144,19 @@
     </div>
 </div>
 
+<script>
+function toggleFeatured(categoryId, isChecked) {
+    fetch("{% url 'toggle_featured' 0 %}".replace('0', categoryId), {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({is_featured: isChecked})
+    }).then(res => res.json()).then(data => {
+        console.log(data.message);
+    });
+}
+</script>
 
 {% endblock %}
