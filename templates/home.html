@@ -512,7 +512,7 @@
             <div class="intrntnl-package-item">
                 <img src="{% static 'assets/images/america.webp' %}" alt="America">
                 <div class="intrntnl-package-info">
-                    <h3>Vietnam</h3>
+                    <h3>United states</h3>
                 </div>
             </div>
 
@@ -704,7 +704,7 @@ Reconnect with your mind, body, and spirit through the ancient science of Ayurve
             </p>
         </div>
 
-        <div class="recmntn-package-wrapper">
+        <!-- <div class="recmntn-package-wrapper"> -->
 
             <!-- Item 1 -->
             <!-- <div class="recmntn-package-item">
@@ -726,7 +726,7 @@ Reconnect with your mind, body, and spirit through the ancient science of Ayurve
             </div> -->
 
             <!-- Loop through featured tour packages -->
-            {% if featured_tourpackages %}
+            <!-- {% if featured_tourpackages %}
             {% for package in featured_tourpackages %}
             <div class="recmntn-package-item">
                 {% if package.card_image %}
@@ -762,11 +762,11 @@ Reconnect with your mind, body, and spirit through the ancient science of Ayurve
                 </div>
             </div>
             {% endfor %}
-            {% endif %}
+            {% endif %} -->
 
 
             <!-- Loop through featured categories -->
-            {% if featured_categories %}
+            <!-- {% if featured_categories %}
             {% for category in featured_categories %}
             <div class="recmntn-package-item">
                 {% if category.card_image %}
@@ -788,18 +788,79 @@ Reconnect with your mind, body, and spirit through the ancient science of Ayurve
                 </div>
             </div>
             {% endfor %}
-            {% endif %}
+            {% endif %} -->
 
+        <!-- </div> -->
 
+        <div class="recmntn-package-wrapper">
 
+    <!-- Loop through featured tour packages -->
+    {% if featured_tourpackages %}
+    {% for package in featured_tourpackages %}
+    <a class="recmntn-package-item"
+       {% if package.category.parent_choice == 'india' %}
+       href="{% url 'package_detail' subcategory_slug=package.category.slug package_slug=package.slug %}"
+       {% elif package.category.parent_choice == 'international' %}
+       href="{% url 'international_package_detail' package_slug=package.slug %}"
+       {% elif package.category.parent_choice == 'ayurveda' %}
+       href="{% url 'ayurveda_package_detail' package_slug=package.slug %}"
+       {% else %}
+       href="#"
+       {% endif %}
+    >
+        {% if package.card_image %}
+        <img src="{{ package.card_image.url }}" alt="{{ package.title }}">
+        {% endif %}
 
-
+        <div class="recmntn-package-info">
+            <div class="recmntn-package-info-details">
+                <h3>{{ package.title_main }}</h3>
+                <p>
+                    {{ package.short_description|default:"Explore our featured tour package"|slice:":30" }}
+                    {% if package.short_description|length > 30 %}...{% endif %}
+                </p>
+            </div>
+            <div class="recmntn-package-info-cta">
+                <div class="recmntn-package-info-cta-icon">
+                    <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                </div>
+            </div>
         </div>
+    </a>
+    {% endfor %}
+    {% endif %}
+
+
+    <!-- Loop through featured categories -->
+    {% if featured_categories %}
+    {% for category in featured_categories %}
+    <a class="recmntn-package-item"
+       href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
+        {% if category.card_image %}
+        <img src="{{ category.card_image.url }}" alt="{{ category.name }}">
+        {% endif %}
+
+        <div class="recmntn-package-info">
+            <div class="recmntn-package-info-details">
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.short_description|default:"Explore our featured category" }}</p>
+            </div>
+            <div class="recmntn-package-info-cta">
+                <div class="recmntn-package-info-cta-icon">
+                    <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% endif %}
+
+</div>
+
 
         <!-- <div class="custom-btn">
             <a href="#">Explore Top Packages</a>
         </div> -->
-
     </div>
 </section>
 <!---------- Latest Trip Banner ---------->
@@ -819,7 +880,7 @@ Reconnect with your mind, body, and spirit through the ancient science of Ayurve
 {% endif %}
 
 <!---------- Client Review ---------->
-<section class="client-review-wrapper">
+<section class="client-review-wrapper d-none">
     <img class="clnt-rvw-shape-tl" src="{% static 'assets/images/heart-left.png' %}" alt="Hear Shape">
     <img class="clnt-rvw-shape-br" src="{% static 'assets/images/heart-right.webp' %}" alt="Hear Shape">
     <div class="container">
@@ -881,7 +942,7 @@ Reconnect with your mind, body, and spirit through the ancient science of Ayurve
 
 </section>
 <!---------- Get In Touch ---------->
-<section class="get-in-touch-wrapper">
+<section class="get-in-touch-wrapper" style="margin-top: 50px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">

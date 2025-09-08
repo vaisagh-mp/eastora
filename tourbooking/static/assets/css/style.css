@@ -571,14 +571,14 @@ header nav ul li a.active {
 .recmntn-package-item{max-width: 275px; height: 325px;border-radius: 15px;overflow: hidden;position: relative;}
  
 
-  .recmntn-package-item::before{
+  /* .recmntn-package-item::before{
     position: absolute;
     inset: 0;
     content: '';
      background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
     z-index: 1;
     border: 20px;
-  }
+  } */
   .recmntn-package-info{
     z-index: 11;
   }
@@ -982,6 +982,11 @@ padding-left: 150px;padding-right: 150px;
 
 .reach-out-item-tex h5{font-size: 18px;line-height: 24px;}
 .reach-out-btm-bg{width: 100%;position: absolute;bottom: 0;z-index: -1;}
+
+/*---------- Why Reach Out to Us Desktop ----------*/
+.reach-out-item-wrapper-2{margin-top:30px;margin-bottom: 155px; display: flex;gap: 30px;justify-content:center;}
+.reach-out-item-wrapper-2 .reach-out-item{width:280px;}
+.reach-out-dktp .reach-out-item-wrapper{margin-bottom: 0;}
 
 /*==================== Inner Page - Maldives =====================*/
 .maldives{background-image: url(../images/maldives-banner.webp);}
