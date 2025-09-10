@@ -32,47 +32,35 @@
 
             <!-- Item 1 -->
             {% for category in india_subcategories %}
-            <div class="recmntn-package-item">
-                {% if category.card_image %}
-                <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
-                <img src="{{ category.card_image.url }}" alt="{{ category.name }}">
-                </a>
-                {% else %}
-                <img src="{% static 'assets/images/default-image.webp' %}" alt="Default Image">
-                </a>
-                {% endif %}
-                <div class="recmntn-package-info">
-                    <div class="recmntn-package-info-details">
-                        <h3>{{ category.name }}</h3>
-                        <span>
-                            {% if category.has_children %}
-                                {{ category.children|length }} Destinations
-                            {% else %}
-                                {{ category.package_count }} Tours
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div class="recmntn-package-info-cta">
+<a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}" class="recmntn-package-link">
+    <div class="recmntn-package-item">
+        {% if category.card_image %}
+            <img src="{{ category.card_image.url }}" alt="{{ category.name }}">
+        {% else %}
+            <img src="{% static 'assets/images/default-image.webp' %}" alt="Default Image">
+        {% endif %}
 
-                        <div class="recmntn-package-info-cta-icon">
-                            {% if subcategories %}
-                                {% for sub in subcategories %}
-                                    <a href="{% url 'india_subcategory_detail' subcategory_slug=sub.slug %}">
-                                        <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
-                                    </a>
-                                {% endfor %}
-                            {% else %}
-                                {# If no subcategories, link directly to the current category's packages #}
-                                <a href="{% url 'india_subcategory_detail' subcategory_slug=category.slug %}">
-                                    <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
-                                </a>
-                            {% endif %}
-                        </div>
-
-                    </div>
+        <div class="recmntn-package-info">
+            <div class="recmntn-package-info-details">
+                <h3>{{ category.name }}</h3>
+                <span>
+                    {% if category.has_children %}
+                        {{ category.children|length }} Destinations
+                    {% else %}
+                        {{ category.package_count }} Tours
+                    {% endif %}
+                </span>
+            </div>
+            <div class="recmntn-package-info-cta">
+                <div class="recmntn-package-info-cta-icon">
+                    <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
                 </div>
             </div>
-            {% endfor %}
+        </div>
+    </div>
+</a>
+{% endfor %}
+
 
         </div>
 

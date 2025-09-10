@@ -571,14 +571,15 @@ header nav ul li a.active {
 .recmntn-package-item{max-width: 275px; height: 325px;border-radius: 15px;overflow: hidden;position: relative;}
  
 
-  /* .recmntn-package-item::before{
+  .recmntn-package-item::before{
     position: absolute;
     inset: 0;
     content: '';
-     background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
     z-index: 1;
     border: 20px;
-  } */
+  }
+
   .recmntn-package-info{
     z-index: 11;
   }

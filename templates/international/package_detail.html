@@ -4,17 +4,17 @@
 
 
 <!------------ Hero ------------>
-<div class="sub-page-hero mb-none" style="background-image: url('{% if package.image_desktop %}{{ package.image_desktop.url }}{% else %}{% static 'assets/images/maldives-banner.webp' %}{% endif %}');">
+<div class="sub-page-hero" style="background-image: url('{% if package.image_desktop %}{{ package.image_desktop.url }}{% else %}{% static 'assets/images/maldives-banner.webp' %}{% endif %}');">
     <div class="tour-hero-content">
         <h1>{{ title_main }}</h1>
     </div>
 </div>
 
-<div class="sub-page-hero dktp-none" style="background-image: url('{% if package.image_mobile %}{{ package.image_mobile.url }}{% else %}{% static 'assets/images/maldives-banner.webp' %}{% endif %}');">
+<!-- <div class="sub-page-hero dktp-none" style="background-image: url('{% if package.image_mobile %}{{ package.image_mobile.url }}{% else %}{% static 'assets/images/maldives-banner.webp' %}{% endif %}');">
     <div class="tour-hero-content">
         <h1>{{ title_main }}</h1>
     </div>
-</div>
+</div> -->
 
 <!---------- Tour Program ---------->
 <section class="tour-prgrm-wrapper">

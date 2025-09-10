@@ -30,10 +30,10 @@
         <div class="sub-page-package-listing">
             {% if subcategories %}
                 {% for subcat in subcategories %}
+                <a href="{% url 'international_subcategory_detail' subcategory_slug=subcat.slug %}" class="recmntn-package-link">
                     <div class="recmntn-package-item">
-                        <a href="{% url 'international_subcategory_detail' subcategory_slug=subcat.slug %}">
-                            <img src="{{ subcat.card_image.url }}" alt="{{ subcat.name }}">
-                        </a>
+                        <img src="{{ subcat.card_image.url }}" alt="{{ subcat.name }}">
+                    
                         <div class="recmntn-package-info">
                             <div class="recmntn-package-info-details">
                                 <h3>{{ subcat.name }}</h3>
@@ -41,14 +41,14 @@
                             </div>
                             <div class="recmntn-package-info-cta">
                                 <div class="recmntn-package-info-cta-icon">
-                                    <a href="{% url 'international_subcategory_detail' subcategory_slug=subcat.slug %}">
-                                        <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
-                                    </a>
+                                    <img src="{% static 'assets/images/icons/arrow-right.webp' %}" alt="Right Icon">
                                 </div>
                             </div>
                         </div>
                     </div>
+                </a>
                 {% endfor %}
+                
             
             {% elif packages %}
                 {% for package in packages %}
