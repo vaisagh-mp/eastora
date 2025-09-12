@@ -45,6 +45,34 @@
         <textarea id="longDescriptionEditor" name="description" class="pkg-textarea">{{ item.description }}</textarea>
     </div>
 
+    <!-- Itinerary Section -->
+<div class="form-section">
+  <label class="pkg-label">Edit Itinerary</label>
+  <div id="itinerary-wrapper">
+    {% if item.itinerary %}
+      {% for day in item.itinerary %}
+        <div class="itinerary-item">
+          <label class="pkg-label">Day {{ day.day }} Title</label>
+          <input type="text" class="form-control" name="itinerary_title[]" value="{{ day.title }}" placeholder="Enter title for Day {{ day.day }}">
+
+          <label class="pkg-label">Day {{ day.day }} Description</label>
+          <textarea class="pkg-textarea" name="itinerary_desc[]" rows="2" placeholder="Enter itinerary for Day {{ day.day }}">{{ day.description }}</textarea>
+        </div>
+      {% endfor %}
+    {% else %}
+      <!-- Show Day 1 by default if no itinerary -->
+      <div class="itinerary-item">
+        <label class="pkg-label">Day 1 Title</label>
+        <input type="text" class="form-control" name="itinerary_title[]" placeholder="Enter title for Day 1">
+
+        <label class="pkg-label">Day 1 Description</label>
+        <textarea class="pkg-textarea" name="itinerary_desc[]" rows="2" placeholder="Enter itinerary for Day 1"></textarea>
+      </div>
+    {% endif %}
+  </div>
+  <button type="button" class="pkg-btn mt-2" id="add-day-btn">+ Add Next Day</button>
+</div>
+
     <!-- Location -->
     <div class="form-section">
         <label class="pkg-label">Location</label>
@@ -165,6 +193,27 @@
 
 
 </div>
+
+<!-- Itinerary Script -->
+<script>
+  let dayCount = {{ item.itinerary|length|default:1 }};
+
+  document.getElementById("add-day-btn").addEventListener("click", function() {
+    dayCount++;
+    const wrapper = document.getElementById("itinerary-wrapper");
+
+    const newDay = document.createElement("div");
+    newDay.classList.add("itinerary-item");
+    newDay.innerHTML = `
+      <label class="pkg-label">Day ${dayCount} Title</label>
+      <input type="text" class="form-control" name="itinerary_title[]" placeholder="Enter title for Day ${dayCount}">
+
+      <label class="pkg-label">Day ${dayCount} Description</label>
+      <textarea class="pkg-textarea" name="itinerary_desc[]" rows="2" placeholder="Enter itinerary for Day ${dayCount}"></textarea>
+    `;
+    wrapper.appendChild(newDay);
+  });
+</script>
 
 <script>
     function setupDropzone(dropzoneId, inputId, previewId, textId) {

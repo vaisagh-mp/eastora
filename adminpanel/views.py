@@ -305,6 +305,18 @@ def tourpackage_create(request):
         image_mobile = request.FILES.get('image_mobile')
         card_image = request.FILES.get('card_image')
 
+        itinerary_titles = request.POST.getlist('itinerary_title[]')
+        itinerary_descs = request.POST.getlist('itinerary_desc[]')
+
+        itinerary_data = []
+        for i in range(len(itinerary_titles)):
+            if itinerary_titles[i].strip() or itinerary_descs[i].strip():
+                itinerary_data.append({
+                    "day": i+1,
+                    "title": itinerary_titles[i].strip(),
+                    "description": itinerary_descs[i].strip()
+                })
+
         try:
             # Save the package
             tour_package = TourPackage.objects.create(
@@ -312,6 +324,7 @@ def tourpackage_create(request):
                 slug=slug,
                 short_description=short_description,
                 description=description,
+                itinerary=itinerary_data,
                 location=location,
                 price=price,
                 days=days,
@@ -379,6 +392,20 @@ def tourpackage_update(request, pk):
             item.image_mobile = request.FILES['banner_image_mobile']
         if request.FILES.get('card_image'):
             item.card_image = request.FILES['card_image']
+
+        # Update itinerary
+        itinerary_titles = request.POST.getlist('itinerary_title[]')
+        itinerary_descs = request.POST.getlist('itinerary_desc[]')
+
+        itinerary_data = []
+        for i in range(len(itinerary_titles)):
+            if itinerary_titles[i].strip() or itinerary_descs[i].strip():
+                itinerary_data.append({
+                    "day": i + 1,
+                    "title": itinerary_titles[i].strip(),
+                    "description": itinerary_descs[i].strip()
+                })
+        item.itinerary = itinerary_data
 
         # Update tags
         tags = request.POST.get('tags')

@@ -566,10 +566,11 @@ header nav ul li a.active {
 .recmntn-wrapper{position: relative;}
 .recmntn-content .sec-title{text-align: center;}
 .recmntn {padding-left: 150px;padding-right: 150px;position: relative;}
+.destini-pg{padding-left: 0;padding-right: 0;}
 .recmntn-content p{text-align: justify;margin: 30px 0;}
 .recmntn-package-wrapper{display: grid;grid-template-columns: repeat(3, 1fr);gap:30px;margin-top: 80px;}
 .recmntn-package-item{max-width: 275px; height: 325px;border-radius: 15px;overflow: hidden;position: relative;}
- 
+
 
   .recmntn-package-item::before{
     position: absolute;
@@ -911,7 +912,7 @@ footer{height: 630px; background-image: url(../images/footer-bg.webp);background
 /*--------- International Destinations ---------*/
 .internation-top-destini{grid-template-columns: repeat(4, 1fr) !important;gap: 20px !important;}
 .internation-top-destini .recmntn-package-item{width: 243px;height: 288px;}
-
+.destini-pg .recmntn-package-item{width: 290px;}
 .subpage-packages .package-cr-shape{top: unset;bottom: 220px;}
 .subpage-packages .trolly-bb-shape{position: absolute; top:225px;left: 65px;}
 .subpage-packages .recmntn-package-info-details h3{margin-bottom: 12px;}

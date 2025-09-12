@@ -132,7 +132,7 @@
 
             <!---- Itinerary ---->
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-                style="display: none;">
+                >
 
                 <div class="row">
                     <div class="col-lg-8">
@@ -152,41 +152,22 @@
 
                 <div class="overview-details-wrapper">
 
-                    <div class="overview-details-item">
-                        <h6>Day 1</h6>
-                        <h4>Lorem Ipsum</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the
-                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                            of type and
-                            scrambled it to make a type specimen book. It has survived not only five centuries, but also
-                            the leap
-                            into electronic typesetting, remaining essentially unchanged. </p>
-                    </div>
+                    <div class="overview-details-wrapper">
 
-                    <div class="overview-details-item">
-                        <h6>Day 1</h6>
-                        <h4>Lorem Ipsum</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the
-                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                            of type and
-                            scrambled it to make a type specimen book. It has survived not only five centuries, but also
-                            the leap
-                            into electronic typesetting, remaining essentially unchanged. </p>
-                    </div>
+                        <div class="overview-details-wrapper">
+                          {% for item in package.itinerary %}
+                            <div class="overview-details-item">
+                              <h6>Day {{ item.day }}</h6>
+                              <h4>{{ item.title }}</h4>
+                              <p>{{ item.description }}</p>
+                            </div>
+                          {% empty %}
+                            <p>No itinerary available for this package.</p>
+                          {% endfor %}
+                        </div>
 
-                    <div class="overview-details-item">
-                        <h6>Day 1</h6>
-                        <h4>Lorem Ipsum</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the
-                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                            of type and
-                            scrambled it to make a type specimen book. It has survived not only five centuries, but also
-                            the leap
-                            into electronic typesetting, remaining essentially unchanged. </p>
-                    </div>
+
+          </div>
 
                 </div>
 

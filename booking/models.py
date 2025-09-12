@@ -94,6 +94,7 @@ class TourPackage(models.Model):
     tags = TaggableManager(blank=True)
     short_description = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True, null=True)
+    itinerary = models.JSONField(blank=True, null=True, help_text="Day-wise itinerary")
     location = models.CharField(max_length=200, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     days = models.IntegerField(blank=True, null=True)
