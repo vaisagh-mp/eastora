@@ -180,6 +180,7 @@ header nav ul li a{padding: 0 8px;font-size: 10px;}
 @media(max-width:767px){
   .intrntnl-package-wrapper{grid-template-columns: repeat(1, 1fr);margin-top: 30px;}
   .intrntnl-destini-content p{text-align: center;}
+  .intrntnl-destini-content h6{text-align: center;} 
 
   .five-col{margin-top: 20px;grid-template-columns: repeat(2, 1fr);column-gap:15px;}
   .five-col .intrntnl-package-item img{height: 100% !important;}
@@ -585,6 +586,7 @@ padding-left: 15px;padding-right: 15px;
     .abt-page-ser-sec-wrapper{height: 100%;}
     .abt-page-ser-item-wrapper{grid-template-columns: repeat(1, 1fr);}
     .abt-page-ser-item-details{padding: 0;}
+    .abt-page-ser-item-details p{text-align: center;}
    }
 
 @media(min-width:767px) and (max-width:991px){

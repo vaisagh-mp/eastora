@@ -970,7 +970,26 @@ padding-left: 150px;padding-right: 150px;
 .contact-us-item-dtls p{margin: 0;max-width: 300px;}
 
 /*---------- Get In Touch ----------*/
-.ctct-page.get-in-touch-wrapper{background-image: url(../images/contact-get-in-touch-bg.webp);}
+/* .ctct-page.get-in-touch-wrapper{background-image: url(../images/contact-get-in-touch-bg.webp);} */
+.ctct-page.get-in-touch-wrapper {
+    position: relative; /* needed for pseudo-element positioning */
+    background-image: url(../images/contact-get-in-touch-bg.webp);
+    background-size: cover;
+    background-position: center;
+}
+
+.ctct-page.get-in-touch-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* black overlay with 50% opacity */
+    pointer-events: none; /* allows clicks through overlay */
+}
+
+.ctct-page.get-in-touch-wrapper .col-lg-6{position: relative;}
 
 /*---------- Why Reach Out to Us ----------*/
 .reach-out-wrapper{padding-top: 200px;position: relative;}
@@ -1172,3 +1191,32 @@ padding-left: 150px;padding-right: 150px;
   .ftr-quick-links{width: 100%;}
    }
 
+.intrntnl-package-item {
+    position: relative; /* Make it a positioning context */
+    overflow: hidden;   /* Ensure overlay doesn't spill out */
+}
+
+.intrntnl-package-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.intrntnl-package-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1); /* Black overlay with 40% opacity */
+    pointer-events: none; /* So clicks pass through to the link */
+    transition: background 0.3s ease;
+    z-index: 99;
+}
+
+
+.intrntnl-package-item:hover img {
+    transform: scale(1.05); /* subtle zoom effect */
+}
