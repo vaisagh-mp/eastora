@@ -366,37 +366,40 @@ def tourpackage_update(request, pk):
         item.short_description = request.POST.get('short_description')
         item.description = request.POST.get('description')
         item.location = request.POST.get('location')
-
+    
         price = request.POST.get('price')
         item.price = price if price else None
-
+    
         days = request.POST.get('days')
         item.days = int(days) if days else None
-
+    
         nights = request.POST.get('nights')
         item.nights = int(nights) if nights else None
-
+    
         item.is_featured = request.POST.get('is_featured') == 'on'
-
+    
+        # ✅ Fix: update parent_choice
+        item.parent_choice = request.POST.get('parent_choice', item.parent_choice)
+    
         category_id = request.POST.get('category')
         if category_id:
             item.category = Category.objects.get(pk=category_id)
-
+    
         parent_id = request.POST.get('parent_package')
         if parent_id:
             item.parent_package = TourPackage.objects.get(pk=parent_id)
-
+    
         if request.FILES.get('banner_image_desktop'):
             item.image_desktop = request.FILES['banner_image_desktop']
         if request.FILES.get('banner_image_mobile'):
             item.image_mobile = request.FILES['banner_image_mobile']
         if request.FILES.get('card_image'):
             item.card_image = request.FILES['card_image']
-
+    
         # Update itinerary
         itinerary_titles = request.POST.getlist('itinerary_title[]')
         itinerary_descs = request.POST.getlist('itinerary_desc[]')
-
+    
         itinerary_data = []
         for i in range(len(itinerary_titles)):
             if itinerary_titles[i].strip() or itinerary_descs[i].strip():
@@ -406,7 +409,7 @@ def tourpackage_update(request, pk):
                     "description": itinerary_descs[i].strip()
                 })
         item.itinerary = itinerary_data
-
+    
         # Update tags
         tags = request.POST.get('tags')
         if tags:
@@ -414,9 +417,10 @@ def tourpackage_update(request, pk):
             item.tags.set(tag_list)
         else:
             item.tags.clear()
-
+    
         item.save()
         return redirect('admin_tourpackage_list')
+
 
     # Convert tag list to comma-separated string for form field
     existing_tags = ', '.join(tag.name for tag in item.tags.all())
