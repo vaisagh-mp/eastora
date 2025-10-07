@@ -28,7 +28,7 @@
 
 
         <!---- Form ---->
-        <div class="tour-prgrm-enqry-frm-wrapper">
+        <div class="tour-prgrm-enqry-frm-wrapper mb-none">
             <div class="tour-prgrm-enqry-frm">
                 <form action=" " method="post">{% csrf_token %}
                     <h3>Have Questions? </h3>
@@ -55,14 +55,14 @@
         <div class="tour-prgrm-cta-wrapper">
 
             <div class="tour-prgrm-cta-item">
-                <a href="tel:+91 0000000000">
+                <a href="tel:+918086922622">
                     <img src="{% static 'assets/images/icons/cta-tele-2.webp' %}" alt="Telephone">
                     <span>Call Us</span>
                 </a>
             </div>
 
             <div class="tour-prgrm-cta-item">
-                <a href="https://wa.me/+91 00000000000" target="_blank">
+                <a href="https://wa.me/+918086922622" target="_blank">
                     <img src="{% static 'assets/images/icons/cta-whatsapp-2.webp' %}" alt="Whatsapp">
                     <span>Chat With Us</span>
                 </a>
@@ -207,6 +207,28 @@
 
         </div>
         </div>
+
+         <!---- Form Mobile---->
+        <div class="tour-prgrm-enqry-frm-wrapper dktp-none">
+            <div class="tour-prgrm-enqry-frm">
+                <form action=" " method="post">{% csrf_token %}
+                    <h3>Have Questions? </h3>
+                    <div class="form-fields">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-fields">
+                        <input type="email" name="email" placeholder="Email Id" required>
+                    </div>
+                    <div class="form-fields">
+                        <input type="text" name="number" placeholder="Contact Number" required>
+                    </div>
+                    <div class="enqry-frm-submit-btn">
+                        <button type="submit">Enquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
     </div>
 </section>

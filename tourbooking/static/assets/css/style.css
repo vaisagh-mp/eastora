@@ -1154,3 +1154,21 @@ padding-left: 150px;padding-right: 150px;
 .sub-page-package-content  .sec-title{margin-bottom: 30px;}
 .sub-page-package-content p{text-align: justify;}
 .sub-page-package-content-snd-row{margin-top: 80px;}
+
+
+.tour-prgrm-info ul li{ font-size: 14px;
+  font-weight: 400;
+  line-height: 25px !important;
+  color: var(--primary-font-color);}
+
+  @media(max-width:991px){
+    .tour-prgrm-enqry-frm-wrapper.dktp-none{position: unset !important ;width: 100%;border-top-right-radius: 70px;}
+    .tour-prgrm-enqry-frm{width: 100%;}
+  }
+
+   @media(max-width:767px){
+  .ftr-contact-item{display: block;}
+  .ftr-contact-item-details p br{display: none !important;}
+  .ftr-quick-links{width: 100%;}
+   }
+

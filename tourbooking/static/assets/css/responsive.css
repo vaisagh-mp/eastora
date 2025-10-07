@@ -348,7 +348,8 @@ header nav ul li a{padding: 0 8px;font-size: 10px;}
   .ftr-content p{text-align: center;}
   .ftr-quick-links{width: 200px;margin: auto;}
   .ftr-contact-item-icon img{width: 35px;}
-  .ftr-contact-item-details p{text-align: left !important;}
+  .ftr-contact-item-details p{text-align: center !important;}
+  .ftr-contact-item-icon{margin-bottom: 20px;}
   .ftr-social-media-wrapper{justify-content: center;margin-top: 0;}
   .ftr-social-media-item img{width: 35px;}
  }
