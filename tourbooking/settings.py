@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     
 ]
 
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://eastoraholidays.com',
+    'https://www.eastoraholidays.com'
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
