@@ -885,6 +885,11 @@ footer{height: 630px; background-image: url(../images/footer-bg.webp);background
 .ftr-quick-links ul li a{text-decoration: none;font-size: 14px;font-weight: 400;color: var(--primary-font-color);}
 .ftr-quick-links ul li a:hover{color: var(--secondary-font-color);}
 
+.ftr-contact-item-details p {white-space: nowrap !important;}
+
+@media(max-width:991px){
+  .ftr-contact-item-details p{white-space: wrap !important;}
+}
 /* .ftr-btm-cloud{width: 100%;position: absolute;bottom: -172px;} */
 
 .ftr-contact-item{display: flex;gap: 15px;margin-bottom: 20px;}
