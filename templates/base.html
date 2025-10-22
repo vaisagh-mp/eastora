@@ -7,7 +7,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Eastora</title>
+    <!-- Dynamic Title -->
+    <title>{{ meta_title|default:"Eastora" }}</title>
+
+    <!-- Dynamic Meta Description -->
+    <meta name="description" content="{{ meta_description }}" />
 
     <!-- Favicon Link -->
     <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
@@ -181,7 +185,7 @@
                                     </div>
                                     <div class="ftr-contact-item-details">
                                         <p>7E Tower C,<br>
-                                            Alfa Horizon, Opp. Dp World,<br>
+                                            Alfa Horizon, Opp. DP World,<br>
                                             Vallarpadam Junction<br>
                                             Kochi, Kerala <br>682504
                                             </p>

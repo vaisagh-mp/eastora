@@ -76,6 +76,9 @@ def category_create(request):
         content_second = request.POST.get('contentsec')
         is_featured = request.POST.get('recomanded') == 'on'
 
+        meta_title = request.POST.get('metaTitle')
+        meta_description = request.POST.get('metaDescription')
+
         # handle both desktop & mobile images
         banner_image_desktop = request.FILES.get('bannerImageDesktop')
         banner_image_mobile = request.FILES.get('bannerImageMobile')
@@ -95,7 +98,9 @@ def category_create(request):
                 banner_image_desktop=banner_image_desktop,
                 banner_image_mobile=banner_image_mobile,
                 card_image=card_image,
-                is_featured=is_featured
+                is_featured=is_featured,
+                meta_title=meta_title,
+                meta_description=meta_description
             )
             messages.success(request, "Category created successfully")
             return redirect('admin_category_list')
@@ -131,6 +136,10 @@ def category_update(request, pk):
         category.content_second = request.POST.get('contentsec')
         category.parent_choice = request.POST.get('parentChoice')
         category.is_featured = request.POST.get('recomanded') == 'on'
+
+        # Update meta fields
+        category.meta_title = request.POST.get('metaTitle')
+        category.meta_description = request.POST.get('metaDescription')
 
         # Update desktop banner if uploaded
         if request.FILES.get('bannerImage'):
@@ -265,6 +274,8 @@ def tourpackage_create(request):
         short_description = request.POST.get('short_description', '').strip()
         description = request.POST.get('description', '').strip()
         location = request.POST.get('location', '').strip()
+        meta_title = request.POST.get('meta_title', '').strip()
+        meta_description = request.POST.get('meta_description', '').strip()
 
         # Price validation
         try:
@@ -335,6 +346,8 @@ def tourpackage_create(request):
                 category=category,
                 parent_choice=parent_choice,
                 is_featured=is_featured,
+                meta_title=meta_title,
+                meta_description=meta_description,
             )
 
             # Add tags
@@ -378,7 +391,6 @@ def tourpackage_update(request, pk):
     
         item.is_featured = request.POST.get('is_featured') == 'on'
     
-        # ✅ Fix: update parent_choice
         item.parent_choice = request.POST.get('parent_choice', item.parent_choice)
     
         category_id = request.POST.get('category')
@@ -399,7 +411,6 @@ def tourpackage_update(request, pk):
         # Update itinerary
         itinerary_titles = request.POST.getlist('itinerary_title[]')
         itinerary_descs = request.POST.getlist('itinerary_desc[]')
-    
         itinerary_data = []
         for i in range(len(itinerary_titles)):
             if itinerary_titles[i].strip() or itinerary_descs[i].strip():
@@ -417,10 +428,13 @@ def tourpackage_update(request, pk):
             item.tags.set(tag_list)
         else:
             item.tags.clear()
-    
+
+        # Update meta fields
+        item.meta_title = request.POST.get('meta_title', '')
+        item.meta_description = request.POST.get('meta_description', '')
+
         item.save()
         return redirect('admin_tourpackage_list')
-
 
     # Convert tag list to comma-separated string for form field
     existing_tags = ', '.join(tag.name for tag in item.tags.all())
@@ -430,8 +444,11 @@ def tourpackage_update(request, pk):
         'categories': Category.objects.all(),
         'parent_choices': Category.PARENT_CHOICES,
         'all_packages': TourPackage.objects.exclude(id=item.id),
-        'existing_tags': existing_tags
+        'existing_tags': existing_tags,
+        'meta_title': item.meta_title,
+        'meta_description': item.meta_description,
     })
+
 
 @login_required(login_url='admin_login')
 def tourpackage_delete(request, pk):

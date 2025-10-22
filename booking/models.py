@@ -38,8 +38,10 @@ class Category(models.Model):
 
     banner_image_desktop = models.ImageField(upload_to='category_banners/desktop/', null=True, blank=True)
     banner_image_mobile = models.ImageField(upload_to='category_banners/mobile/', null=True, blank=True)
-
-    card_image = models.ImageField(upload_to='category_banners/cards/',null=True,blank=True,
+    card_image = models.ImageField(
+        upload_to='category_banners/cards/',
+        null=True,
+        blank=True,
         help_text="Image to be shown in category cards or grid views."
     )
 
@@ -50,6 +52,18 @@ class Category(models.Model):
     content_first = models.TextField(blank=True)
     content_second = models.TextField(blank=True)
     is_featured = models.BooleanField(default=False)
+
+    # New fields for SEO meta tags
+    meta_title = models.CharField(
+        max_length=70,
+        blank=True,
+        help_text="Meta title for SEO. Defaults to category name if empty."
+    )
+    meta_description = models.CharField(
+        max_length=160,
+        blank=True,
+        help_text="Meta description for SEO. Recommended 150-160 characters."
+    )
 
     def __str__(self):
         return self.full_path()
@@ -80,6 +94,13 @@ class Category(models.Model):
     def total_package_count(self):
         return self.get_all_packages().count()
     
+    # Helper methods to get meta tags with defaults
+    def get_meta_title(self):
+        return self.meta_title or self.name
+
+    def get_meta_description(self):
+        return self.meta_description or self.short_description or self.name
+    
 # Tour Package Model
 class TourPackage(models.Model):
     PARENT_CHOICES = [
@@ -104,7 +125,13 @@ class TourPackage(models.Model):
     image_mobile = models.ImageField(upload_to='packages/mobile/', null=True, blank=True)
     card_image = models.ImageField(upload_to='packages/cards/', null=True, blank=True)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='packages')
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='packages'
+    )
     is_featured = models.BooleanField(default=False)
 
     parent_choice = models.CharField(
@@ -112,6 +139,19 @@ class TourPackage(models.Model):
         choices=PARENT_CHOICES,
         default='india',
         help_text="Top-level classification for the tour package"
+    )
+
+    meta_title = models.CharField(
+        max_length=70,
+        blank=True,
+        null=True,
+        help_text="Meta title for SEO. Defaults to package title if empty."
+    )
+    meta_description = models.CharField(
+        max_length=160,
+        blank=True,
+        null=True,
+        help_text="Meta description for SEO. Recommended 150-160 characters."
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -124,13 +164,27 @@ class TourPackage(models.Model):
 
     @property
     def title_main(self):
+        """Return the main title part (before '–')"""
         return self.title.split('–')[0].strip() if '–' in self.title else self.title
 
     def __str__(self):
         return self.title
 
     def get_duration(self):
-        return f"{self.days} days {self.nights} nights"
+        """Return duration as 'X days Y nights'"""
+        days = self.days or 0
+        nights = self.nights or 0
+        return f"{days} days {nights} nights"
+    
+    # ✅ Helper methods for meta tags
+    def get_meta_title(self):
+        """Return meta title or fallback to the package title"""
+        return self.meta_title or self.title
+
+    def get_meta_description(self):
+        """Return meta description or fallback to short description or title"""
+        return self.meta_description or self.short_description or self.title
+
 
 
 # Resort Model

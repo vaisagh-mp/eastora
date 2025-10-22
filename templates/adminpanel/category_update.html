@@ -130,6 +130,21 @@
                             placeholder="Write full description here...">{{ category.content_second }}</textarea>
                     </div>
 
+                    <!-- Meta Title -->
+                    <div class="mb-3">
+                        <label for="metaTitle" class="add-catgry-label">Meta Title</label>
+                        <input type="text" name="metaTitle" id="metaTitle" class="add-catgry-input"
+                               placeholder="Enter SEO meta title" maxlength="70"
+                               value="{{ category.meta_title }}">
+                    </div>
+
+                    <!-- Meta Description -->
+                    <div class="mb-3">
+                        <label for="metaDescription" class="add-catgry-label">Meta Description</label>
+                        <textarea name="metaDescription" id="metaDescription" class="add-catgry-textarea" rows="3"
+                                  placeholder="Enter SEO meta description" maxlength="160">{{ category.meta_description }}</textarea>
+                    </div>
+
                     <!-- Recommended -->
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="recomanded" name="recomanded" 

@@ -21,9 +21,26 @@ class CustomUserAdmin(UserAdmin):
 
 # Category model display
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'parent', 'is_featured', 'card_image_tag']
+    list_display = ['name', 'parent', 'is_featured', 'card_image_tag', 'meta_title']
     list_filter = ['is_featured', 'parent']
-    search_fields = ['name']
+    search_fields = ['name', 'meta_title', 'meta_description']
+    readonly_fields = ['card_image_tag']
+
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'slug', 'parent', 'is_featured', 'parent_choice')
+        }),
+        ('Images', {
+            'fields': ('banner_image_desktop', 'banner_image_mobile', 'card_image', 'card_image_tag')
+        }),
+        ('Content', {
+            'fields': ('short_description', 'long_description', 'tittle_first', 'tittle_second', 'content_first', 'content_second')
+        }),
+        ('SEO', {
+            'fields': ('meta_title', 'meta_description'),
+            'description': 'Add meta title and description for SEO purposes.'
+        }),
+    )
 
     def card_image_tag(self, obj):
         if obj.card_image:
@@ -36,21 +53,43 @@ class TourPackageAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'category', 'parent_choice', 'price',
         'days', 'nights', 'get_duration', 'location',
-        'image_tag', 'created_at', 'updated_at'
+        'image_tag', 'is_featured', 'meta_title', 'meta_description',
+        'created_at', 'updated_at'
     )
     search_fields = ('title', 'location')
     list_filter = ('parent_choice', 'is_featured', 'category')
-    ordering = ('-price',)
+    ordering = ('-created_at',)
+
+    fieldsets = (
+        ('Basic Info', {
+            'fields': ('title', 'slug', 'tags', 'category', 'parent_choice', 'is_featured')
+        }),
+        ('Descriptions', {
+            'fields': ('short_description', 'description', 'itinerary')
+        }),
+        ('Media', {
+            'fields': ('image_desktop', 'image_mobile', 'card_image', 'image_tag')
+        }),
+        ('SEO / Meta', {
+            'fields': ('meta_title', 'meta_description')
+        }),
+        ('Additional Info', {
+            'fields': ('location', 'price', 'days', 'nights')
+        }),
+    )
+
+    readonly_fields = ('image_tag',)  # <-- Fixed here
 
     def image_tag(self, obj):
         if obj.image_desktop and hasattr(obj.image_desktop, 'url'):
             return format_html('<img src="{}" width="100" height="100" />', obj.image_desktop.url)
         return "No Image"
+    image_tag.short_description = 'Image Preview'
 
     def get_duration(self, obj):
-        return f"{obj.days} days {obj.nights} nights"
-
-    image_tag.short_description = 'Image Preview'
+        days = obj.days or 0
+        nights = obj.nights or 0
+        return f"{days} days {nights} nights"
     get_duration.short_description = 'Duration'
 
 

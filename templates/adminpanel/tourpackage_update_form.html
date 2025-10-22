@@ -44,6 +44,21 @@
         <label class="pkg-label">Long Description</label>
         <textarea id="longDescriptionEditor" name="description" class="pkg-textarea">{{ item.description }}</textarea>
     </div>
+    
+    <!-- Meta Title -->
+    <div class="form-section">
+        <label class="pkg-label">Meta Title</label>
+        <input type="text" class="pkg-input" name="meta_title" 
+               value="{{ meta_title }}" placeholder="Enter meta title for SEO">
+    </div>
+    
+    <!-- Meta Description -->
+    <div class="form-section">
+        <label class="pkg-label">Meta Description</label>
+        <textarea class="pkg-textarea" name="meta_description" rows="3" 
+                  placeholder="Enter meta description for SEO">{{ meta_description }}</textarea>
+    </div>
+
 
     <!-- Itinerary Section -->
 <div class="form-section">

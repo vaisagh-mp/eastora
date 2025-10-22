@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+from django.http import Http404
 from django.http import JsonResponse
 from django.urls import reverse
 from django.db.models import Q
@@ -99,6 +100,8 @@ def home(request):
         west_india_packages = TourPackage.objects.filter(
             category__id__in=subcategory_ids
         ).order_by('-id')[:5]
+    meta_title = "Eastora - Explore Amazing Tour Packages"
+    meta_description = "Discover top tour packages, resorts, and seasonal deals across North, South, East, and West India with Eastora."
 
     return render(request, 'home.html', {
         'packages': packages,
@@ -112,11 +115,20 @@ def home(request):
         'south_india_packages': south_india_packages,
         'east_india_packages': east_india_packages,
         'west_india_packages': west_india_packages,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
     })
 
 # about_us
 def about_us_view(request):
-    return render(request, 'about_us.html')
+    meta_title = "About Us - Eastora Holidays"
+    meta_description = "Learn more about Eastora, our mission, vision, and the amazing tour experiences we offer across India."
+
+    return render(request, 'about_us.html', {
+        'meta_title': meta_title,
+        'meta_description': meta_description,
+    })
+
 
 # contact_us
 def contact_us_view(request):
@@ -136,7 +148,13 @@ def contact_us_view(request):
         )
         return redirect(request.path_info)
 
-    return render(request, 'contact_us.html')
+    meta_title = "Contact Us - Eastora Holidays"
+    meta_description = "Get in touch with Eastora for inquiries, bookings, and support. We're here to help you plan your perfect tour."
+
+    return render(request, 'contact_us.html', {
+        'meta_title': meta_title,
+        'meta_description': meta_description,
+    })
 
 # Package detail page
 def package_detail_view(request, subcategory_slug, package_slug):
@@ -159,6 +177,8 @@ def package_detail_view(request, subcategory_slug, package_slug):
     return render(request, 'india/package_detail.html', {
         'package': package,
         'title_main': package.title.split('–')[0].strip() if '–' in package.title else package.title,
+        'meta_title': f"{package.get_meta_title()} | Eastora Holidays",
+        'meta_description': package.get_meta_description(),
     })
 
 def india_tours_view(request):
@@ -192,8 +212,14 @@ def india_tours_view(request):
             package_count=Count('packages')
         )
 
+    # Dynamic meta title and description
+    meta_title = "India Tours - Explore North, South, East & West India | Eastora Holidays"
+    meta_description = "Discover top tour packages across India. Explore North, South, East, and West India with Eastora's curated travel experiences."
+
     return render(request, 'india/destinations.html', {
-        'india_subcategories': india_subcategories
+        'india_subcategories': india_subcategories,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
     })
 
 def india_subcategory_detail(request, subcategory_slug):
@@ -211,10 +237,16 @@ def india_subcategory_detail(request, subcategory_slug):
         # No subcategories → show packages under this category
         packages = TourPackage.objects.filter(category=subcategory)
 
+    # Pass meta tags to template
+    meta_title = f"{subcategory.get_meta_title()} | Eastora Holidays"
+    meta_description = subcategory.get_meta_description()
+
     return render(request, 'india/india_subcategory_detail.html', {
         'subcategory': subcategory,
         'subcategories': subcategories,
         'packages': packages,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
     })
 
 def international_tours_view(request):
@@ -241,8 +273,14 @@ def international_tours_view(request):
             package_count=Count('packages')
         )
 
+    # Dynamic meta title and description
+    meta_title = "International Tours - Explore Worldwide Destinations | Eastora Holidays"
+    meta_description = "Discover top international tour packages and explore destinations across the world with Eastora's curated travel experiences."
+
     return render(request, 'international/destinations.html', {
-        'international_subcategories': international_subcategories
+        'international_subcategories': international_subcategories,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
     })
 
 def is_international_category(category):
@@ -252,7 +290,7 @@ def is_international_category(category):
         category = category.parent
     return False
 
-from django.http import Http404
+
 def international_subcategory_detail(request, subcategory_slug):
     # Get the subcategory by slug
     subcategory = get_object_or_404(Category, slug=subcategory_slug)
@@ -271,11 +309,19 @@ def international_subcategory_detail(request, subcategory_slug):
     else:
         packages = TourPackage.objects.filter(category=subcategory)
 
+    # Pass meta tags from Category model
+    meta_title = (subcategory.meta_title or subcategory.name) + " | Eastora Holidays"
+    meta_description = subcategory.meta_description or subcategory.short_description
+    
     return render(request, 'international/international_subcategory_detail.html', {
         'subcategory': subcategory,
         'subcategories': subcategories,
         'packages': packages,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
     })
+
+
 def international_package_detail_view(request, subcategory_slug, package_slug):
     # Get the category by slug (no need to filter by parent_choice)
     category = get_object_or_404(Category, slug=subcategory_slug)
@@ -304,6 +350,8 @@ def international_package_detail_view(request, subcategory_slug, package_slug):
     return render(request, 'international/package_detail.html', {
         'package': package,
         'title_main': package.title.split('–')[0].strip() if '–' in package.title else package.title,
+        'meta_title': f"{package.get_meta_title()} | Eastora Holidays",
+        'meta_description': package.get_meta_description(),
     })
 
 
@@ -320,8 +368,14 @@ def ayurveda_tours_view(request):
 
     ayurveda_packages = TourPackage.objects.filter(parent_choice='ayurveda')
 
+    # Dynamic meta title and description
+    meta_title = "Ayurveda Tours - Wellness & Healing Packages | Eastora Holidays"
+    meta_description = "Explore rejuvenating Ayurveda tour packages with Eastora. Experience wellness, healing, and traditional therapies in serene locations."
+
     return render(request, 'ayurveda/packages.html', {
-        'ayurveda_packages': ayurveda_packages
+        'ayurveda_packages': ayurveda_packages,
+        'meta_title': meta_title,
+        'meta_description': meta_description,
     })
 
 def ayurveda_package_detail_view(request,package_slug):
@@ -342,7 +396,10 @@ def ayurveda_package_detail_view(request,package_slug):
         return redirect(request.path_info)  # Reload page or redirect to thank-you
 
     return render(request, 'ayurveda/package_detail.html', {
-        'package': package
+        'package': package,
+        'title_main': package.title.split('–')[0].strip() if '–' in package.title else package.title,
+        'meta_title': f"{package.get_meta_title()} | Eastora Holidays",
+        'meta_description': package.get_meta_description(),
     })
 
 # Resort detail page
